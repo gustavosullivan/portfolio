@@ -24,8 +24,10 @@
     <header class="header">
       <nav class="header__nav" aria-label="Principal">
         <a href="#sobre">Sobre</a>
+        <a href="#experiencia">Experiência</a>
         <a href="#trabalho">Projetos</a>
-        <a href="#skills">Skills</a>
+        <a href="#skills">Stack</a>
+        <a href="#habilidades">Skills</a>
         <a href="#contato">Contato</a>
       </nav>
     </header>
@@ -56,44 +58,220 @@
           <p class="block__label">Sobre</p>
           <h2 class="block__title">Código com intenção.</h2>
           <p class="block__text">
-            Desenvolvo produtos do front ao back — APIs, interfaces e
-            infraestrutura. Aberto a oportunidades e a projetos freelance.
-            Trabalho com Rust (Axum, Tokio, Cargo), React, Next.js, NestJS,
-            FastAPI, Flask, Pydantic, Docker, Supabase, PostgreSQL e Git.
+            Sou Desenvolvedor Full Stack e estudante do
+            <strong>4º semestre de Ciência da Computação na Atitus</strong>,
+            apaixonado por tecnologia e pela criação de soluções modernas.
+            Trabalho com
+            <strong
+              >React, Next.js, Node.js, NestJS, FastAPI, Rust, PostgreSQL,
+              Supabase, Docker e Git</strong
+            >, desenvolvendo aplicações web e APIs escaláveis. Estou em
+            constante evolução, buscando aprimorar minhas habilidades e
+            contribuir com projetos que gerem impacto real.
           </p>
+        </div>
+      </section>
+
+      <section id="experiencia" class="block">
+        <div class="block__inner">
+          <p class="block__label">Experiência</p>
+          <h2 class="block__title">Trajetória</h2>
+
+          <div class="experience-list">
+            <article class="experience">
+              <div class="experience__head">
+                <div>
+                  <h3 class="experience__role">Desenvolvedor Full Stack</h3>
+                  <p class="experience__place">Saicon Sistemas de Pesagem</p>
+                </div>
+                <span class="experience__tag">Atual · Full Stack · PO</span>
+              </div>
+              <p class="experience__text">
+                Desenvolvimento de aplicações web para balanças industriais em
+                diversos mercados. Ciclo completo do produto — requisitos,
+                implementação, deploy e sustentação — com autonomia e atuação
+                como Product Owner.
+              </p>
+              <ul class="experience__list">
+                <li>
+                  APIs REST · Python · FastAPI · PostgreSQL · regras de negócio
+                  e integrações industriais
+                </li>
+                <li>
+                  React · Material UI · Framer Motion · UX/UI e performance
+                </li>
+                <li>
+                  Integração de sistemas · RFID · APIs de terceiros · soluções
+                  sob demanda
+                </li>
+                <li>NestJS · Supabase · novos projetos e arquitetura</li>
+                <li>
+                  Product Owner · ownership · priorização · decisões técnicas
+                </li>
+                <li>Docker · Render · Netlify · Git</li>
+              </ul>
+              <p class="experience__tech">
+                Python · FastAPI · React · NestJS · Supabase · PostgreSQL ·
+                Docker · Material UI · Framer Motion · RFID · Render · Netlify
+              </p>
+            </article>
+
+            <article class="experience">
+              <div class="experience__head">
+                <div>
+                  <h3 class="experience__role">
+                    Estágio — Infraestrutura e Redes
+                  </h3>
+                  <p class="experience__place">
+                    Prefeitura Municipal de Passo Fundo
+                  </p>
+                </div>
+                <span class="experience__tag">Suporte · TI</span>
+              </div>
+              <p class="experience__text">
+                Suporte técnico e infraestrutura de TI na Prefeitura Municipal.
+              </p>
+              <ul class="experience__list">
+                <li>
+                  Manutenção de hardware · formatação e clonagem com Clonezilla
+                </li>
+                <li>Impressoras · racks · equipamentos de rede</li>
+                <li>Pontos de rede · Wi-Fi · conectividade dos setores</li>
+                <li>Diagnóstico e resolução de problemas · periféricos</li>
+              </ul>
+            </article>
+          </div>
         </div>
       </section>
 
       <section id="trabalho" class="block">
         <div class="block__inner">
           <p class="block__label">Projetos</p>
-          <h2 class="block__title">Selecionados</h2>
+          <h2 class="block__title">Profissionais</h2>
 
-          <div class="projects">
-            <a class="project" href="#">
-              <span class="project__num">01</span>
-              <div>
-                <h3>Neural Desk</h3>
-                <p>Dashboard com IA para operação e análise em tempo real.</p>
+          <div class="project-list">
+            <article class="project-card">
+              <div class="project-card__top">
+                <div>
+                  <h3 class="project-card__name">SN800</h3>
+                  <p class="project-card__subtitle">
+                    <a
+                      class="project-card__link"
+                      href="https://sgpsaicon.com.br/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >sgpsaicon.com.br</a>
+                    — Plataforma de Pesagem Florestal
+                  </p>
+                </div>
+                <div class="project-card__badges">
+                  <span>2025 — Presente</span>
+                  <span>Full Stack · SaaS</span>
+                  <span>Em desenvolvimento</span>
+                </div>
               </div>
-              <span class="project__meta">Full Stack · AI</span>
-            </a>
-            <a class="project" href="#">
-              <span class="project__num">02</span>
-              <div>
-                <h3>Signal API</h3>
-                <p>Backend escalável e integrações para produto SaaS.</p>
+              <p class="project-card__text">
+                SaaS multi-tenant para operações de pesagem florestal —
+                cadastros, monitoramento, relatórios e integração em tempo real
+                com balanças.
+              </p>
+              <ul class="project-card__points">
+                <li>Next.js · TypeScript · PT / EN / ES</li>
+                <li>Landing institucional · painel administrativo</li>
+                <li>
+                  API REST · Route Handlers · dashboards · relatórios
+                </li>
+                <li>Supabase · multi-tenant · RLS · perfis de acesso</li>
+                <li>
+                  Edge Functions · ingestão de pesagens · validação ·
+                  idempotência
+                </li>
+                <li>
+                  Balanças · equipamentos · caminhões · materiais · operações
+                </li>
+              </ul>
+              <p class="project-card__tech">
+                Next.js · TypeScript · Supabase · Edge Functions · RLS · APIs
+                REST
+              </p>
+            </article>
+
+            <article class="project-card">
+              <div class="project-card__top">
+                <div>
+                  <h3 class="project-card__name">SN250</h3>
+                  <p class="project-card__subtitle">
+                    <a
+                      class="project-card__link"
+                      href="https://sgpsaicon.com.br/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >sgpsaicon.com.br</a>
+                    — Gestão de Confinamentos
+                  </p>
+                </div>
+                <div class="project-card__badges">
+                  <span>Full Stack</span>
+                  <span>Privado</span>
+                </div>
               </div>
-              <span class="project__meta">Node · Cloud</span>
-            </a>
-            <a class="project" href="#">
-              <span class="project__num">03</span>
-              <div>
-                <h3>Pulse Web</h3>
-                <p>Interface moderna, rápida e acessível para produto digital.</p>
+              <p class="project-card__text">
+                Sistema para operação nutricional do rebanho — dietas, trato e
+                análise de desempenho.
+              </p>
+              <ul class="project-card__points">
+                <li>API FastAPI · regras de negócio · integrações</li>
+                <li>
+                  Dietas · lotes · ingredientes · estoque · pesagens · cargas
+                </li>
+                <li>
+                  Dashboard · indicadores zootécnicos · custos · consumo por
+                  lote
+                </li>
+                <li>
+                  Planejamento do trato · editor visual · matéria seca
+                </li>
+                <li>Balanças · RFID · equipamentos de campo</li>
+                <li>Multi-tenant · PostgreSQL · Redis · Docker</li>
+              </ul>
+              <p class="project-card__tech">
+                FastAPI · PostgreSQL · Redis · Docker · RFID · Integrações
+              </p>
+            </article>
+
+            <article class="project-card">
+              <div class="project-card__top">
+                <div>
+                  <h3 class="project-card__name">Truco Games</h3>
+                  <p class="project-card__subtitle">
+                    <a
+                      class="project-card__link"
+                      href="https://trucogames.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >trucogames.com</a>
+                    — Truco online
+                  </p>
+                </div>
+                <div class="project-card__badges">
+                  <span>Full Stack</span>
+                  <span>WebSocket</span>
+                </div>
               </div>
-              <span class="project__meta">React · UX</span>
-            </a>
+              <p class="project-card__text">
+                Aplicação web de truco online com servidor próprio, partidas em
+                tempo real e microtransações.
+              </p>
+              <ul class="project-card__points">
+                <li>Partidas online · até 4 jogadores · tempo real</li>
+                <li>WebSocket · servidor próprio · sincronização de jogo</li>
+                <li>Node.js · React · Neon (PostgreSQL) · DBeaver</li>
+                <li>Microtransações · economia do jogo</li>
+              </ul>
+              <p class="project-card__tech">
+                React · Node.js · WebSocket · Neon · PostgreSQL · DBeaver
+              </p>
+            </article>
           </div>
         </div>
       </section>
@@ -102,23 +280,271 @@
         <div class="block__inner">
           <p class="block__label">Skills</p>
           <h2 class="block__title">Stack</h2>
-          <ul class="skills">
-            <li>Rust</li>
-            <li>Axum</li>
-            <li>Tokio</li>
-            <li>Cargo</li>
-            <li>React</li>
-            <li>Next.js</li>
-            <li>NestJS</li>
-            <li>FastAPI</li>
-            <li>Flask</li>
-            <li>Pydantic</li>
-            <li>Docker</li>
-            <li>Supabase</li>
-            <li>PostgreSQL</li>
-            <li>pgAdmin</li>
-            <li>Git</li>
-          </ul>
+
+          <div class="stack">
+            <article class="stack-card">
+              <header class="stack-card__head">
+                <span class="stack-card__index">01</span>
+                <h3 class="stack-card__title">Backend</h3>
+              </header>
+              <ul class="stack-card__grid">
+                <li class="stack-tech stack-tech--parent" data-tech-parent>
+                  <button type="button" class="stack-tech__main" aria-expanded="false">
+                    <img src="https://cdn.simpleicons.org/rust/DEA584" alt="" width="28" height="28" loading="lazy" />
+                    <span>Rust</span>
+                    <span class="stack-tech__hint" aria-hidden="true">+</span>
+                  </button>
+                  <ul class="stack-tech__children">
+                    <li>
+                      <span class="stack-card__badge">AX</span>
+                      <span>Axum</span>
+                    </li>
+                    <li>
+                      <span class="stack-card__badge">TK</span>
+                      <span>Tokio</span>
+                    </li>
+                    <li>
+                      <span class="stack-card__badge">CG</span>
+                      <span>Cargo</span>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <img src="https://cdn.simpleicons.org/python/3776AB" alt="" width="28" height="28" loading="lazy" />
+                  <span>Python</span>
+                </li>
+                <li>
+                  <img src="https://cdn.simpleicons.org/fastapi/009688" alt="" width="28" height="28" loading="lazy" />
+                  <span>FastAPI</span>
+                </li>
+                <li>
+                  <img src="https://cdn.simpleicons.org/flask/ffffff" alt="" width="28" height="28" loading="lazy" />
+                  <span>Flask</span>
+                </li>
+                <li>
+                  <img src="https://cdn.simpleicons.org/pydantic/E92063" alt="" width="28" height="28" loading="lazy" />
+                  <span>Pydantic</span>
+                </li>
+                <li>
+                  <img src="https://cdn.simpleicons.org/nodedotjs/339933" alt="" width="28" height="28" loading="lazy" />
+                  <span>Node.js</span>
+                </li>
+                <li>
+                  <img src="https://cdn.simpleicons.org/nestjs/E0234E" alt="" width="28" height="28" loading="lazy" />
+                  <span>NestJS</span>
+                </li>
+              </ul>
+            </article>
+
+            <article class="stack-card">
+              <header class="stack-card__head">
+                <span class="stack-card__index">02</span>
+                <h3 class="stack-card__title">Frontend</h3>
+              </header>
+              <ul class="stack-card__grid">
+                <li class="stack-tech stack-tech--parent" data-tech-parent>
+                  <button type="button" class="stack-tech__main" aria-expanded="false">
+                    <img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="" width="28" height="28" loading="lazy" />
+                    <span>JavaScript</span>
+                    <span class="stack-tech__hint" aria-hidden="true">+</span>
+                  </button>
+                  <ul class="stack-tech__children">
+                    <li>
+                      <img src="https://cdn.simpleicons.org/typescript/3178C6" alt="" width="22" height="22" loading="lazy" />
+                      <span>TypeScript</span>
+                    </li>
+                  </ul>
+                </li>
+                <li class="stack-tech stack-tech--parent" data-tech-parent>
+                  <button type="button" class="stack-tech__main" aria-expanded="false">
+                    <img src="https://cdn.simpleicons.org/react/61DAFB" alt="" width="28" height="28" loading="lazy" />
+                    <span>React</span>
+                    <span class="stack-tech__hint" aria-hidden="true">+</span>
+                  </button>
+                  <ul class="stack-tech__children">
+                    <li>
+                      <img src="https://cdn.simpleicons.org/mui/007FFF" alt="" width="22" height="22" loading="lazy" />
+                      <span>Material UI</span>
+                    </li>
+                    <li>
+                      <img src="https://cdn.simpleicons.org/framer/0055FF" alt="" width="22" height="22" loading="lazy" />
+                      <span>Framer Motion</span>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <img src="https://cdn.simpleicons.org/nextdotjs/ffffff" alt="" width="28" height="28" loading="lazy" />
+                  <span>Next.js</span>
+                </li>
+              </ul>
+            </article>
+
+            <article class="stack-card">
+              <header class="stack-card__head">
+                <span class="stack-card__index">03</span>
+                <h3 class="stack-card__title">Banco de dados</h3>
+              </header>
+              <ul class="stack-card__grid">
+                <li>
+                  <img src="https://cdn.simpleicons.org/postgresql/4169E1" alt="" width="28" height="28" loading="lazy" />
+                  <span>PostgreSQL</span>
+                </li>
+                <li>
+                  <img src="https://cdn.simpleicons.org/supabase/3FCF8E" alt="" width="28" height="28" loading="lazy" />
+                  <span>Supabase</span>
+                </li>
+                <li>
+                  <img src="https://cdn.simpleicons.org/neon/00E699" alt="" width="28" height="28" loading="lazy" />
+                  <span>Neon</span>
+                </li>
+                <li>
+                  <img src="https://cdn.simpleicons.org/redis/FF4438" alt="" width="28" height="28" loading="lazy" />
+                  <span>Redis</span>
+                </li>
+                <li>
+                  <img src="https://cdn.simpleicons.org/dbeaver/382923" alt="" width="28" height="28" loading="lazy" />
+                  <span>DBeaver</span>
+                </li>
+                <li>
+                  <span class="stack-card__badge">pg</span>
+                  <span>pgAdmin</span>
+                </li>
+              </ul>
+            </article>
+
+            <article class="stack-card">
+              <header class="stack-card__head">
+                <span class="stack-card__index">04</span>
+                <h3 class="stack-card__title">DevOps &amp; Tools</h3>
+              </header>
+              <ul class="stack-card__grid">
+                <li>
+                  <img src="https://cdn.simpleicons.org/docker/2496ED" alt="" width="28" height="28" loading="lazy" />
+                  <span>Docker</span>
+                </li>
+                <li>
+                  <img src="https://cdn.simpleicons.org/git/F05032" alt="" width="28" height="28" loading="lazy" />
+                  <span>Git</span>
+                </li>
+                <li>
+                  <img src="https://cdn.simpleicons.org/github/ffffff" alt="" width="28" height="28" loading="lazy" />
+                  <span>GitHub</span>
+                </li>
+                <li>
+                  <img src="https://cdn.simpleicons.org/render/46E3B7" alt="" width="28" height="28" loading="lazy" />
+                  <span>Render</span>
+                </li>
+                <li>
+                  <img src="https://cdn.simpleicons.org/netlify/00C7B7" alt="" width="28" height="28" loading="lazy" />
+                  <span>Netlify</span>
+                </li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="habilidades" class="block">
+        <div class="block__inner">
+          <p class="block__label">Habilidades</p>
+          <h2 class="block__title">Hard &amp; Soft Skills</h2>
+
+          <div class="skills-board">
+            <article class="skills-panel">
+              <h3 class="skills-panel__title">Hard Skills</h3>
+              <ul class="skill-tags">
+                <li class="skill-tags__item skill-tags__item--hot">React</li>
+                <li class="skill-tags__item skill-tags__item--hot">Next.js</li>
+                <li class="skill-tags__item skill-tags__item--hot">Node.js</li>
+                <li class="skill-tags__item skill-tags__item--hot">NestJS</li>
+                <li class="skill-tags__item skill-tags__item--hot">FastAPI</li>
+                <li class="skill-tags__item skill-tags__item--hot">Rust</li>
+                <li class="skill-tags__item skill-tags__item--hot">TypeScript</li>
+                <li class="skill-tags__item">JavaScript (ES6+)</li>
+                <li class="skill-tags__item">HTML5 &amp; CSS3</li>
+                <li class="skill-tags__item">Tailwind CSS</li>
+                <li class="skill-tags__item skill-tags__item--hot">PostgreSQL</li>
+                <li class="skill-tags__item skill-tags__item--hot">Supabase</li>
+                <li class="skill-tags__item">Prisma ORM</li>
+                <li class="skill-tags__item">REST APIs</li>
+                <li class="skill-tags__item">WebSockets</li>
+                <li class="skill-tags__item skill-tags__item--hot">Docker</li>
+                <li class="skill-tags__item">Git &amp; GitHub</li>
+                <li class="skill-tags__item">Linux</li>
+                <li class="skill-tags__item">JWT Authentication</li>
+                <li class="skill-tags__item">Arquitetura de Software</li>
+                <li class="skill-tags__item">Microsserviços</li>
+                <li class="skill-tags__item">Clean Code</li>
+                <li class="skill-tags__item">SOLID</li>
+                <li class="skill-tags__item">Design Patterns</li>
+                <li class="skill-tags__item">Postman / Insomnia</li>
+                <li class="skill-tags__item">CI/CD · GitHub Actions</li>
+                <li class="skill-tags__item">Vercel</li>
+                <li class="skill-tags__item">Railway</li>
+                <li class="skill-tags__item">Redis</li>
+              </ul>
+            </article>
+
+            <article class="skills-panel">
+              <h3 class="skills-panel__title">Soft Skills</h3>
+              <ul class="skill-tags">
+                <li class="skill-tags__item">Resolução de Problemas</li>
+                <li class="skill-tags__item">Pensamento Analítico</li>
+                <li class="skill-tags__item">Aprendizado Contínuo</li>
+                <li class="skill-tags__item">Comunicação Eficiente</li>
+                <li class="skill-tags__item">Trabalho em Equipe</li>
+                <li class="skill-tags__item">Proatividade</li>
+                <li class="skill-tags__item">Adaptabilidade</li>
+                <li class="skill-tags__item">Organização</li>
+                <li class="skill-tags__item">Gestão de Tempo</li>
+                <li class="skill-tags__item">Liderança</li>
+                <li class="skill-tags__item">Criatividade</li>
+                <li class="skill-tags__item">Atenção aos Detalhes</li>
+                <li class="skill-tags__item">Pensamento Crítico</li>
+                <li class="skill-tags__item">Inteligência Emocional</li>
+                <li class="skill-tags__item">Growth Mindset</li>
+                <li class="skill-tags__item">Qualidade de Código</li>
+                <li class="skill-tags__item">Pesquisa &amp; Autoaprendizado</li>
+                <li class="skill-tags__item">Aprender novas tecnologias</li>
+              </ul>
+            </article>
+
+            <article class="skills-panel skills-panel--wide">
+              <h3 class="skills-panel__title">Diferenciais</h3>
+              <ul class="skill-tags">
+                <li class="skill-tags__item skill-tags__item--accent">
+                  Desenvolvimento Full Stack
+                </li>
+                <li class="skill-tags__item skill-tags__item--accent">
+                  APIs escaláveis
+                </li>
+                <li class="skill-tags__item skill-tags__item--accent">
+                  Modelagem de Banco de Dados
+                </li>
+                <li class="skill-tags__item skill-tags__item--accent">
+                  Integração entre sistemas
+                </li>
+                <li class="skill-tags__item skill-tags__item--accent">
+                  Boas práticas
+                </li>
+                <li class="skill-tags__item skill-tags__item--accent">
+                  Versionamento com Git
+                </li>
+                <li class="skill-tags__item skill-tags__item--accent">
+                  Containers com Docker
+                </li>
+                <li class="skill-tags__item skill-tags__item--accent">
+                  Deploy em Cloud
+                </li>
+                <li class="skill-tags__item skill-tags__item--accent">
+                  Performance e Otimização
+                </li>
+                <li class="skill-tags__item skill-tags__item--accent">
+                  Arquitetura moderna
+                </li>
+              </ul>
+            </article>
+          </div>
         </div>
       </section>
 
@@ -126,11 +552,79 @@
         <div class="block__inner block__inner--center">
           <p class="block__label">Contato</p>
           <h2 class="block__title">Vamos conversar.</h2>
-          <a class="contact-mail" href="mailto:gustavo@email.com">gustavo@email.com</a>
-          <div class="social">
-            <a href="#" rel="noopener">LinkedIn</a>
-            <a href="https://github.com/gustavosullivan" rel="noopener" target="_blank">GitHub</a>
-            <a href="#" rel="noopener">WhatsApp</a>
+          <p class="block__text block__text--center">
+            Aberto a oportunidades, freelance e ideias. Me chama por onde preferir.
+          </p>
+
+          <div class="contacts">
+            <a
+              class="contact-card"
+              href="mailto:gubportela@gmail.com"
+              aria-label="Enviar e-mail"
+            >
+              <span class="contact-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <rect x="3" y="5" width="18" height="14" rx="2" />
+                  <path d="M3 7l9 7 9-7" />
+                </svg>
+              </span>
+              <span class="contact-card__label">E-mail</span>
+              <span class="contact-card__value">gubportela@gmail.com</span>
+            </a>
+
+            <a
+              class="contact-card"
+              href="https://wa.me/5554993698492"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="WhatsApp"
+            >
+              <span class="contact-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M20.5 3.5A11 11 0 0 0 3.1 17.7L2 22l4.4-1.1A11 11 0 1 0 20.5 3.5zm-8.6 17a9.1 9.1 0 0 1-4.6-1.3l-.3-.2-2.6.7.7-2.5-.2-.3a9.1 9.1 0 1 1 7 3.6zm5-6.8c-.3-.1-1.6-.8-1.9-.9s-.4-.1-.6.1-.7.9-.8 1-.3.2-.6.1a7.4 7.4 0 0 1-2.2-1.4 8.2 8.2 0 0 1-1.5-1.9c-.2-.3 0-.4.1-.6l.4-.5.3-.4c.1-.2 0-.4 0-.5l-.9-2.1c-.2-.5-.5-.4-.6-.4h-.5c-.2 0-.5.1-.7.3a2.4 2.4 0 0 0-.8 1.8 4.2 4.2 0 0 0 .9 2.2 9.6 9.6 0 0 0 3.7 3.5 12 12 0 0 0 1.4.5 3.3 3.3 0 0 0 1.5.1 2.5 2.5 0 0 0 1.7-1.1 2 2 0 0 0 .1-1.1c-.1-.1-.3-.2-.6-.3z"
+                  />
+                </svg>
+              </span>
+              <span class="contact-card__label">WhatsApp</span>
+              <span class="contact-card__value">(55) 54 99369-8492</span>
+            </a>
+
+            <a
+              class="contact-card"
+              href="https://www.linkedin.com/in/gustavobportelacc"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+            >
+              <span class="contact-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M6.9 8.7H3.8V20h3.1V8.7zM5.4 4A1.8 1.8 0 1 0 5.4 7.6 1.8 1.8 0 0 0 5.4 4zM20.2 20h-3.1v-5.5c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9V20H10v-11.3h3v1.5h.1a3.3 3.3 0 0 1 3-1.6c3.2 0 3.8 2.1 3.8 4.8V20z"
+                  />
+                </svg>
+              </span>
+              <span class="contact-card__label">LinkedIn</span>
+              <span class="contact-card__value">gustavobportelacc</span>
+            </a>
+
+            <a
+              class="contact-card"
+              href="https://github.com/gustavosullivan"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+            >
+              <span class="contact-card__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.2-3.4-1.2-.5-1.1-1.1-1.4-1.1-1.4-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.3-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5a3.9 3.9 0 0 1 1-2.7 3.6 3.6 0 0 1 .1-2.6s.8-.3 2.8 1a9.6 9.6 0 0 1 5 0c2-.1 2.8-1 2.8-1a3.6 3.6 0 0 1 .1 2.6 3.9 3.9 0 0 1 1 2.7c0 3.9-2.3 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2z"
+                  />
+                </svg>
+              </span>
+              <span class="contact-card__label">GitHub</span>
+              <span class="contact-card__value">gustavosullivan</span>
+            </a>
           </div>
         </div>
       </section>
