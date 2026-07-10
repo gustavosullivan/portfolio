@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gustavo Barbosa Portela — Full Stack & Engenharia de Software</title>
+    <meta
+      name="description"
+      content="Gustavo Barbosa Portela — Desenvolvedor Full Stack, Engenharia de Software e Freelancer. Rust, React, FastAPI, Nest, Next e mais."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <canvas id="scene" aria-hidden="true"></canvas>
+    <div class="grid-overlay" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
+
+    <header class="header">
+      <nav class="header__nav" aria-label="Principal">
+        <a href="#sobre">Sobre</a>
+        <a href="#trabalho">Projetos</a>
+        <a href="#skills">Skills</a>
+        <a href="#contato">Contato</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <h1 class="hero__name">
+          Gustavo Barbosa<br />Portela
+        </h1>
+        <p class="hero__role">
+          <span>Desenvolvedor Full Stack</span>
+          <span class="hero__sep" aria-hidden="true">·</span>
+          <span>Engenharia de Software</span>
+          <span class="hero__sep" aria-hidden="true">·</span>
+          <span>Freelancer</span>
+        </p>
+        <p class="hero__stack">
+          Rust · Axum · Tokio · React · Next.js · NestJS · FastAPI · Flask · Docker · Supabase
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn--solid" href="#trabalho">Ver projetos</a>
+          <a class="btn btn--line" href="#contato">Contato</a>
+        </div>
+      </section>
+
+      <section id="sobre" class="block">
+        <div class="block__inner">
+          <p class="block__label">Sobre</p>
+          <h2 class="block__title">Código com intenção.</h2>
+          <p class="block__text">
+            Desenvolvo produtos do front ao back — APIs, interfaces e
+            infraestrutura. Aberto a oportunidades e a projetos freelance.
+            Trabalho com Rust (Axum, Tokio, Cargo), React, Next.js, NestJS,
+            FastAPI, Flask, Pydantic, Docker, Supabase, PostgreSQL e Git.
+          </p>
+        </div>
+      </section>
+
+      <section id="trabalho" class="block">
+        <div class="block__inner">
+          <p class="block__label">Projetos</p>
+          <h2 class="block__title">Selecionados</h2>
+
+          <div class="projects">
+            <a class="project" href="#">
+              <span class="project__num">01</span>
+              <div>
+                <h3>Neural Desk</h3>
+                <p>Dashboard com IA para operação e análise em tempo real.</p>
+              </div>
+              <span class="project__meta">Full Stack · AI</span>
+            </a>
+            <a class="project" href="#">
+              <span class="project__num">02</span>
+              <div>
+                <h3>Signal API</h3>
+                <p>Backend escalável e integrações para produto SaaS.</p>
+              </div>
+              <span class="project__meta">Node · Cloud</span>
+            </a>
+            <a class="project" href="#">
+              <span class="project__num">03</span>
+              <div>
+                <h3>Pulse Web</h3>
+                <p>Interface moderna, rápida e acessível para produto digital.</p>
+              </div>
+              <span class="project__meta">React · UX</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills" class="block">
+        <div class="block__inner">
+          <p class="block__label">Skills</p>
+          <h2 class="block__title">Stack</h2>
+          <ul class="skills">
+            <li>Rust</li>
+            <li>Axum</li>
+            <li>Tokio</li>
+            <li>Cargo</li>
+            <li>React</li>
+            <li>Next.js</li>
+            <li>NestJS</li>
+            <li>FastAPI</li>
+            <li>Flask</li>
+            <li>Pydantic</li>
+            <li>Docker</li>
+            <li>Supabase</li>
+            <li>PostgreSQL</li>
+            <li>pgAdmin</li>
+            <li>Git</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="contato" class="block block--contact">
+        <div class="block__inner block__inner--center">
+          <p class="block__label">Contato</p>
+          <h2 class="block__title">Vamos conversar.</h2>
+          <a class="contact-mail" href="mailto:gustavo@email.com">gustavo@email.com</a>
+          <div class="social">
+            <a href="#" rel="noopener">LinkedIn</a>
+            <a href="https://github.com/gustavosullivan" rel="noopener" target="_blank">GitHub</a>
+            <a href="#" rel="noopener">WhatsApp</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>© 2026 Gustavo Barbosa Portela</span>
+    </footer>
+
+    <script src="scene.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
