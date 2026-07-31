@@ -1,0 +1,150 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #000000;
+  --bg-elevated: #0a0a0a;
+  --bg-glass: rgba(8, 8, 8, 0.72);
+  --border: rgba(255, 232, 31, 0.14);
+  --border-strong: rgba(255, 232, 31, 0.4);
+  --text: #ffe81f;
+  --text-muted: #c4b040;
+  --accent: #ffe81f;
+  --accent-2: #fff6a0;
+  --accent-3: #b89b00;
+  --glow: rgba(255, 232, 31, 0.45);
+  --danger: #ff6b6b;
+  --success: #9caf88;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-text: var(--text);
+  --color-muted: var(--text-muted);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-accent-3: var(--accent-3);
+  --font-sans: var(--font-geist-sans);
+  --font-display: var(--font-syne);
+  --font-mono: var(--font-geist-mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+@media (pointer: coarse) {
+  body {
+    cursor: auto;
+  }
+}
+
+::selection {
+  background: rgba(255, 232, 31, 0.35);
+  color: #000;
+}
+
+a,
+button {
+  cursor: none;
+}
+
+@media (pointer: coarse) {
+  a,
+  button {
+    cursor: pointer;
+  }
+}
+
+.glass {
+  background: var(--bg-glass);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(18px) saturate(130%);
+  -webkit-backdrop-filter: blur(18px) saturate(130%);
+}
+
+.glow-text {
+  text-shadow:
+    0 0 12px rgba(255, 232, 31, 0.85),
+    0 0 28px rgba(255, 232, 31, 0.55),
+    0 0 56px rgba(255, 232, 31, 0.3);
+}
+
+.noise-overlay {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  opacity: 0.03;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.section-pad {
+  padding-inline: clamp(1.25rem, 4vw, 4rem);
+}
+
+.display {
+  font-family: var(--font-syne), var(--font-geist-sans), sans-serif;
+  letter-spacing: -0.03em;
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.95;
+  }
+}
+
+@keyframes aurora {
+  0% {
+    transform: translate3d(-10%, -5%, 0) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translate3d(8%, 6%, 0) rotate(8deg) scale(1.08);
+  }
+  100% {
+    transform: translate3d(-10%, -5%, 0) rotate(0deg) scale(1);
+  }
+}
+
+@keyframes glitch-shift {
+  0%,
+  92%,
+  100% {
+    transform: translate(0);
+  }
+  94% {
+    transform: translate(-1px, 1px);
+  }
+  96% {
+    transform: translate(1px, -1px);
+  }
+}
