@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { METHODOLOGIES, TECH_STACK } from "@/lib/constants";
+import { TechIcon } from "@/components/tech/TechIcons";
 import type { MethodologyItem, TechItem } from "@/types";
 import { cn } from "@/lib/utils";
 
@@ -42,9 +43,8 @@ export function TechStack() {
       : TECH_STACK.filter((t) => t.category === focusLayer);
 
   return (
-    <section id="tech" className="section-pad relative mx-auto max-w-7xl py-28">
+    <section id="tech" className="section-pad relative mx-auto max-w-7xl pt-10 pb-8 md:pt-12 md:pb-10">
       <div className="grid items-stretch gap-8 lg:grid-cols-2 lg:gap-12">
-        {/* Coluna Tecnologias */}
         <div className="flex h-full flex-col">
           <div className="mb-6 min-h-[9.5rem]">
             <p className="font-mono text-xs tracking-[0.28em] text-[#ffe81f]/80 uppercase">
@@ -126,12 +126,21 @@ export function TechStack() {
                             className="absolute top-2 right-2 h-1.5 w-1.5 rounded-full"
                             style={{ backgroundColor: tech.color }}
                           />
-                          <span className="display block text-lg font-semibold text-[#ffe81f] md:text-xl">
-                            {tech.name}
-                          </span>
-                          <span className="mt-1 block font-mono text-[10px] tracking-wider text-[#ffe81f]/35 uppercase">
-                            0{i + 1} · {layer.label}
-                          </span>
+                          <div className="flex items-center gap-2.5 pr-3">
+                            <TechIcon
+                              name={tech.name}
+                              mode="color"
+                              brandColor={tech.color}
+                            />
+                            <div>
+                              <span className="display block text-lg font-semibold text-[#ffe81f] md:text-xl">
+                                {tech.name}
+                              </span>
+                              <span className="mt-0.5 block font-mono text-[10px] tracking-wider text-[#ffe81f]/35 uppercase">
+                                0{i + 1} · {layer.label}
+                              </span>
+                            </div>
+                          </div>
                         </motion.div>
                       ))}
                     </div>
@@ -142,7 +151,6 @@ export function TechStack() {
           </div>
         </div>
 
-        {/* Coluna Metodologias */}
         <div id="methods" className="flex h-full flex-col">
           <div className="mb-6 min-h-[9.5rem]">
             <p className="font-mono text-xs tracking-[0.28em] text-[#ffe81f]/80 uppercase">

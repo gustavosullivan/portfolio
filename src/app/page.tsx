@@ -29,7 +29,7 @@ export default function HomePage() {
         </AboutGalaxyBand>
         <WorldStage />
       </main>
-      <div className="relative z-10 bg-black">
+      <div className="relative z-10 bg-[#0a1a0c]">
         <Footer />
       </div>
       <ScrollExperience />

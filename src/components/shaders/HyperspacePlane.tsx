@@ -44,7 +44,7 @@ const fragmentShader = /* glsl */ `
     float warp = max(uWarp, 0.4);
 
     // Layer 1 — faint distant field
-    for (int i = 0; i < 28; i++) {
+    for (int i = 0; i < 16; i++) {
       float fi = float(i);
       float ang = hash(fi * 17.3) * 6.2831853;
       float rad = sqrt(hash(fi * 5.9)) * 1.6;
@@ -60,7 +60,7 @@ const fragmentShader = /* glsl */ `
     }
 
     // Layer 2 — brighter closer stars with spikes
-    for (int i = 0; i < 12; i++) {
+    for (int i = 0; i < 8; i++) {
       float fi = float(i) + 120.0;
       float ang = hash(fi * 11.1) * 6.2831853;
       float rad = 0.15 + hash(fi * 4.4) * 1.35;
@@ -73,7 +73,7 @@ const fragmentShader = /* glsl */ `
     }
 
     // Main hyperspace streaks
-    for (int i = 0; i < 70; i++) {
+    for (int i = 0; i < 36; i++) {
       float fi = float(i);
       float seed = hash(fi * 23.91);
       float ang = seed * 6.2831853 + hash(fi * 2.1) * 0.15;
@@ -103,7 +103,7 @@ const fragmentShader = /* glsl */ `
     }
 
     // Secondary finer streaks
-    for (int i = 0; i < 30; i++) {
+    for (int i = 0; i < 14; i++) {
       float fi = float(i) + 200.0;
       float seed = hash(fi * 11.3);
       float ang = seed * 6.2831853;

@@ -29,6 +29,10 @@ export interface Certificate {
   title: string;
   issuer: string;
   year: string;
+  hours?: string;
+  image: string;
+  pdf?: string;
+  url?: string;
 }
 
 export interface TechItem {

@@ -129,7 +129,7 @@ export const PROJECTS: Project[] = [
   {
     id: "sn800",
     title: "SN800",
-    subtitle: "sgpsaicon.com.br — Plataforma de Pesagem Florestal",
+    subtitle: "sn800.com.br — Plataforma de Pesagem Florestal",
     description:
       "SaaS multi-tenant para operações de pesagem florestal — cadastros, monitoramento, relatórios e integração em tempo real com balanças.",
     features: [
@@ -151,7 +151,7 @@ export const PROJECTS: Project[] = [
       "APIs REST",
     ],
     category: "saas",
-    liveUrl: "https://sgpsaicon.com.br/",
+    liveUrl: "https://sn800.com.br/",
     metrics: [
       { label: "Status", value: "2025+" },
       { label: "Modelo", value: "SaaS" },
@@ -208,6 +208,32 @@ export const PROJECTS: Project[] = [
       { label: "DB", value: "Neon" },
     ],
     accent: "#60A5FA",
+  },
+  {
+    id: "carteira-rust",
+    title: "Carteira Rust",
+    subtitle: "Carteira de Investimentos — Fullstack em Rust",
+    description:
+      "Aplicação fullstack para cadastrar e acompanhar ativos de investimento, com API REST, autenticação JWT, PostgreSQL e dashboard web com valor total da carteira.",
+    features: [
+      "Cadastro e login de usuários · JWT em cookie",
+      "API REST · listar, criar e atualizar ativos",
+      "Dashboard web · lista de ativos · valor total da carteira",
+      "PostgreSQL · SQLx · migrations",
+      "Docker Compose · Askama templates · Tailwind",
+    ],
+    architecture:
+      "Rust + Axum para API e rotas web, SQLx + PostgreSQL, autenticação JWT em cookies e templates Askama para o dashboard.",
+    tech: ["Rust", "Axum", "SQLx", "PostgreSQL", "JWT", "Docker", "Askama"],
+    category: "systems",
+    githubUrl:
+      "https://github.com/gustavosullivan/Carteira-de-Investimentos-Inteligente-com-Rust",
+    metrics: [
+      { label: "Stack", value: "Rust" },
+      { label: "API", value: "Axum" },
+      { label: "DB", value: "Postgres" },
+    ],
+    accent: "#F97316",
   },
 ];
 
@@ -279,28 +305,51 @@ export const DIFFERENTIALS = [
 
 export const CERTIFICATES: Certificate[] = [
   {
-    id: "c1",
-    title: "Ciência da Computação — 4º semestre",
-    issuer: "Atitus Educação",
-    year: "Atual",
-  },
-  {
-    id: "c2",
-    title: "Full Stack & Product Owner",
-    issuer: "Saicon Sistemas de Pesagem",
-    year: "Atual",
-  },
-  {
-    id: "c3",
-    title: "Infraestrutura e Redes",
-    issuer: "Prefeitura Municipal de Passo Fundo",
-    year: "Estágio",
-  },
-  {
-    id: "c4",
-    title: "Rust · Axum · Sistemas modernos",
-    issuer: "Estudos aplicados",
+    id: "rust-ai-dev",
+    title: "Santander 2026 — Rust AI Developer (Bootcamp)",
+    issuer: "DIO · Santander",
     year: "2026",
+    hours: "45h",
+    image: "/certificates/rust-ai-dev.png",
+    pdf: "/certificates/rust-ai-dev.pdf",
+  },
+  {
+    id: "fundamentos-ia",
+    title:
+      "Fundamentos da IA Moderna: Machine Learning, LLMs, IA Generativa e Agentes",
+    issuer: "DIO",
+    year: "2026",
+    hours: "2h",
+    image: "/certificates/fundamentos-ia.png",
+    pdf: "/certificates/fundamentos-ia.pdf",
+  },
+  {
+    id: "carreira-ia",
+    title:
+      "Potencializando Seus Estudos e Carreira com IA (Chatbots, Copilotos e Agentes)",
+    issuer: "DIO",
+    year: "2026",
+    hours: "2h",
+    image: "/certificates/carreira-ia.png",
+    pdf: "/certificates/carreira-ia.pdf",
+  },
+  {
+    id: "apps-junior",
+    title: "Qualificação em Desenvolvimento de Aplicações Júnior",
+    issuer: "Atitus Educação",
+    year: "2025/1",
+    hours: "400h",
+    image: "/certificates/apps-junior.png",
+    pdf: "/certificates/apps-junior.pdf",
+  },
+  {
+    id: "fullstack-qualifica",
+    title: "Qualificação em Desenvolvimento de Soluções Full Stack",
+    issuer: "Atitus Educação",
+    year: "2025/2",
+    hours: "400h",
+    image: "/certificates/fullstack-qualifica.png",
+    pdf: "/certificates/fullstack-qualifica.pdf",
   },
 ];
 

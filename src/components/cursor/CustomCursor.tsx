@@ -47,7 +47,7 @@ export function CustomCursor() {
     <>
       <motion.div
         aria-hidden
-        className="pointer-events-none fixed top-0 left-0 z-[90] mix-blend-difference"
+        className="pointer-events-none fixed top-0 left-0 z-[120] mix-blend-difference"
         style={{ x: trailX, y: trailY, translateX: "-50%", translateY: "-50%" }}
       >
         <div
@@ -58,7 +58,7 @@ export function CustomCursor() {
       </motion.div>
       <motion.div
         aria-hidden
-        className="pointer-events-none fixed top-0 left-0 z-[91]"
+        className="pointer-events-none fixed top-0 left-0 z-[121]"
         style={{ x: springX, y: springY, translateX: "-50%", translateY: "-50%" }}
       >
         <div

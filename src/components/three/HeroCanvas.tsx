@@ -1,7 +1,7 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { useFrame, Canvas } from "@react-three/fiber";
-import { EffectComposer, Bloom, Vignette } from "@react-three/postprocessing";
 import * as THREE from "three";
 import { usePrefersReducedMotion, useIsMobile } from "@/hooks/useMediaQuery";
 import { HyperspacePlane } from "@/components/shaders/HyperspacePlane";
@@ -37,40 +37,55 @@ function SceneContent({
     <>
       <color attach="background" args={["#000000"]} />
 
-      <RealisticStars count={mobile ? 120 : reduced ? 160 : 260} />
-      <HyperspacePlane warp={mobile ? 1.0 : reduced ? 0.55 : 1.3} />
-      {light && <HyperspaceLines count={50} />}
-      {light && <HyperspaceStreaks count={70} />}
+      <RealisticStars count={mobile ? 70 : reduced ? 90 : 120} />
+      <HyperspacePlane warp={mobile ? 0.75 : reduced ? 0.45 : 1.0} />
+      {light && <HyperspaceLines count={24} />}
+      {light && <HyperspaceStreaks count={32} />}
 
       <CameraRig reduced={reduced || mobile} />
-
-      {light && (
-        <EffectComposer multisampling={0}>
-          <Bloom
-            intensity={0.5}
-            luminanceThreshold={0.45}
-            luminanceSmoothing={0.45}
-            mipmapBlur
-          />
-          <Vignette eskil={false} offset={0.22} darkness={0.9} />
-        </EffectComposer>
-      )}
     </>
   );
 }
 
 /**
- * Hero-only galaxy — clipped to the first viewport.
- * Always keeps the WebGL loop running (never unmounts).
+ * Hero-only galaxy — pauses WebGL when offscreen.
  */
 export function HeroCanvas() {
   const reduced = usePrefersReducedMotion();
   const mobile = useIsMobile();
+  const root = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const el = root.current;
+    if (!el) return;
+
+    const io = new IntersectionObserver(
+      ([entry]) => setVisible(entry.isIntersecting && !document.hidden),
+      { rootMargin: "40px 0px", threshold: 0.01 },
+    );
+    io.observe(el);
+
+    const onVis = () => {
+      const rect = el.getBoundingClientRect();
+      const onScreen = rect.bottom > 0 && rect.top < window.innerHeight;
+      setVisible(onScreen && !document.hidden);
+    };
+    document.addEventListener("visibilitychange", onVis);
+
+    return () => {
+      io.disconnect();
+      document.removeEventListener("visibilitychange", onVis);
+    };
+  }, []);
 
   return (
-    <div className="pointer-events-none absolute inset-0 h-full w-full overflow-hidden">
+    <div
+      ref={root}
+      className="pointer-events-none absolute inset-0 h-full w-full overflow-hidden"
+    >
       <Canvas
-        dpr={mobile ? [1, 1] : [1, 1.2]}
+        dpr={mobile ? [1, 1] : [1, 1.15]}
         camera={{ position: [0, 0.2, 5.0], fov: 42 }}
         gl={{
           antialias: !mobile,
@@ -79,8 +94,7 @@ export function HeroCanvas() {
           stencil: false,
           depth: true,
         }}
-        frameloop="always"
-        // Keep rendering even if tab/compositor gets busy during scrollbar drag
+        frameloop={visible ? "always" : "never"}
         performance={{ min: 0.5 }}
         style={{ width: "100%", height: "100%" }}
       >

@@ -58,7 +58,7 @@ export function About() {
   const experienceSubtitle = EXPERIENCES.map((e) => e.company).join(" · ");
 
   return (
-    <section id="about" className="section-pad relative mx-auto max-w-7xl py-28">
+    <section id="about" className="section-pad relative mx-auto max-w-7xl pt-20 pb-10 md:pt-24 md:pb-12">
       <div className="grid gap-10 lg:grid-cols-2 lg:items-stretch lg:gap-12">
         {/* Perfil */}
         <motion.div

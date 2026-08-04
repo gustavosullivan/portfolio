@@ -73,8 +73,8 @@ button {
 .glass {
   background: var(--bg-glass);
   border: 1px solid var(--border);
-  backdrop-filter: blur(18px) saturate(130%);
-  -webkit-backdrop-filter: blur(18px) saturate(130%);
+  backdrop-filter: blur(8px) saturate(120%);
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
 }
 
 .glow-text {

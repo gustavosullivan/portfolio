@@ -13,7 +13,8 @@ const AboutGalaxyCanvas = dynamic(
 );
 
 /**
- * Blue sky + clouds from Perfil through Contato (ends cleanly before WorldStage).
+ * Continuous nebula field from After-Hero through Contato.
+ * Sticky viewport window into a tall animated world (not a frozen photo).
  */
 export function AboutGalaxyBand({ children }: { children: ReactNode }) {
   const root = useRef<HTMLDivElement>(null);
@@ -30,38 +31,30 @@ export function AboutGalaxyBand({ children }: { children: ReactNode }) {
         setActive(on);
         if (on) setMounted(true);
       },
-      { rootMargin: "220px 0px", threshold: 0.01 },
+      { rootMargin: "120px 0px", threshold: 0.01 },
     );
     io.observe(el);
     return () => io.disconnect();
   }, []);
 
   return (
-    <div ref={root} className="relative bg-[#3a8fd4]">
+    <div ref={root} className="relative bg-black">
       <div
         className={cn(
-          "pointer-events-none absolute inset-0 z-0 overflow-hidden transition-opacity duration-[1200ms] ease-in-out",
+          "pointer-events-none sticky top-0 z-0 h-[100svh] w-full overflow-hidden transition-opacity duration-700 ease-in-out",
           active ? "opacity-100" : "opacity-0",
         )}
         aria-hidden
-        style={{
-          // Full sky through contact; only soft edge at the very top (from hero)
-          maskImage:
-            "linear-gradient(to bottom, transparent 0%, black 4%, black 100%)",
-          WebkitMaskImage:
-            "linear-gradient(to bottom, transparent 0%, black 4%, black 100%)",
-        }}
       >
-        {mounted ? <AboutGalaxyCanvas /> : null}
+        {mounted ? (
+          <AboutGalaxyCanvas active={active} bandRef={root} />
+        ) : null}
       </div>
 
-      {/* From hero hyperspace */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-24 bg-gradient-to-b from-black via-black/45 to-transparent md:h-32" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-24 bg-gradient-to-b from-black via-black/50 to-transparent md:h-32" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-28 bg-gradient-to-t from-black via-black/55 to-transparent md:h-40" />
 
-      <div className="relative z-10">{children}</div>
-
-      {/* Thin seam after Contact → anime continues as-is */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-16 bg-gradient-to-b from-transparent to-black/80" />
+      <div className="relative z-10 -mt-[100svh]">{children}</div>
     </div>
   );
 }
