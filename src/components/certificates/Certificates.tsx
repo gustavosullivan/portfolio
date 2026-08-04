@@ -254,21 +254,30 @@ export function Certificates() {
     };
   }, [snapNearest]);
 
-  // Mouse wheel → horizontal browse (no click needed)
+  // Horizontal wheel only (Shift+roda ou gesto horizontal) — vertical scrolla a página
   useEffect(() => {
     const scroller = scrollerRef.current;
     if (!scroller) return;
 
     const onWheel = (e: WheelEvent) => {
       if (active) return;
-      const dominant =
-        Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-      if (Math.abs(dominant) < 0.5) return;
+
+      const horizontalIntent =
+        Math.abs(e.deltaX) > Math.abs(e.deltaY) || e.shiftKey;
+      if (!horizontalIntent) return;
+
+      const delta = e.shiftKey && Math.abs(e.deltaY) >= Math.abs(e.deltaX)
+        ? e.deltaY
+        : Math.abs(e.deltaX) >= Math.abs(e.deltaY)
+          ? e.deltaX
+          : e.deltaY;
+
+      if (Math.abs(delta) < 0.5) return;
 
       const max = scroller.scrollWidth - scroller.clientWidth;
       if (max <= 0) return;
 
-      const next = scroller.scrollLeft + dominant;
+      const next = scroller.scrollLeft + delta;
       const clamped = Math.max(0, Math.min(max, next));
       if (clamped === scroller.scrollLeft) return;
 

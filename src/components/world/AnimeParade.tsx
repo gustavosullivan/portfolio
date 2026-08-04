@@ -110,7 +110,7 @@ export function AnimeParade() {
         data-parallax="sky"
         className="absolute inset-x-0 top-[6%] bottom-[18%] bg-cover bg-[center_top]"
         style={{
-          backgroundImage: "url(/world/anime-sky.png)",
+          backgroundImage: `url(${withBase("/world/anime-sky.png")})`,
           backgroundSize: "cover",
           maskImage:
             "linear-gradient(to bottom, transparent 0%, black 28%, black 72%, transparent 100%)",
@@ -125,7 +125,7 @@ export function AnimeParade() {
         data-parallax="far"
         className="absolute inset-x-0 bottom-[16%] h-[44%] opacity-85"
         style={{
-          backgroundImage: "url(/world/anime-grass-far.png)",
+          backgroundImage: `url(${withBase("/world/anime-grass-far.png")})`,
           backgroundRepeat: "repeat-x",
           backgroundSize: "auto 100%",
           backgroundPosition: "0% 100%",
@@ -140,7 +140,7 @@ export function AnimeParade() {
         data-parallax="grass"
         className="absolute inset-x-0 bottom-0 h-[50%]"
         style={{
-          backgroundImage: "url(/world/anime-grass-scroll.png)",
+          backgroundImage: `url(${withBase("/world/anime-grass-scroll.png")})`,
           backgroundRepeat: "repeat-x",
           backgroundSize: "auto 108%",
           backgroundPosition: "0% 100%",
@@ -155,7 +155,7 @@ export function AnimeParade() {
         data-parallax="grass-front"
         className="absolute inset-x-0 bottom-0 h-[24%] opacity-90"
         style={{
-          backgroundImage: "url(/world/anime-grass-scroll.png)",
+          backgroundImage: `url(${withBase("/world/anime-grass-scroll.png")})`,
           backgroundRepeat: "repeat-x",
           backgroundSize: "auto 160%",
           backgroundPosition: "0% 100%",

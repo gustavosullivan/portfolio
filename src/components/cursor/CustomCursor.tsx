@@ -13,8 +13,6 @@ export function CustomCursor() {
   const y = useMotionValue(-100);
   const springX = useSpring(x, { stiffness: 420, damping: 32, mass: 0.4 });
   const springY = useSpring(y, { stiffness: 420, damping: 32, mass: 0.4 });
-  const trailX = useSpring(x, { stiffness: 120, damping: 28, mass: 0.6 });
-  const trailY = useSpring(y, { stiffness: 120, damping: 28, mass: 0.6 });
 
   useEffect(() => {
     if (isMobile) return;
@@ -44,29 +42,16 @@ export function CustomCursor() {
   if (isMobile || !visible) return null;
 
   return (
-    <>
-      <motion.div
-        aria-hidden
-        className="pointer-events-none fixed top-0 left-0 z-[120] mix-blend-difference"
-        style={{ x: trailX, y: trailY, translateX: "-50%", translateY: "-50%" }}
-      >
-        <div
-          className={`rounded-full border border-white/40 transition-all duration-300 ${
-            hovering ? "h-14 w-14 bg-white/10" : "h-8 w-8"
-          }`}
-        />
-      </motion.div>
-      <motion.div
-        aria-hidden
-        className="pointer-events-none fixed top-0 left-0 z-[121]"
-        style={{ x: springX, y: springY, translateX: "-50%", translateY: "-50%" }}
-      >
-        <div
-          className={`rounded-full bg-[#ffe81f] shadow-[0_0_22px_rgba(255,232,31,0.9)] transition-all duration-200 ${
-            hovering ? "h-2 w-2 scale-150" : "h-1.5 w-1.5"
-          }`}
-        />
-      </motion.div>
-    </>
+    <motion.div
+      aria-hidden
+      className="pointer-events-none fixed top-0 left-0 z-[121]"
+      style={{ x: springX, y: springY, translateX: "-50%", translateY: "-50%" }}
+    >
+      <div
+        className={`rounded-full bg-[#ffe81f] shadow-[0_0_18px_rgba(255,232,31,0.85)] transition-transform duration-200 ${
+          hovering ? "h-2 w-2 scale-150" : "h-1.5 w-1.5"
+        }`}
+      />
+    </motion.div>
   );
 }
