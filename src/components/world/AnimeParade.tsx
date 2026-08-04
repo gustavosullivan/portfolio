@@ -3,9 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { usePrefersReducedMotion } from "@/hooks/useMediaQuery";
+import { withBase } from "@/lib/utils";
 
 const FRAME_COUNT = 4;
-const SHEET_URL = "/world/walker-sheet.png";
+const SHEET_URL = withBase("/world/walker-sheet.png");
 
 /**
  * Meadow emerging from matte space — top continues the Hero/void black.
@@ -89,7 +90,8 @@ export function AnimeParade() {
     const id = window.setInterval(() => {
       frame = (frame + 1) % FRAME_COUNT;
       if (sprite.current) {
-        const pct = FRAME_COUNT === 1 ? 0 : (frame / (FRAME_COUNT - 1)) * 100;
+        const denom = Math.max(1, FRAME_COUNT - 1);
+        const pct = (frame / denom) * 100;
         sprite.current.style.backgroundPosition = `${pct}% 0`;
       }
     }, 160);

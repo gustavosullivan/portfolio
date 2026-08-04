@@ -5,6 +5,7 @@ import type {
   Project,
   TechItem,
 } from "@/types";
+import { withBase } from "@/lib/utils";
 
 export const SITE = {
   name: "Gustavo Barbosa Portela",
@@ -310,8 +311,8 @@ export const CERTIFICATES: Certificate[] = [
     issuer: "DIO · Santander",
     year: "2026",
     hours: "45h",
-    image: "/certificates/rust-ai-dev.png",
-    pdf: "/certificates/rust-ai-dev.pdf",
+    image: withBase("/certificates/rust-ai-dev.png"),
+    pdf: withBase("/certificates/rust-ai-dev.pdf"),
   },
   {
     id: "fundamentos-ia",
@@ -320,8 +321,8 @@ export const CERTIFICATES: Certificate[] = [
     issuer: "DIO",
     year: "2026",
     hours: "2h",
-    image: "/certificates/fundamentos-ia.png",
-    pdf: "/certificates/fundamentos-ia.pdf",
+    image: withBase("/certificates/fundamentos-ia.png"),
+    pdf: withBase("/certificates/fundamentos-ia.pdf"),
   },
   {
     id: "carreira-ia",
@@ -330,8 +331,8 @@ export const CERTIFICATES: Certificate[] = [
     issuer: "DIO",
     year: "2026",
     hours: "2h",
-    image: "/certificates/carreira-ia.png",
-    pdf: "/certificates/carreira-ia.pdf",
+    image: withBase("/certificates/carreira-ia.png"),
+    pdf: withBase("/certificates/carreira-ia.pdf"),
   },
   {
     id: "apps-junior",
@@ -339,8 +340,8 @@ export const CERTIFICATES: Certificate[] = [
     issuer: "Atitus Educação",
     year: "2025/1",
     hours: "400h",
-    image: "/certificates/apps-junior.png",
-    pdf: "/certificates/apps-junior.pdf",
+    image: withBase("/certificates/apps-junior.png"),
+    pdf: withBase("/certificates/apps-junior.pdf"),
   },
   {
     id: "fullstack-qualifica",
@@ -348,8 +349,8 @@ export const CERTIFICATES: Certificate[] = [
     issuer: "Atitus Educação",
     year: "2025/2",
     hours: "400h",
-    image: "/certificates/fullstack-qualifica.png",
-    pdf: "/certificates/fullstack-qualifica.pdf",
+    image: withBase("/certificates/fullstack-qualifica.png"),
+    pdf: withBase("/certificates/fullstack-qualifica.pdf"),
   },
 ];
 
