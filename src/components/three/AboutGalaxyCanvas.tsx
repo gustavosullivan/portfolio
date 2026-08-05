@@ -12,12 +12,11 @@ type Star = {
   sp: number;
   depth: number;
   hue: "cool" | "warm" | "white";
-  layer: "back" | "front";
 };
 
 /**
- * Hubble/JWST–inspired procedural deep-space field for the mid-page band.
- * Fully generative (no photo textures). Hero + Anime untouched.
+ * Mid-page nebula: desktop keeps a light procedural plate;
+ * mobile uses sharp soft-blobs (no low-res blur upscale).
  */
 export function AboutGalaxyCanvas({
   active = true,
@@ -34,7 +33,10 @@ export function AboutGalaxyCanvas({
     const canvas = canvasRef.current;
     const band = bandRef.current;
     if (!canvas || !band) return;
-    const ctx = canvas.getContext("2d", { alpha: false });
+    const ctx = canvas.getContext("2d", {
+      alpha: false,
+      desynchronized: true,
+    });
     if (!ctx) return;
 
     let raf = 0;
@@ -46,20 +48,18 @@ export function AboutGalaxyCanvas({
     let lastPaint = 0;
     let disposed = false;
     let bakeToken = 0;
-    const fpsInterval = mobile ? 1000 / 18 : 1000 / 26;
+    // Mobile: fewer frames. Desktop: capped for battery/CPU.
+    const fpsInterval = mobile ? 1000 / 12 : reduced ? 1000 / 18 : 1000 / 24;
     const pointer = { x: 0.5, y: 0.45, tx: 0.5, ty: 0.45 };
 
     let plate: HTMLCanvasElement | null = null;
-    let dustPlate: HTMLCanvasElement | null = null;
-    let plateScale = 0.34;
+    let plateScale = 0.4;
 
     const hash2 = (x: number, y: number) => {
       const n = Math.sin(x * 127.1 + y * 311.7) * 43758.5453123;
       return n - Math.floor(n);
     };
-
     const smooth = (t: number) => t * t * (3 - 2 * t);
-
     const valueNoise = (x: number, y: number) => {
       const x0 = Math.floor(x);
       const y0 = Math.floor(y);
@@ -71,8 +71,7 @@ export function AboutGalaxyCanvas({
       const d = hash2(x0 + 1, y0 + 1);
       return a + (b - a) * xf + (c - a) * yf + (a - b - c + d) * xf * yf;
     };
-
-    const fbm = (x: number, y: number, oct = 4) => {
+    const fbm = (x: number, y: number, oct = 3) => {
       let v = 0;
       let a = 0.5;
       let f = 1;
@@ -85,130 +84,102 @@ export function AboutGalaxyCanvas({
       }
       return v / s;
     };
-
     const clamp01 = (v: number) => (v < 0 ? 0 : v > 1 ? 1 : v);
 
     const seedStars = () => {
-      const backN = mobile ? 280 : reduced ? 340 : 520;
-      const frontN = mobile ? 90 : reduced ? 120 : 180;
-      const mk = (layer: Star["layer"]): Star => {
+      const n = mobile ? 70 : reduced ? 140 : 220;
+      stars = Array.from({ length: n }, () => {
         const roll = Math.random();
-        const back = layer === "back";
         return {
           x: Math.random() * w,
           y: Math.random() * worldH,
-          r: back
-            ? Math.random() < 0.92
-              ? 0.2 + Math.random() * 0.55
-              : 0.75 + Math.random() * 1.05
-            : Math.random() < 0.86
-              ? 0.3 + Math.random() * 0.75
-              : 1 + Math.random() * 1.5,
-          a: back ? 0.22 + Math.random() * 0.55 : 0.28 + Math.random() * 0.6,
+          r: Math.random() < 0.9 ? 0.35 + Math.random() * 0.7 : 0.9 + Math.random() * 1.2,
+          a: 0.25 + Math.random() * 0.55,
           tw: Math.random() * Math.PI * 2,
-          sp: (back ? 0.35 : 0.55) + Math.random() * (back ? 1.4 : 1.8),
-          depth: back ? 0.12 + Math.random() * 0.38 : 0.55 + Math.random() * 0.45,
-          hue: roll > 0.86 ? "cool" : roll > 0.74 ? "warm" : "white",
-          layer,
+          sp: 0.3 + Math.random() * 1.2,
+          depth: 0.25 + Math.random() * 0.75,
+          hue: roll > 0.88 ? "cool" : roll > 0.78 ? "warm" : "white",
         };
-      };
-      stars = [
-        ...Array.from({ length: backN }, () => mk("back")),
-        ...Array.from({ length: frontN }, () => mk("front")),
-      ];
+      });
     };
 
-    const drawStars = (
-      layer: Star["layer"],
-      t: number,
-      cameraY: number,
-      px: number,
-      py: number,
-      reducedMotion: boolean,
-    ) => {
-      for (const s of stars) {
-        if (s.layer !== layer) continue;
-        const drift = reducedMotion ? 0 : t * (6 + s.depth * 16);
-        const bob = reducedMotion
-          ? 0
-          : Math.sin(t * 0.35 + s.tw) * (3.5 + s.depth * 4);
-        const sx =
-          ((s.x + drift * (layer === "back" ? 0.25 : 0.55) + px * 26 * s.depth) %
-            (w + 24)) -
-          12;
-        const sy = s.y - cameraY + py * 14 * s.depth + bob;
-        if (sy < -6 || sy > h + 6) continue;
+    /** Mobile: campo mais “afastado” (nuvens menores, mais vazio preto). */
+    const bakeLitePlate = () => {
+      const token = ++bakeToken;
+      plateScale = 1;
+      const pw = Math.max(1, Math.floor(w));
+      // Altura alinhada ao scroll real — evita esticar/zoom estranho
+      const ph = Math.max(h * 2, Math.floor(worldH));
 
-        const twinkle = reducedMotion
-          ? 1
-          : 0.48 + 0.52 * Math.sin(t * s.sp + s.tw);
-        const alpha = s.a * twinkle * (0.4 + s.depth * 0.6);
-        const color =
-          s.hue === "cool"
-            ? `rgba(170,230,255,${alpha})`
-            : s.hue === "warm"
-              ? `rgba(255,214,160,${alpha})`
-              : `rgba(238,242,250,${alpha})`;
-        ctx.fillStyle = color;
-        ctx.fillRect(sx - s.r, sy - s.r, s.r * 2, s.r * 2);
+      const c = document.createElement("canvas");
+      c.width = pw;
+      c.height = ph;
+      const g = c.getContext("2d");
+      if (!g) return;
 
-        if (!mobile && s.r > 0.95 && alpha > 0.4) {
-          ctx.fillStyle =
-            s.hue === "cool"
-              ? `rgba(120,210,255,${alpha * 0.16})`
-              : `rgba(210,220,255,${alpha * 0.12})`;
-          ctx.fillRect(sx - s.r * 2.4, sy - s.r * 2.4, s.r * 4.8, s.r * 4.8);
+      g.fillStyle = "#000";
+      g.fillRect(0, 0, pw, ph);
+
+      const drawBlob = (
+        x: number,
+        y: number,
+        rx: number,
+        ry: number,
+        colors: [string, string, string],
+      ) => {
+        const rad = Math.max(rx, ry);
+        const grad = g.createRadialGradient(x, y, 0, x, y, rad);
+        grad.addColorStop(0, colors[0]);
+        grad.addColorStop(0.4, colors[1]);
+        grad.addColorStop(1, colors[2]);
+        g.fillStyle = grad;
+        g.beginPath();
+        g.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2);
+        g.fill();
+      };
+
+      g.globalCompositeOperation = "lighter";
+      // Mais blobs, menores = sensação de panorama (não zoom)
+      const n = 14;
+      for (let i = 0; i < n; i++) {
+        const t = (i + 0.4) / n;
+        const x = pw * (0.12 + ((i * 47 + 13) % 76) / 100);
+        const y = ph * (0.05 + t * 0.9);
+        // ~12–20% da largura — nuvem distante
+        const rx = pw * (0.12 + (i % 4) * 0.025);
+        const ry = rx * (0.55 + (i % 3) * 0.12);
+
+        if (i % 3 === 0) {
+          drawBlob(x, y, rx, ry, [
+            "rgba(100,220,255,0.32)",
+            "rgba(40,140,230,0.12)",
+            "rgba(0,0,0,0)",
+          ]);
+        } else if (i % 3 === 1) {
+          drawBlob(x + rx * 0.35, y, rx * 1.1, ry, [
+            "rgba(255,175,80,0.26)",
+            "rgba(255,100,45,0.1)",
+            "rgba(0,0,0,0)",
+          ]);
+        } else {
+          drawBlob(x - rx * 0.2, y, rx * 1.2, ry * 1.05, [
+            "rgba(255,80,170,0.3)",
+            "rgba(160,30,110,0.11)",
+            "rgba(0,0,0,0)",
+          ]);
         }
       }
+      g.globalCompositeOperation = "source-over";
+
+      if (!disposed && token === bakeToken) plate = c;
     };
 
-    const finishPlate = (
-      gas: HTMLCanvasElement,
-      dust: HTMLCanvasElement,
-      pw: number,
-      ph: number,
-      token: number,
-    ) => {
-      if (disposed || token !== bakeToken) return;
-
-      const soft = document.createElement("canvas");
-      soft.width = pw;
-      soft.height = ph;
-      const sctx = soft.getContext("2d");
-      if (!sctx) return;
-      sctx.filter = mobile ? "blur(1.1px)" : "blur(2px)";
-      sctx.drawImage(gas, 0, 0);
-      sctx.filter = "none";
-
-      const final = document.createElement("canvas");
-      final.width = pw;
-      final.height = ph;
-      const fctx = final.getContext("2d");
-      if (!fctx) return;
-      fctx.fillStyle = "#000";
-      fctx.fillRect(0, 0, pw, ph);
-      fctx.drawImage(soft, 0, 0);
-      // Punchier photographic bloom on bright ridges
-      fctx.globalCompositeOperation = "lighter";
-      fctx.globalAlpha = 0.48;
-      fctx.filter = mobile ? "blur(5px)" : "blur(10px)";
-      fctx.drawImage(gas, 0, 0);
-      fctx.globalAlpha = 0.22;
-      fctx.filter = mobile ? "blur(10px)" : "blur(18px)";
-      fctx.drawImage(gas, 0, 0);
-      fctx.filter = "none";
-      fctx.globalAlpha = 1;
-      fctx.globalCompositeOperation = "source-over";
-
-      plate = final;
-      dustPlate = dust;
-    };
-
-    const bakePlateAsync = () => {
+    /** Desktop: lighter noise plate (no heavy bloom blur stack). */
+    const bakeDesktopPlate = () => {
       const token = ++bakeToken;
-      plateScale = mobile ? 0.24 : 0.32;
-      const pw = Math.max(220, Math.floor(w * plateScale));
-      const ph = Math.max(420, Math.floor(worldH * plateScale));
+      plateScale = 0.42;
+      const pw = Math.max(280, Math.floor(w * plateScale));
+      const ph = Math.max(480, Math.floor(worldH * plateScale));
 
       const gas = document.createElement("canvas");
       gas.width = pw;
@@ -216,22 +187,13 @@ export function AboutGalaxyCanvas({
       const gctx = gas.getContext("2d");
       if (!gctx) return;
 
-      const dust = document.createElement("canvas");
-      dust.width = pw;
-      dust.height = ph;
-      const dctx = dust.getContext("2d");
-      if (!dctx) return;
-
       const img = gctx.createImageData(pw, ph);
       const data = img.data;
-      const dimg = dctx.createImageData(pw, ph);
-      const ddata = dimg.data;
-
       const ox = 17.3;
       const oy = 41.7;
-      const ySpan = (worldH / Math.max(h, 1)) * 1.65;
-      const oct = mobile ? 3 : 4;
-      const rowsPerChunk = mobile ? 18 : 28;
+      const ySpan = (worldH / Math.max(h, 1)) * 1.55;
+      const oct = 3;
+      const rowsPerChunk = 36;
       let row = 0;
 
       const step = () => {
@@ -242,59 +204,44 @@ export function AboutGalaxyCanvas({
           const v = py / ph;
           for (let px = 0; px < pw; px++) {
             const u = px / pw;
-            const x = u * 6.2 + ox;
+            const x = u * 5.8 + ox;
             const y = v * ySpan + oy;
 
-            const w1 = fbm(x * 0.55, y * 0.55, oct);
-            const w2 = fbm(x * 0.55 + 5.2, y * 0.55 - 3.1, oct);
-            const wx = x + (w1 - 0.5) * 2.35;
-            const wy = y + (w2 - 0.5) * 2.35;
+            const w1 = fbm(x * 0.5, y * 0.5, oct);
+            const w2 = fbm(x * 0.5 + 5.2, y * 0.5 - 3.1, oct);
+            const wx = x + (w1 - 0.5) * 2.1;
+            const wy = y + (w2 - 0.5) * 2.1;
 
-            const nA = fbm(wx * 0.9, wy * 0.9, oct);
-            const nB = fbm(wx * 1.65 + 12, wy * 1.65 - 8, oct);
-            const nC = fbm(wx * 0.35 - 4, wy * 0.35 + 9, 3);
+            const nA = fbm(wx * 0.85, wy * 0.85, oct);
+            const nB = fbm(wx * 1.5 + 12, wy * 1.5 - 8, 2);
 
-            const body = Math.pow(clamp01(nA * 1.15 - 0.18), 1.55);
-            const ridge = Math.pow(clamp01(nB * 1.25 - 0.42), 2.2);
-            const glow = Math.pow(clamp01(nC * 1.1 - 0.28), 1.35);
-
+            const dens = Math.pow(clamp01(nA * 1.12 - 0.2), 1.45);
+            const ridge = Math.pow(clamp01(nB * 1.2 - 0.4), 2);
             const lobe =
               0.55 +
-              0.45 *
-                Math.sin(v * Math.PI * 3.2 + nC * 2.5) *
-                Math.sin(u * Math.PI * 1.4 + 0.4);
-            const dens = clamp01(body * (0.55 + lobe * 0.55));
-            const bright = clamp01(ridge * 0.85 + dens * 0.35 + glow * 0.25);
+              0.45 * Math.sin(v * Math.PI * 3 + nA * 2) * Math.sin(u * Math.PI * 1.3);
+            const d = clamp01(dens * (0.55 + lobe * 0.5));
+            const bright = clamp01(ridge * 0.75 + d * 0.35);
 
-            // Vivid but photographic: OIII cyan → amber → Hα magenta
-            const cool = clamp01(bright * (0.6 + nB * 0.55));
-            const warm = clamp01(dens * (0.5 + (1 - nB) * 0.6));
-            const red = clamp01(dens * dens * (0.85 + nA * 0.45) + ridge * 0.28);
+            const cool = clamp01(bright * (0.55 + nB * 0.5));
+            const warm = clamp01(d * (0.45 + (1 - nB) * 0.55));
+            const red = clamp01(d * d * (0.8 + nA * 0.4) + ridge * 0.22);
 
-            let r = cool * 40 + warm * 210 + red * 255;
-            let g = cool * 195 + warm * 125 + red * 55;
-            let b = cool * 240 + warm * 55 + red * 175;
+            let r = cool * 45 + warm * 200 + red * 245;
+            let g = cool * 185 + warm * 115 + red * 55;
+            let b = cool * 230 + warm * 55 + red * 170;
 
-            // Keep rich color (realistic plate, not neon wash)
-            const sat = 1.18;
+            const sat = 1.12;
             const lum = r * 0.299 + g * 0.587 + b * 0.114;
             r = lum + (r - lum) * sat;
             g = lum + (g - lum) * sat;
             b = lum + (b - lum) * sat;
 
-            const alpha = clamp01(dens * 0.82 + ridge * 0.48 + glow * 0.12) * 255;
             const i = (py * pw + px) * 4;
             data[i] = Math.min(255, r);
             data[i + 1] = Math.min(255, g);
             data[i + 2] = Math.min(255, b);
-            data[i + 3] = alpha;
-
-            const dustN = fbm(wx * 1.3 + 30, wy * 1.3 - 18, oct);
-            const lane = Math.pow(clamp01(0.62 - dustN), 2.4) * dens;
-            ddata[i] = 6;
-            ddata[i + 1] = 3;
-            ddata[i + 2] = 8;
-            ddata[i + 3] = Math.min(210, lane * 255 * 1.35);
+            data[i + 3] = clamp01(d * 0.78 + ridge * 0.4) * 255;
           }
         }
 
@@ -305,218 +252,177 @@ export function AboutGalaxyCanvas({
         }
 
         gctx.putImageData(img, 0, 0);
-        dctx.putImageData(dimg, 0, 0);
-        finishPlate(gas, dust, pw, ph, token);
+
+        // Mild soft pass only (keeps edges sharper than old mobile blur stack)
+        const final = document.createElement("canvas");
+        final.width = pw;
+        final.height = ph;
+        const fctx = final.getContext("2d");
+        if (!fctx || disposed || token !== bakeToken) return;
+        fctx.fillStyle = "#000";
+        fctx.fillRect(0, 0, pw, ph);
+        fctx.drawImage(gas, 0, 0);
+        fctx.globalCompositeOperation = "lighter";
+        fctx.globalAlpha = 0.28;
+        fctx.filter = "blur(4px)";
+        fctx.drawImage(gas, 0, 0);
+        fctx.filter = "none";
+        fctx.globalAlpha = 1;
+        fctx.globalCompositeOperation = "source-over";
+        plate = final;
       };
 
       requestAnimationFrame(step);
     };
 
-    const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, mobile ? 1 : 1.25);
-      w = window.innerWidth;
-      h = window.innerHeight;
+    const bake = () => {
+      plate = null;
+      if (mobile || reduced) bakeLitePlate();
+      else bakeDesktopPlate();
+    };
+
+    let lastCamY = Number.NaN;
+    let resizeTimer = 0;
+    let needsPaint = true;
+
+    const resizeNow = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, mobile ? 1 : 1.15);
+      const parent = canvas.parentElement;
+      // Sempre o tamanho do sticky (não visualViewport) — evita faixa nas bordas
+      w = Math.max(1, parent?.clientWidth || window.innerWidth);
+      h = Math.max(1, parent?.clientHeight || window.innerHeight);
       canvas.width = Math.max(1, Math.floor(w * dpr));
       canvas.height = Math.max(1, Math.floor(h * dpr));
-      canvas.style.width = `${w}px`;
-      canvas.style.height = `${h}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       worldH = Math.max(band.scrollHeight, h * 2.8);
-      plate = null;
-      dustPlate = null;
-      bakePlateAsync();
+      bake();
       seedStars();
+      needsPaint = true;
+      lastCamY = Number.NaN;
+    };
+
+    const resize = () => {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(resizeNow, mobile ? 140 : 90);
     };
 
     const paintFrame = (now: number) => {
       const t = (now - t0) / 1000;
       const cameraY = -band.getBoundingClientRect().top;
 
-      if (!reduced) {
+      if (!reduced && !mobile) {
         pointer.x += (pointer.tx - pointer.x) * 0.04;
         pointer.y += (pointer.ty - pointer.y) * 0.04;
       }
-      const px = (pointer.x - 0.5) * 2;
-      const py = (pointer.y - 0.5) * 2;
+      const px = mobile ? 0 : (pointer.x - 0.5) * 2;
+      const py = mobile ? 0 : (pointer.y - 0.5) * 2;
 
-      // Living nebula motion (a bit more lively)
-      const flowX = reduced
-        ? 0
-        : Math.sin(t * 0.2) * 42 + Math.sin(t * 0.09) * 22;
-      const flowY = reduced
-        ? 0
-        : Math.cos(t * 0.16) * 30 + Math.sin(t * 0.07) * 16;
-      const flowX2 = reduced
-        ? 0
-        : Math.cos(t * 0.14) * 52 + Math.sin(t * 0.24) * 16;
-      const flowY2 = reduced
-        ? 0
-        : Math.sin(t * 0.12) * 38 + Math.cos(t * 0.19) * 18;
-      const breath = reduced ? 1 : 1 + Math.sin(t * 0.28) * 0.055;
-      const glowPulse = reduced
-        ? 0.55
-        : 0.38 + 0.36 * (0.5 + 0.5 * Math.sin(t * 0.34));
+      const flowX = reduced || mobile ? 0 : Math.sin(t * 0.14) * 22;
+      const flowY = reduced || mobile ? 0 : Math.cos(t * 0.11) * 14;
+      const breath = reduced || mobile ? 1 : 1 + Math.sin(t * 0.2) * 0.03;
 
       ctx.globalCompositeOperation = "source-over";
+      // +2px de sangria — mata linha/faixa nas bordas por arredondamento
       ctx.fillStyle = "#000000";
-      ctx.fillRect(0, 0, w, h);
+      ctx.fillRect(-2, -2, w + 4, h + 4);
 
+      // Ambiente mais “longe” no mobile (menos wash que parece zoom)
       const amb = ctx.createRadialGradient(
-        w * (0.5 + px * 0.02 + Math.sin(t * 0.11) * 0.04),
-        h * (0.42 + py * 0.015 + Math.cos(t * 0.1) * 0.03),
+        w * 0.5,
+        h * 0.45,
         0,
         w * 0.5,
         h * 0.5,
-        Math.max(w, h) * 0.9,
+        Math.max(w, h) * (mobile ? 1.05 : 0.85),
       );
-      amb.addColorStop(0, "rgba(28, 12, 42, 0.58)");
-      amb.addColorStop(0.45, "rgba(8, 10, 28, 0.38)");
+      amb.addColorStop(0, mobile ? "rgba(14, 8, 24, 0.35)" : "rgba(22, 10, 36, 0.55)");
+      amb.addColorStop(0.55, "rgba(6, 8, 18, 0.28)");
       amb.addColorStop(1, "rgba(0,0,0,0.94)");
       ctx.fillStyle = amb;
-      ctx.fillRect(0, 0, w, h);
-
-      // Dense starfield behind the gas (nebula look)
-      drawStars("back", t, cameraY, px, py, reduced);
+      ctx.fillRect(-2, -2, w + 4, h + 4);
 
       if (plate) {
         const srcY = Math.max(
           0,
-          Math.min(plate.height - 1, (cameraY + flowY * 0.55) * plateScale),
+          Math.min(plate.height - 1, (cameraY + flowY * 0.25) * plateScale),
         );
         const srcH = Math.min(plate.height - srcY, h * plateScale);
-        const dw = w * breath;
-        const dh = h * breath;
-        const dx = (w - dw) * 0.5 + flowX * 0.55 + px * 22;
-        const dy = (h - dh) * 0.5 + flowY * 0.4 + py * 14;
+        // Mobile: cobre além das bordas (evita faixa preta/colorida na esquerda)
+        const pad = mobile ? 3 : 0;
+        const dw = mobile ? w + pad * 2 : w * breath;
+        const dh = mobile ? h + pad * 2 : h * breath;
+        const dx = mobile ? -pad : (w - dw) * 0.5 + flowX * 0.35;
+        const dy = mobile ? -pad : (h - dh) * 0.5 + flowY * 0.2;
 
-        ctx.save();
-        ctx.globalAlpha = 0.86;
-        ctx.drawImage(plate, 0, srcY, plate.width, srcH, dx, dy, dw, dh);
-
-        // Counter-moving highlight layer
-        ctx.globalAlpha = glowPulse;
-        ctx.globalCompositeOperation = "lighter";
-        const srcY2 = Math.max(
-          0,
-          Math.min(plate.height - 1, (cameraY * 0.88 + flowY2 * 0.7) * plateScale),
-        );
+        ctx.globalAlpha = mobile ? 0.78 : 0.88;
+        ctx.imageSmoothingEnabled = true;
         ctx.drawImage(
           plate,
           0,
-          srcY2,
-          plate.width,
-          Math.min(plate.height - srcY2, h * plateScale),
-          -flowX2 * 0.45 - px * 12,
-          -flowY2 * 0.36 - py * 10,
-          w * (1.08 + (breath - 1) * 2.4),
-          h * (1.08 + (breath - 1) * 2.4),
-        );
-
-        if (!mobile) {
-          ctx.globalAlpha = 0.2 + 0.12 * Math.sin(t * 0.42);
-          const srcY3 = Math.max(
-            0,
-            Math.min(plate.height - 1, (cameraY * 1.06 - flowY * 1.2) * plateScale),
-          );
-          ctx.drawImage(
-            plate,
-            0,
-            srcY3,
-            plate.width,
-            Math.min(plate.height - srcY3, h * plateScale),
-            flowX * 0.75 + w * 0.015,
-            flowY * 0.55 - h * 0.02,
-            w * 0.99,
-            h * 0.99,
-          );
-        }
-        ctx.globalCompositeOperation = "source-over";
-        ctx.restore();
-      }
-
-      if (dustPlate) {
-        const srcY = Math.max(
-          0,
-          Math.min(
-            dustPlate.height - 1,
-            (cameraY + flowY * 0.35) * plateScale,
-          ),
-        );
-        const srcH = Math.min(dustPlate.height - srcY, h * plateScale);
-        ctx.globalAlpha = 0.74 + (reduced ? 0 : 0.1 * Math.sin(t * 0.22));
-        ctx.drawImage(
-          dustPlate,
-          0,
           srcY,
-          dustPlate.width,
-          srcH,
-          flowX * 0.22,
-          flowY * 0.16,
-          w,
-          h,
+          plate.width,
+          Math.max(1, srcH),
+          dx,
+          dy,
+          dw,
+          dh,
         );
         ctx.globalAlpha = 1;
       }
 
-      if (!reduced) {
-        ctx.globalCompositeOperation = "lighter";
-        const wx = w * (0.32 + 0.26 * Math.sin(t * 0.16)) + px * 24;
-        const wy = h * (0.38 + 0.2 * Math.cos(t * 0.13)) + py * 16;
-        const wash = ctx.createRadialGradient(
-          wx,
-          wy,
-          0,
-          wx,
-          wy,
-          Math.min(w, h) * 0.46,
-        );
-        wash.addColorStop(0, "rgba(80,210,255,0.09)");
-        wash.addColorStop(0.45, "rgba(255,90,160,0.065)");
-        wash.addColorStop(1, "rgba(0,0,0,0)");
-        ctx.fillStyle = wash;
-        ctx.fillRect(0, 0, w, h);
+      // Stars — wrap sem “costura” na borda esquerda
+      for (const s of stars) {
+        const drift = reduced || mobile ? 0 : t * (4 + s.depth * 8);
+        let sx = (s.x + drift * 0.3 + px * 16 * s.depth) % w;
+        if (sx < 0) sx += w;
+        const sy = s.y - cameraY + py * 10 * s.depth;
+        if (sy < -4 || sy > h + 4) continue;
 
-        const wx2 = w * (0.66 + 0.18 * Math.cos(t * 0.2));
-        const wy2 = h * (0.56 + 0.16 * Math.sin(t * 0.15));
-        const wash2 = ctx.createRadialGradient(
-          wx2,
-          wy2,
-          0,
-          wx2,
-          wy2,
-          Math.min(w, h) * 0.4,
-        );
-        wash2.addColorStop(0, "rgba(255,170,70,0.065)");
-        wash2.addColorStop(0.5, "rgba(255,60,130,0.045)");
-        wash2.addColorStop(1, "rgba(0,0,0,0)");
-        ctx.fillStyle = wash2;
-        ctx.fillRect(0, 0, w, h);
-        ctx.globalCompositeOperation = "source-over";
+        const twinkle =
+          reduced || mobile ? 0.85 : 0.55 + 0.45 * Math.sin(t * s.sp + s.tw);
+        const alpha = s.a * twinkle * (0.5 + s.depth * 0.5) * (mobile ? 0.9 : 1);
+        ctx.fillStyle =
+          s.hue === "cool"
+            ? `rgba(170,230,255,${alpha})`
+            : s.hue === "warm"
+              ? `rgba(255,214,160,${alpha})`
+              : `rgba(238,242,250,${alpha})`;
+        ctx.fillRect(sx - s.r, sy - s.r, s.r * 2, s.r * 2);
       }
-
-      // Brighter stars in front of the dust / gas
-      drawStars("front", t, cameraY, px, py, reduced);
 
       const vig = ctx.createRadialGradient(
         w * 0.5,
         h * 0.48,
-        Math.min(w, h) * 0.22,
+        Math.min(w, h) * (mobile ? 0.35 : 0.25),
         w * 0.5,
         h * 0.5,
         Math.max(w, h) * 0.82,
       );
       vig.addColorStop(0, "rgba(0,0,0,0)");
-      vig.addColorStop(0.72, "rgba(0,0,0,0.14)");
-      vig.addColorStop(1, "rgba(0,0,0,0.72)");
+      vig.addColorStop(1, mobile ? "rgba(0,0,0,0.58)" : "rgba(0,0,0,0.7)");
       ctx.fillStyle = vig;
-      ctx.fillRect(0, 0, w, h);
+      ctx.fillRect(-2, -2, w + 4, h + 4);
     };
 
     const tick = (now: number) => {
-      if (now - lastPaint >= fpsInterval) {
+      if (!active) {
+        raf = 0;
+        return;
+      }
+
+      const cameraY = -band.getBoundingClientRect().top;
+      const scrolled = Number.isNaN(lastCamY) || Math.abs(cameraY - lastCamY) >= 0.6;
+
+      // Mobile: fundo quase estático — só repinta no scroll (bem mais fluido)
+      // Desktop: anima no fpsInterval ou quando scroll muda
+      const due = now - lastPaint >= fpsInterval;
+      if (needsPaint || scrolled || (!mobile && !reduced && due)) {
         lastPaint = now;
+        lastCamY = cameraY;
+        needsPaint = false;
         paintFrame(now);
       }
+
       raf = requestAnimationFrame(tick);
     };
 
@@ -525,20 +431,25 @@ export function AboutGalaxyCanvas({
       pointer.ty = e.clientY / Math.max(1, window.innerHeight);
     };
 
-    resize();
+    resizeNow();
     window.addEventListener("resize", resize);
+    window.visualViewport?.addEventListener("resize", resize);
     if (!reduced && !mobile) {
       window.addEventListener("pointermove", onPointer, { passive: true });
     }
 
+    const parentRo = canvas.parentElement
+      ? new ResizeObserver(() => resize())
+      : null;
+    if (canvas.parentElement) parentRo?.observe(canvas.parentElement);
+
     const ro = new ResizeObserver(() => {
       const next = Math.max(band.scrollHeight, h * 2.8);
-      if (Math.abs(next - worldH) > 160) {
+      if (Math.abs(next - worldH) > 200) {
         worldH = next;
-        plate = null;
-        dustPlate = null;
-        bakePlateAsync();
+        bake();
         seedStars();
+        needsPaint = true;
       }
     });
     ro.observe(band);
@@ -550,7 +461,8 @@ export function AboutGalaxyCanvas({
       if (document.hidden) {
         cancelAnimationFrame(raf);
         raf = 0;
-      } else if (active && !reduced && !raf) {
+      } else if (active && !raf) {
+        needsPaint = true;
         raf = requestAnimationFrame(tick);
       }
     };
@@ -559,13 +471,18 @@ export function AboutGalaxyCanvas({
     return () => {
       disposed = true;
       bakeToken += 1;
+      window.clearTimeout(resizeTimer);
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", resize);
+      window.visualViewport?.removeEventListener("resize", resize);
       window.removeEventListener("pointermove", onPointer);
       document.removeEventListener("visibilitychange", onVisibility);
+      parentRo?.disconnect();
       ro.disconnect();
     };
   }, [active, reduced, mobile, bandRef]);
 
-  return <canvas ref={canvasRef} className="block h-full w-full" />;
+  return (
+    <canvas ref={canvasRef} className="absolute inset-0 block h-full w-full" />
+  );
 }

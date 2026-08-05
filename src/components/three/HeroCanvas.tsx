@@ -37,10 +37,10 @@ function SceneContent({
     <>
       <color attach="background" args={["#000000"]} />
 
-      <RealisticStars count={mobile ? 70 : reduced ? 90 : 120} />
-      <HyperspacePlane warp={mobile ? 0.75 : reduced ? 0.45 : 1.0} />
-      {light && <HyperspaceLines count={24} />}
-      {light && <HyperspaceStreaks count={32} />}
+      <RealisticStars count={mobile ? 40 : reduced ? 90 : 120} />
+      <HyperspacePlane warp={mobile ? 0.45 : reduced ? 0.45 : 1.0} />
+      {light && <HyperspaceLines count={18} />}
+      {light && <HyperspaceStreaks count={24} />}
 
       <CameraRig reduced={reduced || mobile} />
     </>
@@ -90,12 +90,12 @@ export function HeroCanvas() {
         gl={{
           antialias: !mobile,
           alpha: false,
-          powerPreference: "high-performance",
+          powerPreference: mobile ? "low-power" : "high-performance",
           stencil: false,
           depth: true,
         }}
         frameloop={visible ? "always" : "never"}
-        performance={{ min: 0.5 }}
+        performance={{ min: mobile ? 0.35 : 0.5 }}
         style={{ width: "100%", height: "100%" }}
       >
         <SceneContent reduced={reduced} mobile={mobile} />

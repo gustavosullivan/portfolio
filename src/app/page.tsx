@@ -1,4 +1,3 @@
-import { CustomCursor } from "@/components/cursor/CustomCursor";
 import { Navigation } from "@/components/nav/Navigation";
 import { Hero } from "@/components/hero/Hero";
 import { About } from "@/components/about/About";
@@ -15,7 +14,6 @@ import { ScrollExperience } from "@/components/ui/ScrollExperience";
 export default function HomePage() {
   return (
     <>
-      <CustomCursor />
       <CommandPalette />
       <Navigation />
       <main className="relative z-10 bg-black">

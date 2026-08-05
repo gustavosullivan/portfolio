@@ -41,7 +41,7 @@ export function AboutGalaxyBand({ children }: { children: ReactNode }) {
     <div ref={root} className="relative bg-black">
       <div
         className={cn(
-          "pointer-events-none sticky top-0 z-0 h-[100svh] w-full overflow-hidden transition-opacity duration-700 ease-in-out",
+          "pointer-events-none relative sticky top-0 z-0 h-[100svh] w-full overflow-hidden transition-opacity duration-700 ease-in-out [contain:paint]",
           active ? "opacity-100" : "opacity-0",
         )}
         aria-hidden

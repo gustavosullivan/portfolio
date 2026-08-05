@@ -174,7 +174,7 @@ export function Projects() {
   return (
     <section
       id="projects"
-      className="section-pad relative mx-auto max-w-7xl overflow-hidden pt-6 pb-10 md:pt-8 md:pb-12"
+      className="cv-auto section-pad relative mx-auto max-w-7xl overflow-hidden pt-6 pb-10 md:pt-8 md:pb-12"
     >
       <div className="pointer-events-none absolute -top-24 right-0 h-72 w-72 rounded-full bg-[#ff2bd6]/10 blur-[100px]" />
       <div className="pointer-events-none absolute bottom-0 left-0 h-64 w-64 rounded-full bg-[#7cff3a]/8 blur-[90px]" />

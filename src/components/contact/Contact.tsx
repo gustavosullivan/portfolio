@@ -111,7 +111,7 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="section-pad relative mx-auto max-w-7xl pt-10 pb-8 md:pt-12 md:pb-10">
+    <section id="contact" className="cv-auto section-pad relative mx-auto max-w-7xl pt-10 pb-8 md:pt-12 md:pb-10">
       <div className="mb-12 max-w-3xl">
         <p className="font-mono text-xs tracking-[0.28em] text-[#ffe81f]/80 uppercase">
           Contato

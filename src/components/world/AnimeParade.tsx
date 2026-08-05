@@ -32,48 +32,55 @@ export function AnimeParade() {
   useEffect(() => {
     if (reduced || !root.current || !visible) return;
 
+    const isNarrow = window.matchMedia("(max-width: 768px)").matches;
+
     const ctx = gsap.context(() => {
-      gsap.to("[data-parallax='sky']", {
-        backgroundPosition: "120% 45%",
-        duration: 90,
-        ease: "none",
-        repeat: -1,
-      });
-
-      const scrollPeriod = 1536;
-
-      gsap.fromTo(
-        "[data-parallax='far']",
-        { backgroundPosition: "0px 100%" },
-        {
-          backgroundPosition: `-${scrollPeriod}px 100%`,
-          duration: 48,
+      // Mobile: só grama próxima pra cortar custo
+      if (!isNarrow) {
+        gsap.to("[data-parallax='sky']", {
+          backgroundPosition: "120% 45%",
+          duration: 90,
           ease: "none",
           repeat: -1,
-        },
-      );
+        });
 
+        const scrollPeriod = 1536;
+        gsap.fromTo(
+          "[data-parallax='far']",
+          { backgroundPosition: "0px 100%" },
+          {
+            backgroundPosition: `-${scrollPeriod}px 100%`,
+            duration: 48,
+            ease: "none",
+            repeat: -1,
+          },
+        );
+      }
+
+      const period = 1536;
       gsap.fromTo(
         "[data-parallax='grass']",
         { backgroundPosition: "0px 100%" },
         {
-          backgroundPosition: `-${scrollPeriod}px 100%`,
-          duration: 14,
+          backgroundPosition: `-${period}px 100%`,
+          duration: isNarrow ? 22 : 14,
           ease: "none",
           repeat: -1,
         },
       );
 
-      gsap.fromTo(
-        "[data-parallax='grass-front']",
-        { backgroundPosition: "0px 100%" },
-        {
-          backgroundPosition: `-${scrollPeriod}px 100%`,
-          duration: 8,
-          ease: "none",
-          repeat: -1,
-        },
-      );
+      if (!isNarrow) {
+        gsap.fromTo(
+          "[data-parallax='grass-front']",
+          { backgroundPosition: "0px 100%" },
+          {
+            backgroundPosition: `-${period}px 100%`,
+            duration: 8,
+            ease: "none",
+            repeat: -1,
+          },
+        );
+      }
     }, root);
 
     return () => ctx.revert();
@@ -86,6 +93,7 @@ export function AnimeParade() {
       return;
     }
 
+    const isNarrow = window.matchMedia("(max-width: 768px)").matches;
     let frame = 0;
     const id = window.setInterval(() => {
       frame = (frame + 1) % FRAME_COUNT;
@@ -94,7 +102,7 @@ export function AnimeParade() {
         const pct = (frame / denom) * 100;
         sprite.current.style.backgroundPosition = `${pct}% 0`;
       }
-    }, 160);
+    }, isNarrow ? 220 : 160);
 
     return () => window.clearInterval(id);
   }, [reduced, visible]);

@@ -43,7 +43,7 @@ export function TechStack() {
       : TECH_STACK.filter((t) => t.category === focusLayer);
 
   return (
-    <section id="tech" className="section-pad relative mx-auto max-w-7xl pt-10 pb-8 md:pt-12 md:pb-10">
+    <section id="tech" className="cv-auto section-pad relative mx-auto max-w-7xl pt-10 pb-8 md:pt-12 md:pb-10">
       <div className="grid items-stretch gap-8 lg:grid-cols-2 lg:gap-12">
         <div className="flex h-full flex-col">
           <div className="mb-6 min-h-[9.5rem]">

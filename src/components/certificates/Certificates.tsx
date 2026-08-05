@@ -402,7 +402,7 @@ export function Certificates() {
   return (
     <section
       id="certificates"
-      className="relative overflow-hidden pt-10 pb-10 md:pt-12 md:pb-12"
+      className="cv-auto relative overflow-hidden pt-10 pb-10 md:pt-12 md:pb-12"
     >
       <div className="section-pad mx-auto max-w-7xl">
         <SectionHeading
