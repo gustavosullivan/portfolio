@@ -311,7 +311,7 @@ export const CERTIFICATES: Certificate[] = [
     issuer: "DIO · Santander",
     year: "2026",
     hours: "45h",
-    image: withBase("/certificates/rust-ai-dev.png"),
+    image: withBase("/certificates/rust-ai-dev.webp"),
     pdf: withBase("/certificates/rust-ai-dev.pdf"),
   },
   {
@@ -321,7 +321,7 @@ export const CERTIFICATES: Certificate[] = [
     issuer: "DIO",
     year: "2026",
     hours: "2h",
-    image: withBase("/certificates/fundamentos-ia.png"),
+    image: withBase("/certificates/fundamentos-ia.webp"),
     pdf: withBase("/certificates/fundamentos-ia.pdf"),
   },
   {
@@ -331,7 +331,7 @@ export const CERTIFICATES: Certificate[] = [
     issuer: "DIO",
     year: "2026",
     hours: "2h",
-    image: withBase("/certificates/carreira-ia.png"),
+    image: withBase("/certificates/carreira-ia.webp"),
     pdf: withBase("/certificates/carreira-ia.pdf"),
   },
   {
@@ -340,7 +340,7 @@ export const CERTIFICATES: Certificate[] = [
     issuer: "Atitus Educação",
     year: "2025/1",
     hours: "400h",
-    image: withBase("/certificates/apps-junior.png"),
+    image: withBase("/certificates/apps-junior.webp"),
     pdf: withBase("/certificates/apps-junior.pdf"),
   },
   {
@@ -349,7 +349,7 @@ export const CERTIFICATES: Certificate[] = [
     issuer: "Atitus Educação",
     year: "2025/2",
     hours: "400h",
-    image: withBase("/certificates/fullstack-qualifica.png"),
+    image: withBase("/certificates/fullstack-qualifica.webp"),
     pdf: withBase("/certificates/fullstack-qualifica.pdf"),
   },
 ];

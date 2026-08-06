@@ -6,7 +6,7 @@ import { usePrefersReducedMotion } from "@/hooks/useMediaQuery";
 import { withBase } from "@/lib/utils";
 
 const FRAME_COUNT = 4;
-const SHEET_URL = withBase("/world/walker-sheet.png");
+const SHEET_URL = withBase("/world/walker-sheet.webp");
 
 /**
  * Meadow emerging from matte space — top continues the Hero/void black.
@@ -17,13 +17,17 @@ export function AnimeParade() {
   const sprite = useRef<HTMLDivElement>(null);
   const reduced = usePrefersReducedMotion();
   const [visible, setVisible] = useState(false);
+  const [loadAssets, setLoadAssets] = useState(false);
 
   useEffect(() => {
     const el = root.current;
     if (!el) return;
     const io = new IntersectionObserver(
-      ([entry]) => setVisible(entry.isIntersecting),
-      { rootMargin: "120px 0px", threshold: 0.05 },
+      ([entry]) => {
+        setVisible(entry.isIntersecting);
+        if (entry.isIntersecting) setLoadAssets(true);
+      },
+      { rootMargin: "200px 0px", threshold: 0.05 },
     );
     io.observe(el);
     return () => io.disconnect();
@@ -118,7 +122,9 @@ export function AnimeParade() {
         data-parallax="sky"
         className="absolute inset-x-0 top-[6%] bottom-[18%] bg-cover bg-[center_top]"
         style={{
-          backgroundImage: `url(${withBase("/world/anime-sky.png")})`,
+          backgroundImage: loadAssets
+            ? `url(${withBase("/world/anime-sky.webp")})`
+            : undefined,
           backgroundSize: "cover",
           maskImage:
             "linear-gradient(to bottom, transparent 0%, black 28%, black 72%, transparent 100%)",
@@ -133,7 +139,9 @@ export function AnimeParade() {
         data-parallax="far"
         className="absolute inset-x-0 bottom-[16%] h-[44%] opacity-85"
         style={{
-          backgroundImage: `url(${withBase("/world/anime-grass-far.png")})`,
+          backgroundImage: loadAssets
+            ? `url(${withBase("/world/anime-grass-far.webp")})`
+            : undefined,
           backgroundRepeat: "repeat-x",
           backgroundSize: "auto 100%",
           backgroundPosition: "0% 100%",
@@ -148,7 +156,9 @@ export function AnimeParade() {
         data-parallax="grass"
         className="absolute inset-x-0 bottom-0 h-[50%]"
         style={{
-          backgroundImage: `url(${withBase("/world/anime-grass-scroll.png")})`,
+          backgroundImage: loadAssets
+            ? `url(${withBase("/world/anime-grass-scroll.webp")})`
+            : undefined,
           backgroundRepeat: "repeat-x",
           backgroundSize: "auto 108%",
           backgroundPosition: "0% 100%",
@@ -163,7 +173,9 @@ export function AnimeParade() {
         data-parallax="grass-front"
         className="absolute inset-x-0 bottom-0 h-[24%] opacity-90"
         style={{
-          backgroundImage: `url(${withBase("/world/anime-grass-scroll.png")})`,
+          backgroundImage: loadAssets
+            ? `url(${withBase("/world/anime-grass-scroll.webp")})`
+            : undefined,
           backgroundRepeat: "repeat-x",
           backgroundSize: "auto 160%",
           backgroundPosition: "0% 100%",
@@ -183,7 +195,7 @@ export function AnimeParade() {
           aria-label="Aventureiro anime caminhando com espada"
           className="aspect-[2/3] w-full bg-no-repeat"
           style={{
-            backgroundImage: `url(${SHEET_URL})`,
+            backgroundImage: loadAssets ? `url(${SHEET_URL})` : undefined,
             backgroundSize: `${FRAME_COUNT * 100}% 100%`,
             backgroundPosition: "0% 0",
           }}

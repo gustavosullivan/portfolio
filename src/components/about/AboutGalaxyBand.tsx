@@ -31,7 +31,8 @@ export function AboutGalaxyBand({ children }: { children: ReactNode }) {
         setActive(on);
         if (on) setMounted(true);
       },
-      { rootMargin: "120px 0px", threshold: 0.01 },
+      // Tight margin — avoid mounting the 2nd canvas while still in the hero
+      { rootMargin: "0px 0px", threshold: 0.08 },
     );
     io.observe(el);
     return () => io.disconnect();

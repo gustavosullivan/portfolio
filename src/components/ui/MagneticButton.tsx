@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import type { ReactNode } from "react";
 
@@ -24,7 +23,7 @@ export function MagneticButton({
   onClick,
 }: MagneticButtonProps) {
   const classes = cn(
-    "group relative inline-flex items-center justify-center overflow-hidden px-6 py-3 text-sm font-medium tracking-wide transition-colors disabled:cursor-not-allowed disabled:opacity-60",
+    "group relative inline-flex items-center justify-center overflow-hidden px-6 py-3 text-sm font-medium tracking-wide transition-[transform,colors] duration-200 disabled:cursor-not-allowed disabled:opacity-60 hover:scale-[1.03] active:scale-[0.98]",
     variant === "primary"
       ? "bg-[#ffe81f] text-black hover:bg-[#fff6a0]"
       : "glass text-[#ffe81f] hover:border-[#ffe81f]/50",
@@ -40,29 +39,21 @@ export function MagneticButton({
 
   if (href) {
     return (
-      <motion.a
-        href={href}
-        data-cursor="magnetic"
-        className={classes}
-        whileHover={{ scale: 1.03 }}
-        whileTap={{ scale: 0.98 }}
-      >
+      <a href={href} data-cursor="magnetic" className={classes}>
         {inner}
-      </motion.a>
+      </a>
     );
   }
 
   return (
-    <motion.button
+    <button
       type={type}
       disabled={disabled}
       onClick={onClick}
       data-cursor="magnetic"
       className={classes}
-      whileHover={{ scale: disabled ? 1 : 1.03 }}
-      whileTap={{ scale: disabled ? 1 : 0.98 }}
     >
       {inner}
-    </motion.button>
+    </button>
   );
 }

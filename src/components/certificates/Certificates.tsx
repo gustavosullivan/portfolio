@@ -464,13 +464,19 @@ export function Certificates() {
                     }}
                     className="absolute inset-0 block w-full"
                   >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={cert.image}
-                      alt=""
-                      draggable={false}
-                      className="pointer-events-none h-full w-full select-none object-cover object-top"
-                    />
+                    {Math.abs(i - index) <= 2 ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={cert.image}
+                        alt=""
+                        draggable={false}
+                        loading={Math.abs(i - index) <= 1 ? "eager" : "lazy"}
+                        decoding="async"
+                        className="pointer-events-none h-full w-full select-none object-cover object-top"
+                      />
+                    ) : (
+                      <div className="h-full w-full bg-black/50" aria-hidden />
+                    )}
                   </button>
 
                   {focused ? (

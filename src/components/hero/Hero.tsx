@@ -1,9 +1,8 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowDown } from "lucide-react";
-import gsap from "gsap";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { SITE } from "@/lib/constants";
 import { usePrefersReducedMotion } from "@/hooks/useMediaQuery";
@@ -20,50 +19,82 @@ const HeroCanvas = dynamic(
 export function Hero() {
   const root = useRef<HTMLElement>(null);
   const reduced = usePrefersReducedMotion();
+  // Let text/CSS paint first; WebGL (three.js) waits for idle
+  const [canvasReady, setCanvasReady] = useState(false);
+
+  useEffect(() => {
+    let idleId: number | undefined;
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
+    const enable = () => setCanvasReady(true);
+
+    const ric = window.requestIdleCallback;
+    if (typeof ric === "function") {
+      idleId = ric(enable, { timeout: 600 });
+    } else {
+      timeoutId = setTimeout(enable, 120);
+    }
+
+    return () => {
+      if (idleId !== undefined && typeof window.cancelIdleCallback === "function") {
+        window.cancelIdleCallback(idleId);
+      }
+      if (timeoutId !== undefined) clearTimeout(timeoutId);
+    };
+  }, []);
 
   useEffect(() => {
     if (reduced || !root.current) return;
 
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-      tl.fromTo(
-        "[data-hero='eyebrow']",
-        { y: 24, autoAlpha: 0 },
-        { y: 0, autoAlpha: 1, duration: 0.7 },
-      )
-        .fromTo(
-          "[data-hero='title']",
-          { y: 50, autoAlpha: 0, filter: "blur(10px)" },
-          { y: 0, autoAlpha: 1, filter: "blur(0px)", duration: 1.1 },
-          "-=0.35",
-        )
-        .fromTo(
-          "[data-hero='stack']",
-          { y: 20, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 0.7 },
-          "-=0.55",
-        )
-        .fromTo(
-          "[data-hero='tagline']",
-          { y: 20, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 0.7 },
-          "-=0.45",
-        )
-        .fromTo(
-          "[data-hero='cta']",
-          { y: 16, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 0.6 },
-          "-=0.35",
-        )
-        .fromTo(
-          "[data-hero='scroll']",
-          { autoAlpha: 0 },
-          { autoAlpha: 1, duration: 0.5 },
-          "-=0.2",
-        );
-    }, root);
+    let reverted = false;
+    let revert: (() => void) | undefined;
 
-    return () => ctx.revert();
+    void import("gsap").then(({ default: gsap }) => {
+      if (reverted || !root.current) return;
+      const ctx = gsap.context(() => {
+        const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+        tl.fromTo(
+          "[data-hero='eyebrow']",
+          { y: 24, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1, duration: 0.7 },
+        )
+          .fromTo(
+            "[data-hero='title']",
+            { y: 50, autoAlpha: 0, filter: "blur(10px)" },
+            { y: 0, autoAlpha: 1, filter: "blur(0px)", duration: 1.1 },
+            "-=0.35",
+          )
+          .fromTo(
+            "[data-hero='stack']",
+            { y: 20, autoAlpha: 0 },
+            { y: 0, autoAlpha: 1, duration: 0.7 },
+            "-=0.55",
+          )
+          .fromTo(
+            "[data-hero='tagline']",
+            { y: 20, autoAlpha: 0 },
+            { y: 0, autoAlpha: 1, duration: 0.7 },
+            "-=0.45",
+          )
+          .fromTo(
+            "[data-hero='cta']",
+            { y: 16, autoAlpha: 0 },
+            { y: 0, autoAlpha: 1, duration: 0.6 },
+            "-=0.35",
+          )
+          .fromTo(
+            "[data-hero='scroll']",
+            { autoAlpha: 0 },
+            { autoAlpha: 1, duration: 0.5 },
+            "-=0.2",
+          );
+      }, root);
+      revert = () => ctx.revert();
+    });
+
+    return () => {
+      reverted = true;
+      revert?.();
+    };
   }, [reduced]);
 
   return (
@@ -72,10 +103,9 @@ export function Hero() {
       id="top"
       className="relative z-10 flex h-[100svh] max-h-[100svh] items-end overflow-hidden pb-16 md:items-center md:pb-0"
     >
-      {/* Galaxy clipped to first viewport only — always running */}
-      <div className="absolute inset-0 overflow-hidden">
-        <HeroCanvas />
-        {/* Soft handoff into the next background */}
+      {/* Galaxy: deferred until after first paint so GH Pages first click stays snappy */}
+      <div className="absolute inset-0 overflow-hidden bg-black">
+        {canvasReady && !reduced ? <HeroCanvas /> : null}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-36 bg-gradient-to-b from-transparent via-black/50 to-black md:h-48" />
       </div>
 
