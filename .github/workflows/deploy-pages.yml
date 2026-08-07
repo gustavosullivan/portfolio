@@ -30,6 +30,10 @@ jobs:
       - name: Install
         run: npm ci
 
+      # Route Handlers (Resend) só funcionam na Vercel; export estático não as inclui.
+      - name: Strip API routes for static export
+        run: rm -rf src/app/api
+
       - name: Build static site
         run: npm run build
         env:

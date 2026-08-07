@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const SITE_URL = "https://gustavosullivan.github.io/portfolio";
+const SITE_URL = "https://www.gudev.com.br";
 
 export const dynamic = "force-static";
 

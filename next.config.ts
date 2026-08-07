@@ -4,7 +4,8 @@ const isGithubPages = process.env.GITHUB_PAGES === "true";
 const basePath = isGithubPages ? "/portfolio" : "";
 
 const nextConfig: NextConfig = {
-  output: "export",
+  // Static export only for GitHub Pages. Vercel needs a Node runtime for /api/contact (Resend).
+  ...(isGithubPages ? { output: "export" as const } : {}),
   basePath,
   assetPrefix: basePath || undefined,
   env: {

@@ -18,7 +18,7 @@ export default function HomePage() {
             "@type": "Person",
             name: "Gustavo Barbosa Portela",
             jobTitle: "Desenvolvedor Full Stack",
-            url: "https://github.com/gustavosullivan/portfolio",
+            url: "https://www.gudev.com.br",
             email: "mailto:gubportela@gmail.com",
             sameAs: [
               "https://github.com/gustavosullivan",

@@ -23,7 +23,7 @@ const syne = Syne({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://gustavosullivan.github.io/portfolio"),
+  metadataBase: new URL("https://www.gudev.com.br"),
   title: {
     default: "Gustavo Barbosa Portela — Full Stack & Engenharia de Software",
     template: "%s · Gustavo Portela",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "pt_BR",
-    url: "https://gustavosullivan.github.io/portfolio",
+    url: "https://www.gudev.com.br",
     title: "Gustavo Barbosa Portela — Full Stack & Engenharia de Software",
     description:
       "Desenvolvedor Full Stack — aplicações web e APIs escaláveis com foco em produção.",
