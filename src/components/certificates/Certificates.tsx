@@ -6,12 +6,17 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Download, Expand, X } from "lucide-react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { CERTIFICATES } from "@/lib/constants";
+import { useI18n } from "@/i18n";
 import type { Certificate } from "@/types";
 import { cn } from "@/lib/utils";
 
 const DRAG_THRESHOLD = 6;
 
 export function Certificates() {
+  const { t } = useI18n();
+  const titles = t.certificates.titles as Record<string, string> | undefined;
+  const certTitle = (cert: Certificate) => titles?.[cert.id] ?? cert.title;
+
   const [active, setActive] = useState<Certificate | null>(null);
   const [mounted, setMounted] = useState(false);
   const [dragging, setDragging] = useState(false);
@@ -358,7 +363,7 @@ export function Certificates() {
                     id="certificate-modal-title"
                     className="mt-1 truncate text-sm font-medium text-white md:text-base"
                   >
-                    {active.title}
+                    {certTitle(active)}
                   </h3>
                 </div>
                 <div className="flex shrink-0 items-center gap-2">
@@ -387,7 +392,7 @@ export function Certificates() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={active.image}
-                  alt={active.title}
+                  alt={certTitle(active)}
                   className="mx-auto h-auto max-h-[78vh] w-auto max-w-full object-contain shadow-[0_20px_60px_rgba(0,0,0,0.45)]"
                   draggable={false}
                 />
@@ -406,9 +411,9 @@ export function Certificates() {
     >
       <div className="section-pad mx-auto max-w-7xl">
         <SectionHeading
-          eyebrow="Certificados"
-          title="Certificações"
-          description="Certificado completo no centro. Laterais saem da página — role ou arraste para o próximo entrar."
+          eyebrow={t.certificates.eyebrow}
+          title={t.certificates.title}
+          description={t.certificates.description}
           className="mb-10"
         />
       </div>
@@ -430,6 +435,7 @@ export function Certificates() {
         >
           {CERTIFICATES.map((cert, i) => {
             const focused = i === index;
+            const title = certTitle(cert);
             return (
               <article
                 key={cert.id}
@@ -448,8 +454,8 @@ export function Certificates() {
                     type="button"
                     aria-label={
                       focused
-                        ? `Ampliar certificado ${cert.title}`
-                        : `Centralizar ${cert.title}`
+                        ? `Ampliar certificado ${title}`
+                        : `Centralizar ${title}`
                     }
                     onClick={() => {
                       if (suppressClick.current) {
@@ -512,7 +518,7 @@ export function Certificates() {
                     {cert.hours ? ` · ${cert.hours}` : ""}
                   </p>
                   <h3 className="mt-2 line-clamp-2 text-base font-medium text-white md:text-lg">
-                    {cert.title}
+                    {title}
                   </h3>
                   <p className="mt-2 text-sm text-white/45">{cert.issuer}</p>
                 </button>
@@ -558,7 +564,7 @@ export function Certificates() {
           <button
             key={cert.id}
             type="button"
-            aria-label={`Ir para ${cert.title}`}
+            aria-label={`Ir para ${certTitle(cert)}`}
             onClick={() => scrollToIndex(i)}
             className={cn(
               "h-1.5 rounded-full transition-all",

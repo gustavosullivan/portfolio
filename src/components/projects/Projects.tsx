@@ -7,25 +7,37 @@ import { ExternalLink, Code2, X } from "lucide-react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { HoloCard } from "@/components/ui/HoloCard";
 import { PROJECTS } from "@/lib/constants";
+import { useI18n } from "@/i18n";
 import type { ProjectCategory } from "@/types";
 import { cn } from "@/lib/utils";
 
-const FILTERS: { id: ProjectCategory; label: string }[] = [
-  { id: "all", label: "All" },
-  { id: "saas", label: "SaaS" },
-  { id: "systems", label: "Systems" },
-  { id: "web", label: "Web" },
-];
-
 export function Projects() {
+  const { t } = useI18n();
+  const projects = PROJECTS.map((p) => {
+    const tr = t.projects.items.find((i) => i.id === p.id);
+    return tr
+      ? {
+          ...p,
+          ...tr,
+          tech: p.tech,
+          accent: p.accent,
+          liveUrl: p.liveUrl,
+          githubUrl: p.githubUrl,
+          category: p.category,
+        }
+      : p;
+  });
+
   const [filter, setFilter] = useState<ProjectCategory>("all");
   const [activeId, setActiveId] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
 
   const filtered =
-    filter === "all" ? PROJECTS : PROJECTS.filter((p) => p.category === filter);
+    filter === "all"
+      ? projects
+      : projects.filter((p) => p.category === filter);
   const active = activeId
-    ? (PROJECTS.find((p) => p.id === activeId) ?? null)
+    ? (projects.find((p) => p.id === activeId) ?? null)
     : null;
 
   useEffect(() => setMounted(true), []);
@@ -51,7 +63,7 @@ export function Projects() {
         {active && (
           <motion.div
             key={active.id}
-            className="fixed inset-0 z-[90] flex items-center justify-center p-4 md:p-8"
+            className="fixed inset-0 z-[90] flex items-center justify-center p-5 sm:p-6 md:p-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -59,8 +71,8 @@ export function Projects() {
           >
             <button
               type="button"
-              aria-label="Fechar"
-              className="absolute inset-0 bg-black/75 backdrop-blur-sm"
+              aria-label={t.projects.close}
+              className="absolute inset-0 bg-black/85 md:bg-black/75 md:backdrop-blur-sm"
               onClick={() => setActiveId(null)}
             />
 
@@ -72,18 +84,18 @@ export function Projects() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 16, scale: 0.97 }}
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              className="relative z-10 w-full max-w-3xl overflow-hidden"
+              className="relative z-10 max-h-[70dvh] w-full max-w-[min(100%,22rem)] overflow-y-auto overscroll-contain md:max-h-[min(90vh,42rem)] md:max-w-3xl"
               style={{ perspective: 1200 }}
             >
-              <HoloCard accent={active.accent} className="p-6 md:p-8">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className="font-mono text-xs tracking-[0.24em] text-[#ffe81f]/40 uppercase">
-                      Case study
+              <HoloCard accent={active.accent} solid className="p-4 md:p-8">
+                <div className="flex items-start justify-between gap-3 md:gap-4">
+                  <div className="min-w-0">
+                    <p className="font-mono text-[10px] tracking-[0.24em] text-[#ffe81f]/55 uppercase md:text-xs">
+                      {t.projects.caseStudy}
                     </p>
                     <h3
                       id="project-modal-title"
-                      className="display glow-text mt-2 text-3xl font-semibold text-[#ffe81f] md:text-4xl"
+                      className="display mt-1 text-xl font-semibold text-[#ffe81f] md:mt-2 md:text-4xl"
                     >
                       {active.title}
                     </h3>
@@ -92,24 +104,24 @@ export function Projects() {
                     type="button"
                     onClick={() => setActiveId(null)}
                     className="shrink-0 border border-[#ffe81f]/20 p-2 text-[#ffe81f]/60 transition-colors hover:border-[#ffe81f]/45 hover:text-[#ffe81f]"
-                    aria-label="Fechar modal"
+                    aria-label={t.projects.closeModal}
                   >
                     <X className="h-4 w-4" />
                   </button>
                 </div>
 
-                <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[#ffe81f]/60 md:text-base">
+                <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[#ffe81f]/80 md:text-base md:text-[#ffe81f]/70">
                   {active.description}
                 </p>
 
-                <div className="mt-6 grid gap-5 md:grid-cols-2 md:gap-6">
+                <div className="mt-4 grid gap-4 md:mt-6 md:grid-cols-2 md:gap-6">
                   <div>
                     <h4 className="mb-2 font-mono text-[11px] tracking-wider text-[#ff2bd6]/80 uppercase">
-                      Features
+                      {t.projects.features}
                     </h4>
                     <ul className="space-y-1.5">
                       {active.features.map((feature) => (
-                        <li key={feature} className="text-sm text-white/65">
+                        <li key={feature} className="text-sm text-white/80 md:text-white/65">
                           <span className="mr-2 text-[#7cff3a]">▸</span>
                           {feature}
                         </li>
@@ -118,21 +130,21 @@ export function Projects() {
                   </div>
                   <div>
                     <h4 className="mb-2 font-mono text-[11px] tracking-wider text-[#ff2bd6]/80 uppercase">
-                      Architecture
+                      {t.projects.architecture}
                     </h4>
-                    <p className="text-sm leading-relaxed text-white/55">
+                    <p className="text-sm leading-relaxed text-white/75 md:text-white/55">
                       {active.architecture}
                     </p>
-                    <div className="mt-4 grid grid-cols-3 gap-2.5">
+                    <div className="mt-4 grid grid-cols-3 gap-2 md:gap-2.5">
                       {active.metrics.map((metric) => (
                         <div
                           key={metric.label}
-                          className="border border-white/10 bg-black/30 p-2.5"
+                          className="border border-white/10 bg-black/30 p-2 md:p-2.5"
                         >
                           <p className="font-mono text-[10px] text-white/35 uppercase">
                             {metric.label}
                           </p>
-                          <p className="mt-1 text-sm text-white">
+                          <p className="mt-1 text-xs text-white md:text-sm">
                             {metric.value}
                           </p>
                         </div>
@@ -141,7 +153,7 @@ export function Projects() {
                   </div>
                 </div>
 
-                <div className="mt-6 flex flex-wrap gap-3">
+                <div className="mt-5 flex flex-wrap gap-3 md:mt-6">
                   {active.liveUrl && (
                     <a
                       href={active.liveUrl}
@@ -149,7 +161,8 @@ export function Projects() {
                       rel="noreferrer"
                       className="inline-flex items-center gap-2 bg-white px-4 py-2 text-sm text-black transition-colors hover:bg-[#7cff3a]"
                     >
-                      Live Demo <ExternalLink className="h-3.5 w-3.5" />
+                      {t.projects.liveDemo}{" "}
+                      <ExternalLink className="h-3.5 w-3.5" />
                     </a>
                   )}
                   {active.githubUrl && (
@@ -159,7 +172,7 @@ export function Projects() {
                       rel="noreferrer"
                       className="glass inline-flex items-center gap-2 px-4 py-2 text-sm text-white"
                     >
-                      GitHub <Code2 className="h-3.5 w-3.5" />
+                      {t.projects.github} <Code2 className="h-3.5 w-3.5" />
                     </a>
                   )}
                 </div>
@@ -180,22 +193,22 @@ export function Projects() {
       <div className="pointer-events-none absolute bottom-0 left-0 h-64 w-64 rounded-full bg-[#7cff3a]/8 blur-[90px]" />
 
       <SectionHeading
-        eyebrow="Projetos"
-        title="Profissionais"
-        description="SN800, SN250 e Truco Games — sistemas em produção com ownership Full Stack."
+        eyebrow={t.projects.eyebrow}
+        title={t.projects.title}
+        description={t.projects.description}
       />
 
       <div className="mb-8 flex flex-wrap gap-2">
-        {FILTERS.map((item) => (
+        {t.projects.filters.map((item) => (
           <button
             key={item.id}
             type="button"
-            onClick={() => setFilter(item.id)}
+            onClick={() => setFilter(item.id as ProjectCategory)}
             className={cn(
-              "px-4 py-2 font-mono text-xs tracking-wider uppercase transition-colors",
+              "border px-3 py-1.5 font-mono text-[10px] tracking-[0.18em] uppercase transition-colors",
               filter === item.id
-                ? "bg-white text-black"
-                : "glass text-white/60 hover:text-white",
+                ? "border-[#ffe81f]/50 bg-[#ffe81f]/15 text-[#ffe81f]"
+                : "border-[#ffe81f]/15 text-[#ffe81f]/45 hover:border-[#ffe81f]/30 hover:text-[#ffe81f]/70",
             )}
           >
             {item.label}

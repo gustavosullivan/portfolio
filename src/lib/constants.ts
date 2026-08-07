@@ -39,9 +39,9 @@ export const STATS = [
 export const TECH_STACK: TechItem[] = [
   { name: "React", category: "frontend", color: "#61DAFB" },
   { name: "Next.js", category: "frontend", color: "#FFE81F" },
+  { name: "FastAPI", category: "backend", color: "#009688" },
   { name: "NestJS", category: "backend", color: "#E0234E" },
   { name: "Node.js", category: "backend", color: "#68A063" },
-  { name: "FastAPI", category: "backend", color: "#009688" },
   { name: "PostgreSQL", category: "infra", color: "#4A90C4" },
   { name: "Supabase", category: "infra", color: "#3ECF8E" },
   { name: "Docker", category: "infra", color: "#2496ED" },
@@ -358,5 +358,6 @@ export const NAV_LINKS = [
   { href: "#about", label: "Perfil" },
   { href: "#tech", label: "Stack" },
   { href: "#projects", label: "Projetos" },
+  { href: "#certificates", label: "Certificações" },
   { href: "#contact", label: "Contato" },
 ] as const;

@@ -10,11 +10,12 @@ const SHEET_URL = withBase("/world/walker-sheet.webp");
 
 /**
  * Meadow emerging from matte space — top continues the Hero/void black.
- * Animations pause while offscreen.
+ * Mobile: transform-based scroll (sem backgroundPosition) pra evitar tremor.
  */
 export function AnimeParade() {
   const root = useRef<HTMLDivElement>(null);
   const sprite = useRef<HTMLDivElement>(null);
+  const grassTrack = useRef<HTMLDivElement>(null);
   const reduced = usePrefersReducedMotion();
   const [visible, setVisible] = useState(false);
   const [loadAssets, setLoadAssets] = useState(false);
@@ -39,13 +40,13 @@ export function AnimeParade() {
     const isNarrow = window.matchMedia("(max-width: 768px)").matches;
 
     const ctx = gsap.context(() => {
-      // Mobile: só grama próxima pra cortar custo
       if (!isNarrow) {
         gsap.to("[data-parallax='sky']", {
           backgroundPosition: "120% 45%",
           duration: 90,
           ease: "none",
           repeat: -1,
+          force3D: true,
         });
 
         const scrollPeriod = 1536;
@@ -57,31 +58,44 @@ export function AnimeParade() {
             duration: 48,
             ease: "none",
             repeat: -1,
+            force3D: true,
           },
         );
-      }
 
-      const period = 1536;
-      gsap.fromTo(
-        "[data-parallax='grass']",
-        { backgroundPosition: "0px 100%" },
-        {
-          backgroundPosition: `-${period}px 100%`,
-          duration: isNarrow ? 22 : 14,
-          ease: "none",
-          repeat: -1,
-        },
-      );
+        gsap.fromTo(
+          "[data-parallax='grass']",
+          { backgroundPosition: "0px 100%" },
+          {
+            backgroundPosition: `-${scrollPeriod}px 100%`,
+            duration: 14,
+            ease: "none",
+            repeat: -1,
+            force3D: true,
+          },
+        );
 
-      if (!isNarrow) {
         gsap.fromTo(
           "[data-parallax='grass-front']",
           { backgroundPosition: "0px 100%" },
           {
-            backgroundPosition: `-${period}px 100%`,
+            backgroundPosition: `-${scrollPeriod}px 100%`,
             duration: 8,
             ease: "none",
             repeat: -1,
+            force3D: true,
+          },
+        );
+      } else if (grassTrack.current) {
+        // Mobile: scroll via translate3d (estável no GPU)
+        gsap.fromTo(
+          grassTrack.current,
+          { x: 0 },
+          {
+            x: "-50%",
+            duration: 28,
+            ease: "none",
+            repeat: -1,
+            force3D: true,
           },
         );
       }
@@ -93,7 +107,7 @@ export function AnimeParade() {
   useEffect(() => {
     if (!sprite.current) return;
     if (reduced || !visible) {
-      if (sprite.current) sprite.current.style.backgroundPosition = "0% 0";
+      if (sprite.current) sprite.current.style.backgroundPosition = "0 0";
       return;
     }
 
@@ -102,11 +116,12 @@ export function AnimeParade() {
     const id = window.setInterval(() => {
       frame = (frame + 1) % FRAME_COUNT;
       if (sprite.current) {
+        // Posição em % inteira — evita subpixel tremido
         const denom = Math.max(1, FRAME_COUNT - 1);
-        const pct = (frame / denom) * 100;
+        const pct = Math.round((frame / denom) * 100);
         sprite.current.style.backgroundPosition = `${pct}% 0`;
       }
-    }, isNarrow ? 220 : 160);
+    }, isNarrow ? 260 : 160);
 
     return () => window.clearInterval(id);
   }, [reduced, visible]);
@@ -114,30 +129,30 @@ export function AnimeParade() {
   return (
     <div
       ref={root}
-      className="relative h-[min(88vh,720px)] w-full overflow-hidden bg-black"
+      className="relative h-[min(72vh,560px)] w-full overflow-hidden bg-black md:h-[min(88vh,720px)]"
     >
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[42%] bg-gradient-to-b from-black via-[#08090f] to-[#1a2438]" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[38%] bg-gradient-to-b from-black via-[#08090f] to-[#1a2438] md:h-[42%]" />
 
       <div
         data-parallax="sky"
-        className="absolute inset-x-0 top-[6%] bottom-[18%] bg-cover bg-[center_top]"
+        className="absolute inset-x-0 top-[2%] bottom-[28%] bg-cover bg-[center_top] md:top-[6%] md:bottom-[18%]"
         style={{
           backgroundImage: loadAssets
             ? `url(${withBase("/world/anime-sky.webp")})`
             : undefined,
           backgroundSize: "cover",
           maskImage:
-            "linear-gradient(to bottom, transparent 0%, black 28%, black 72%, transparent 100%)",
+            "linear-gradient(to bottom, transparent 0%, black 12%, black 78%, transparent 100%)",
           WebkitMaskImage:
-            "linear-gradient(to bottom, transparent 0%, black 28%, black 72%, transparent 100%)",
+            "linear-gradient(to bottom, transparent 0%, black 12%, black 78%, transparent 100%)",
         }}
       />
 
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-black via-black/75 to-transparent md:h-44" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black via-black/70 to-transparent md:h-44 md:via-black/75" />
 
       <div
         data-parallax="far"
-        className="absolute inset-x-0 bottom-[16%] h-[44%] opacity-85"
+        className="absolute inset-x-0 bottom-[16%] h-[40%] opacity-80 md:h-[44%] md:opacity-85"
         style={{
           backgroundImage: loadAssets
             ? `url(${withBase("/world/anime-grass-far.webp")})`
@@ -152,9 +167,10 @@ export function AnimeParade() {
         }}
       />
 
+      {/* Desktop grass via backgroundPosition */}
       <div
         data-parallax="grass"
-        className="absolute inset-x-0 bottom-0 h-[50%]"
+        className="absolute inset-x-0 bottom-0 hidden h-[50%] md:block"
         style={{
           backgroundImage: loadAssets
             ? `url(${withBase("/world/anime-grass-scroll.webp")})`
@@ -171,7 +187,7 @@ export function AnimeParade() {
 
       <div
         data-parallax="grass-front"
-        className="absolute inset-x-0 bottom-0 h-[24%] opacity-90"
+        className="absolute inset-x-0 bottom-0 hidden h-[24%] opacity-90 md:block"
         style={{
           backgroundImage: loadAssets
             ? `url(${withBase("/world/anime-grass-scroll.webp")})`
@@ -185,9 +201,34 @@ export function AnimeParade() {
         }}
       />
 
+      {/* Mobile grass: faixa duplicada + translate3d */}
+      <div className="absolute inset-x-0 bottom-0 h-[58%] overflow-hidden md:hidden">
+        <div
+          ref={grassTrack}
+          className="flex h-full w-[200%] will-change-transform"
+          style={{ transform: "translate3d(0,0,0)" }}
+        >
+          {[0, 1].map((i) => (
+            <div
+              key={i}
+              className="h-full w-1/2 shrink-0"
+              style={{
+                backgroundImage: loadAssets
+                  ? `url(${withBase("/world/anime-grass-scroll.webp")})`
+                  : undefined,
+                backgroundRepeat: "repeat-x",
+                backgroundSize: "auto 100%",
+                backgroundPosition: "0 100%",
+              }}
+            />
+          ))}
+        </div>
+      </div>
+
       <div
         data-hero="walker"
-        className="absolute bottom-[6%] left-[10%] z-10 w-[min(38vw,260px)] origin-bottom drop-shadow-[0_14px_22px_rgba(0,0,0,0.5)] md:left-[16%] md:w-[280px]"
+        className="absolute bottom-[6%] left-[10%] z-10 w-[min(34vw,200px)] origin-bottom md:left-[16%] md:w-[280px] md:drop-shadow-[0_14px_22px_rgba(0,0,0,0.5)]"
+        style={{ transform: "translateZ(0)" }}
       >
         <div
           ref={sprite}
@@ -197,12 +238,13 @@ export function AnimeParade() {
           style={{
             backgroundImage: loadAssets ? `url(${SHEET_URL})` : undefined,
             backgroundSize: `${FRAME_COUNT * 100}% 100%`,
-            backgroundPosition: "0% 0",
+            backgroundPosition: "0 0",
+            imageRendering: "auto",
           }}
         />
       </div>
 
-      <div className="pointer-events-none absolute bottom-[7%] left-[16%] z-[5] h-4 w-[16%] rounded-[100%] bg-black/35 blur-md md:left-[20%]" />
+      <div className="pointer-events-none absolute bottom-[7%] left-[16%] z-[5] hidden h-4 w-[16%] rounded-[100%] bg-black/35 blur-md md:left-[20%] md:block" />
 
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_55%,rgba(0,0,0,0.22)_100%)]" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#0a1a0c] via-[#0a1a0c]/45 to-transparent" />

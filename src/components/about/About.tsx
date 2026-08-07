@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { EXPERIENCES, SITE, STATS } from "@/lib/constants";
+import { useI18n } from "@/i18n";
 
 function Counter({ value, suffix }: { value: number; suffix: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -55,7 +55,8 @@ function ColumnHeader({
 }
 
 export function About() {
-  const experienceSubtitle = EXPERIENCES.map((e) => e.company).join(" · ");
+  const { t } = useI18n();
+  const experienceSubtitle = t.experiences.map((e) => e.company).join(" · ");
 
   return (
     <section id="about" className="section-pad relative mx-auto max-w-7xl pt-20 pb-10 md:pt-24 md:pb-12">
@@ -69,22 +70,22 @@ export function About() {
           transition={{ duration: 0.65 }}
         >
           <ColumnHeader
-            eyebrow="Descrição"
-            title="Perfil"
-            subtitle={SITE.education}
+            eyebrow={t.aboutUi.descriptionEyebrow}
+            title={t.aboutUi.profileTitle}
+            subtitle={t.site.education}
           />
 
           <div className="relative flex min-h-0 flex-1 flex-col overflow-hidden border border-white/10 bg-black/55 backdrop-blur-md p-8 md:p-10">
             <div className="absolute -top-20 -right-16 h-56 w-56 rounded-full bg-cyan-400/10 blur-3xl" />
             <p className="relative text-lg leading-relaxed text-[#ffe81f]/70 md:text-xl">
-              {SITE.about}
+              {t.site.about}
             </p>
             <p className="relative mt-5 text-sm text-[#ffe81f]/40">
-              {SITE.location}
+              {t.site.location}
             </p>
 
             <div className="relative mt-auto grid grid-cols-2 gap-6 pt-10">
-              {STATS.map((stat) => (
+              {t.stats.map((stat) => (
                 <div key={stat.label}>
                   <Counter value={stat.value} suffix={stat.suffix} />
                   <p className="mt-2 text-xs tracking-wide text-[#ffe81f]/40 uppercase">
@@ -105,13 +106,13 @@ export function About() {
           transition={{ duration: 0.65, delay: 0.08 }}
         >
           <ColumnHeader
-            eyebrow="Carreira"
-            title="Experiência profissional"
+            eyebrow={t.aboutUi.careerEyebrow}
+            title={t.aboutUi.experienceTitle}
             subtitle={experienceSubtitle}
           />
 
           <div className="flex min-h-0 flex-1 flex-col gap-4">
-            {EXPERIENCES.map((exp, index) => (
+            {t.experiences.map((exp, index) => (
               <motion.article
                 key={exp.id}
                 className="glass group flex-1 bg-black/55 p-6 backdrop-blur-md transition-colors hover:border-cyan-300/30 md:p-8"

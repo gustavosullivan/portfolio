@@ -9,6 +9,7 @@ import {
   type ReactNode,
 } from "react";
 import { useLenis } from "@/hooks/useLenis";
+import { LocaleProvider } from "@/i18n";
 
 interface AppContextValue {
   soundEnabled: boolean;
@@ -34,7 +35,11 @@ export function AppProviders({ children }: { children: ReactNode }) {
     [soundEnabled, toggleSound],
   );
 
-  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
+  return (
+    <LocaleProvider>
+      <AppContext.Provider value={value}>{children}</AppContext.Provider>
+    </LocaleProvider>
+  );
 }
 
 export function useApp() {

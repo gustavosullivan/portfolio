@@ -12,6 +12,8 @@ interface HoloCardProps {
   onClick?: () => void;
   accent?: string;
   as?: "button" | "article";
+  /** Fundo sólido sem blur — melhor legibilidade em modais (mobile) */
+  solid?: boolean;
 }
 
 export function HoloCard({
@@ -21,6 +23,7 @@ export function HoloCard({
   onClick,
   accent = "#ff2bd6",
   as = "article",
+  solid = false,
 }: HoloCardProps) {
   const ref = useRef<HTMLElement>(null);
   const mx = useMotionValue(0);
@@ -62,7 +65,9 @@ export function HoloCard({
     },
     className: cn(
       "group relative overflow-hidden border text-left transition-shadow",
-      "bg-[rgba(12,6,20,0.72)] backdrop-blur-xl",
+      solid
+        ? "bg-[#0c0614] backdrop-blur-none"
+        : "bg-[rgba(12,6,20,0.72)] backdrop-blur-xl",
       active
         ? "border-[#ff2bd6]/45 shadow-[0_0_48px_rgba(255,43,214,0.18)]"
         : "border-white/10 hover:border-white/25",

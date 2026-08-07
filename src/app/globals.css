@@ -84,6 +84,13 @@ button {
     0 0 56px rgba(255, 232, 31, 0.3);
 }
 
+@media (max-width: 768px) {
+  .glow-text {
+    /* no mobile o glow forte embasa o texto */
+    text-shadow: 0 0 10px rgba(255, 232, 31, 0.35);
+  }
+}
+
 .noise-overlay {
   pointer-events: none;
   position: fixed;
