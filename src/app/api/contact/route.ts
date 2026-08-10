@@ -11,13 +11,18 @@ const schema = z.object({
 export async function POST(request: Request) {
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.CONTACT_TO_EMAIL;
+  // Use onboarding@resend.dev until gudev.com.br is verified in Resend (DNS).
+  // After verifying the domain, set CONTACT_FROM_EMAIL=Portfolio Contato <contato@gudev.com.br>
   const from =
     process.env.CONTACT_FROM_EMAIL ||
-    "Portfolio Contato <contato@gudev.com.br>";
+    "Portfolio Contato <onboarding@resend.dev>";
 
   if (!apiKey || !to) {
     return NextResponse.json(
-      { error: "Envio de e-mail não configurado." },
+      {
+        error:
+          "Envio de e-mail não configurado. Defina RESEND_API_KEY e CONTACT_TO_EMAIL no Vercel.",
+      },
       { status: 500 },
     );
   }

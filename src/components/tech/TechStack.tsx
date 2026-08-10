@@ -197,11 +197,11 @@ export function TechStack() {
   return (
     <section
       id="tech"
-      className="cv-auto section-pad relative mx-auto max-w-7xl pt-10 pb-8 md:pt-12 md:pb-10"
+      className="section-pad relative mx-auto max-w-7xl overflow-x-clip pt-10 pb-8 md:pt-12 md:pb-10"
     >
       <div className="grid items-stretch gap-8 lg:grid-cols-2 lg:gap-12">
         <div className="flex h-full flex-col">
-          <div className="mb-6 min-h-[9.5rem]">
+          <div className="mb-6 md:min-h-[9.5rem]">
             <p className="font-mono text-xs tracking-[0.28em] text-[#ffe81f]/80 uppercase">
               {t.tech.stackEyebrow}
             </p>
@@ -228,7 +228,7 @@ export function TechStack() {
             </div>
           </div>
 
-          <div className="relative flex min-h-0 flex-1 flex-col border border-[#ffe81f]/12 bg-black/35 p-5 backdrop-blur-[2px] md:p-8">
+          <div className="relative flex min-h-0 flex-1 flex-col border border-[#ffe81f]/12 bg-black/35 p-4 backdrop-blur-[2px] sm:p-5 md:p-8">
             <div
               className="pointer-events-none absolute inset-0 opacity-40"
               style={{
@@ -264,14 +264,14 @@ export function TechStack() {
                       className={cn(
                         "grid gap-2.5",
                         layer.id === "backend"
-                          ? "grid-cols-3"
+                          ? "grid-cols-2 sm:grid-cols-3"
                           : "grid-cols-2",
                       )}
                     >
                       {items.map((tech, i) => (
                         <motion.div
                           key={tech.name}
-                          className="relative overflow-hidden border border-[#ffe81f]/15 bg-black/40 px-2.5 py-2.5 transition-colors hover:border-[#ffe81f]/40 sm:px-3"
+                          className="relative border border-[#ffe81f]/15 bg-black/40 px-3 py-3 transition-colors hover:border-[#ffe81f]/40"
                           whileHover={{ y: -2 }}
                           transition={{
                             type: "spring",
@@ -283,17 +283,17 @@ export function TechStack() {
                             className="absolute top-1.5 right-1.5 h-1.5 w-1.5 rounded-full"
                             style={{ backgroundColor: tech.color }}
                           />
-                          <div className="flex items-center gap-2 pr-2">
+                          <div className="flex items-center gap-2.5 pr-2">
                             <TechIcon
                               name={tech.name}
                               mode="color"
                               brandColor={tech.color}
                             />
                             <div className="min-w-0">
-                              <span className="display block truncate text-sm font-semibold text-[#ffe81f] sm:text-base md:text-lg">
+                              <span className="display block text-sm font-semibold break-words text-[#ffe81f] sm:text-base md:text-lg">
                                 {tech.name}
                               </span>
-                              <span className="mt-0.5 block truncate font-mono text-[9px] tracking-wider text-[#ffe81f]/35 uppercase sm:text-[10px]">
+                              <span className="mt-0.5 block font-mono text-[9px] tracking-wider text-[#ffe81f]/35 uppercase sm:text-[10px]">
                                 0{i + 1} · {layer.label}
                               </span>
                             </div>
@@ -309,7 +309,7 @@ export function TechStack() {
         </div>
 
         <div id="methods" className="flex h-full flex-col">
-          <div className="mb-6 min-h-[9.5rem]">
+          <div className="mb-6 md:min-h-[9.5rem]">
             <p className="font-mono text-xs tracking-[0.28em] text-[#ffe81f]/80 uppercase">
               {t.tech.methodsEyebrow}
             </p>
@@ -341,7 +341,7 @@ export function TechStack() {
             </div>
           </div>
 
-          <div className="relative flex min-h-0 flex-1 flex-col border border-[#ffe81f]/12 bg-black/35 p-5 backdrop-blur-[2px] md:p-8">
+          <div className="relative flex min-h-0 flex-1 flex-col border border-[#ffe81f]/12 bg-black/35 p-4 backdrop-blur-[2px] sm:p-5 md:p-8">
             <div
               className="pointer-events-none absolute inset-0 opacity-40"
               style={{
@@ -379,7 +379,9 @@ export function TechStack() {
                     <div
                       className={cn(
                         "grid gap-2.5",
-                        items.length >= 3 ? "grid-cols-3" : "grid-cols-2",
+                        items.length >= 3
+                          ? "grid-cols-2 sm:grid-cols-3"
+                          : "grid-cols-2",
                       )}
                     >
                       {items.map((item, i) => {
@@ -390,7 +392,7 @@ export function TechStack() {
                             type="button"
                             onClick={() => openMethod(item.name)}
                             className={cn(
-                              "relative overflow-hidden border bg-black/40 px-2.5 py-2.5 text-left transition-colors sm:px-3",
+                              "relative border bg-black/40 px-3 py-3 text-left transition-colors",
                               on
                                 ? "border-[#ffe81f]/55 bg-[#ffe81f]/10"
                                 : "border-[#ffe81f]/15 hover:border-[#ffe81f]/40",
@@ -412,10 +414,10 @@ export function TechStack() {
                               }}
                             />
                             <div className="min-w-0 pr-2">
-                              <span className="display block truncate text-sm font-semibold text-[#ffe81f] sm:text-base md:text-lg">
+                              <span className="display block text-sm font-semibold break-words text-[#ffe81f] sm:text-base md:text-lg">
                                 {item.name}
                               </span>
-                              <span className="mt-0.5 block truncate font-mono text-[9px] tracking-wider text-[#ffe81f]/35 uppercase sm:text-[10px]">
+                              <span className="mt-0.5 block font-mono text-[9px] tracking-wider text-[#ffe81f]/35 uppercase sm:text-[10px]">
                                 0{i + 1} · {group.label}
                               </span>
                             </div>
@@ -454,7 +456,7 @@ export function TechStack() {
                         type="button"
                         onClick={() => openCloud(cloud.name)}
                         className={cn(
-                          "relative overflow-hidden border bg-black/40 px-2.5 py-2.5 text-left transition-colors sm:px-3",
+                          "relative border bg-black/40 px-3 py-3 text-left transition-colors",
                           on
                             ? "border-[#ffe81f]/55 bg-[#ffe81f]/10"
                             : "border-[#ffe81f]/15 hover:border-[#ffe81f]/40",
@@ -475,17 +477,17 @@ export function TechStack() {
                               : undefined,
                           }}
                         />
-                        <div className="flex items-center gap-2 pr-2">
+                        <div className="flex items-center gap-2.5 pr-2">
                           <TechIcon
                             name={cloud.name}
                             mode="color"
                             brandColor={cloud.color}
                           />
                           <div className="min-w-0">
-                            <span className="display block truncate text-sm font-semibold text-[#ffe81f] sm:text-base md:text-lg">
+                            <span className="display block text-sm font-semibold break-words text-[#ffe81f] sm:text-base md:text-lg">
                               {cloud.name}
                             </span>
-                            <span className="mt-0.5 block truncate font-mono text-[9px] tracking-wider text-[#ffe81f]/35 uppercase sm:text-[10px]">
+                            <span className="mt-0.5 block font-mono text-[9px] tracking-wider text-[#ffe81f]/35 uppercase sm:text-[10px]">
                               {t.tech.cloudLabel}
                             </span>
                           </div>
