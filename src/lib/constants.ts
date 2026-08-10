@@ -26,7 +26,7 @@ export const SITE = {
   githubLabel: "gustavosullivan",
   location: "Passo Fundo, Brasil",
   education: "4º semestre · Ciência da Computação · Atitus",
-  url: "https://github.com/gustavosullivan/portfolio",
+  url: "https://www.gudev.com.br",
 } as const;
 
 export const STATS = [

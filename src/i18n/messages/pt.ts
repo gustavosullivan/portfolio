@@ -290,7 +290,7 @@ export const pt = {
     emailError: "E-mail inválido",
     message: "Mensagem",
     messagePlaceholder: "Conta um pouco sobre o projeto ou ideia…",
-    messageError: "Escreva pelo menos algumas linhas",
+    messageError: "Escreva pelo menos 15 caracteres",
     sending: "Enviando…",
     sent: "Mensagem enviada!",
     send: "Enviar mensagem",

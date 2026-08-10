@@ -292,7 +292,7 @@ export const en = {
     emailError: "Invalid email",
     message: "Message",
     messagePlaceholder: "Tell me a bit about the project or idea…",
-    messageError: "Please write at least a few lines",
+    messageError: "Please write at least 15 characters",
     sending: "Sending…",
     sent: "Message sent!",
     send: "Send message",

@@ -23,10 +23,12 @@ type FormValues = {
   name: string;
   email: string;
   message: string;
+  website?: string;
 };
 
 const fieldClass =
   "w-full border border-[#ffe81f]/15 bg-black/50 px-4 py-3 text-sm text-[#ffe81f] outline-none transition-colors placeholder:text-[#ffe81f]/25 focus:border-[#ffe81f]/45";
+
 
 function ChannelCard({
   href,
@@ -88,7 +90,11 @@ function ContactForm() {
       z.object({
         name: z.string().min(2, t.contact.nameError),
         email: z.string().email(t.contact.emailError),
-        message: z.string().min(10, t.contact.messageError),
+        message: z
+          .string()
+          .trim()
+          .min(15, t.contact.messageError),
+        website: z.string().optional(),
       }),
     [t.contact.emailError, t.contact.messageError, t.contact.nameError],
   );
@@ -100,6 +106,7 @@ function ContactForm() {
     reset,
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
+    defaultValues: { website: "" },
   });
 
   const onSubmit = async (data: FormValues) => {
@@ -108,7 +115,12 @@ function ContactForm() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          message: data.message,
+          website: data.website ?? "",
+        }),
       });
       const payload = (await res.json().catch(() => null)) as {
         error?: string;
@@ -120,7 +132,7 @@ function ContactForm() {
       }
 
       setSent(true);
-      reset();
+      reset({ website: "" });
       window.setTimeout(() => setSent(false), 4000);
     } catch {
       setSubmitError("Falha de rede. Verifica a conexão e tenta de novo.");
@@ -130,9 +142,24 @@ function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="glass flex flex-1 flex-col gap-5 border-[#ffe81f]/15 bg-black/55 p-6 backdrop-blur-md md:p-8"
+      className="glass relative flex flex-1 flex-col gap-5 border-[#ffe81f]/15 bg-black/55 p-6 backdrop-blur-md md:p-8"
       noValidate
     >
+      {/* Honeypot — hidden from humans, traps simple bots */}
+      <div
+        className="absolute -left-[9999px] h-0 w-0 overflow-hidden opacity-0"
+        aria-hidden
+      >
+        <label htmlFor="contact-website">Website</label>
+        <input
+          id="contact-website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          {...register("website")}
+        />
+      </div>
+
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label
