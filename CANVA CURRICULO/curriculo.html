@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Currículo — Gustavo Barbosa Portela</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      background: #e5e7eb;
+    }
+
+    body {
+      font-family: Inter, Arial, Helvetica Neue, sans-serif;
+      color: #111827;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .resume {
+      width: 210mm;
+      height: 297mm;
+      margin: 12px auto;
+      background: #ffffff;
+      overflow: hidden;
+      box-shadow: 0 8px 28px rgba(15, 23, 42, 0.12);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    /* Header — padrão dark + cyan (compacto p/ caber em 1 página) */
+    .header {
+      background: #0b1220;
+      color: #e5e7eb;
+      padding: 8mm 15.5mm 7mm;
+    }
+
+    .tags {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #5eead4;
+      margin-bottom: 5px;
+    }
+
+    .name {
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: #f8fafc;
+    }
+
+    .role {
+      margin-top: 3px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #94a3b8;
+    }
+
+    .contact-block {
+      margin-top: 7px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .contact {
+      font-size: 9pt;
+      line-height: 1.4;
+      color: #5eead4;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 2px 0;
+    }
+
+    .contact .sep {
+      color: #64748b;
+      margin: 0 7px;
+    }
+
+    .contact-label {
+      color: #94a3b8;
+      font-weight: 500;
+      margin-right: 6px;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: #5eead4;
+      font-weight: 500;
+    }
+
+    .contact-link svg {
+      width: 11px;
+      height: 11px;
+      flex-shrink: 0;
+      fill: currentColor;
+    }
+
+    .contact-plain {
+      color: #94a3b8;
+    }
+
+    .contact-plain svg {
+      fill: #94a3b8;
+    }
+
+    /* Body */
+    .content {
+      padding: 6mm 15.5mm 10mm;
+    }
+
+    .section {
+      margin-top: 7px;
+    }
+
+    .section:first-child {
+      margin-top: 0;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #0d9488;
+      margin-bottom: 6px;
+    }
+
+    .section-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: #cbd5e1;
+    }
+
+    .text {
+      font-size: 9.7pt;
+      line-height: 1.3;
+      color: #1f2937;
+    }
+
+    .job,
+    .project {
+      margin-bottom: 7px;
+    }
+
+    .job:last-child,
+    .project:last-child {
+      margin-bottom: 0;
+    }
+
+    .job-top,
+    .project-top,
+    .edu-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .job-title,
+    .project-title,
+    .edu-title {
+      font-size: 10.1pt;
+      font-weight: 700;
+      color: #111827;
+      line-height: 1.25;
+    }
+
+    .job-title .company {
+      font-weight: 500;
+      color: #4b5563;
+    }
+
+    .pill {
+      flex-shrink: 0;
+      font-size: 8.5pt;
+      font-weight: 500;
+      color: #0f766e;
+      background: #ccfbf1;
+      border-radius: 4px;
+      padding: 2px 7px;
+      white-space: nowrap;
+    }
+
+    .job-sub,
+    .project-link,
+    .edu-detail {
+      margin: 2px 0 3px;
+      font-size: 8.8pt;
+      color: #6b7280;
+      line-height: 1.3;
+    }
+
+    .job p,
+    .project p {
+      font-size: 9.5pt;
+      line-height: 1.3;
+      color: #1f2937;
+    }
+
+    .project-link a,
+    .job-sub a {
+      color: #0d9488;
+    }
+
+    .skills {
+      font-size: 9pt;
+      line-height: 1.35;
+      color: #1f2937;
+    }
+
+    .skill-group {
+      margin-bottom: 6px;
+    }
+
+    .skill-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .skill-label {
+      display: block;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: lowercase;
+      color: #0f766e;
+      margin-bottom: 4px;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .skill-tag {
+      display: inline-block;
+      font-size: 8.6pt;
+      line-height: 1.2;
+      color: #111827;
+      background: #ffffff;
+      border: 1px solid #d1d5db;
+      border-radius: 0;
+      padding: 3px 8px;
+    }
+
+    .langs {
+      font-size: 9.5pt;
+      line-height: 1.3;
+      color: #1f2937;
+    }
+
+    @media print {
+      html, body {
+        background: #ffffff;
+        margin: 0;
+      }
+
+      .resume {
+        width: 210mm;
+        height: 297mm;
+        margin: 0;
+        box-shadow: none;
+        overflow: hidden;
+      }
+
+      a {
+        text-decoration: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="resume">
+    <header class="header">
+      <p class="tags">Full Stack · Engenharia de Software · React · Next.js · Python · Node · FastAPI</p>
+      <h1 class="name">Gustavo Barbosa Portela</h1>
+      <p class="role">Desenvolvedor Full Stack // sistemas web e APIs</p>
+      <div class="contact-block">
+        <p class="contact">
+          <a class="contact-link" href="https://www.gudev.com.br" title="https://www.gudev.com.br">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+            Portfolio
+          </a>
+          <span class="sep">|</span>
+          <a class="contact-link" href="https://github.com/gustavosullivan" title="https://github.com/gustavosullivan">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.74.5 12.02c0 5.1 3.29 9.42 7.86 10.95.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.04 1.78 2.73 1.27 3.4.97.11-.75.41-1.27.74-1.56-2.55-.29-5.23-1.28-5.23-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 2.9-.39c.98 0 1.97.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.58.23 2.75.11 3.04.74.81 1.19 1.84 1.19 3.1 0 4.42-2.69 5.39-5.25 5.67.42.36.79 1.08.79 2.18 0 1.57-.01 2.84-.01 3.23 0 .31.21.68.8.56A10.53 10.53 0 0 0 23.5 12C23.5 5.74 18.27.5 12 .5z"/></svg>
+            GitHub
+          </a>
+          <span class="sep">|</span>
+          <a class="contact-link" href="https://www.linkedin.com/in/gustavobportelacc" title="https://www.linkedin.com/in/gustavobportelacc">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.55V9h3.57v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.73V1.73C24 .77 23.21 0 22.23 0z"/></svg>
+            LinkedIn
+          </a>
+        </p>
+        <p class="contact">
+          <span class="contact-link contact-plain" aria-label="Endereço">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
+            Passo Fundo/RS
+          </span>
+          <span class="sep">|</span>
+          <a class="contact-link" href="https://wa.me/5554993698492" title="WhatsApp">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.85 21 3 13.15 3 3a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.24 1.01l-2.21 2.2z"/></svg>
+            (54) 99369-8492
+          </a>
+          <span class="sep">|</span>
+          <a class="contact-link" href="mailto:gubportela@gmail.com" title="E-mail">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5L4 8V6l8 5 8-5v2z"/></svg>
+            gubportela@gmail.com
+          </a>
+        </p>
+      </div>
+    </header>
+
+    <div class="content">
+      <section class="section">
+        <h2 class="section-title">Sobre mim</h2>
+        <p class="text">
+          Desenvolvedor Full Stack com experiência prática no desenvolvimento de aplicações web, APIs REST e sistemas corporativos. Atuo com React, Next.js, TypeScript, JavaScript, Node.js, Python e FastAPI, além de PostgreSQL, Supabase, Docker e Git. Experiência no ciclo completo de desenvolvimento de software, incluindo arquitetura, implementação, integração, implantação e manutenção de aplicações. Busco contribuir com soluções robustas, escaláveis e orientadas a resultados, enquanto evoluo continuamente em engenharia de software.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">Experiência Profissional</h2>
+
+        <article class="job">
+          <div class="job-top">
+            <p class="job-title">Desenvolvedor Full Stack <span class="company">— Saicon / SGPSAIcon</span></p>
+            <span class="pill">[PERÍODO]</span>
+          </div>
+          <p class="job-sub">
+            Passo Fundo/RS ·
+            <a href="https://sgpsaicon.com.br/">sgpsaicon.com.br</a>
+          </p>
+          <p>
+            Desenvolvimento Full Stack de aplicações web, com atuação em Frontend, Backend, integração e consumo de APIs REST, bancos de dados e serviços de terceiros. Atuação com diferentes stacks e tecnologias conforme os requisitos dos projetos, participando da definição de arquitetura, infraestrutura, implementação, implantação e manutenção das aplicações.
+          </p>
+        </article>
+
+        <article class="job">
+          <div class="job-top">
+            <p class="job-title">Estagiário de Infraestrutura / Suporte de TI <span class="company">— Prefeitura Municipal de Passo Fundo</span></p>
+            <span class="pill">[PERÍODO]</span>
+          </div>
+          <p>
+            Atuação em suporte técnico e infraestrutura de TI, com diagnóstico e manutenção de hardware, clonagem e implantação de sistemas operacionais, configuração de computadores e periféricos, suporte a usuários, manutenção e configuração de redes e equipamentos de infraestrutura.
+          </p>
+        </article>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">Projetos</h2>
+
+        <article class="project">
+          <div class="project-top">
+            <p class="project-title">SN250 — Plataforma de Gestão e Nutrição Animal</p>
+            <span class="pill"><a href="https://sgpsaicon.com.br/">sgpsaicon.com.br</a></span>
+          </div>
+          <p>
+            Desenvolvimento Full Stack de plataforma web para gestão de balanças, currais, lotes, animais, dietas e premixes, utilizando React, TypeScript, Material UI, Tailwind CSS, FastAPI, Python, PostgreSQL, Redis, Meilisearch e Docker. Atuação em Frontend, Backend, APIs REST, autenticação JWT, banco de dados e infraestrutura.
+          </p>
+        </article>
+
+        <article class="project">
+          <div class="project-top">
+            <p class="project-title">SN800 — Plataforma de Pesagem e Gestão Florestal</p>
+            <span class="pill"><a href="https://sn800.com.br/">sn800.com.br</a></span>
+          </div>
+          <p>
+            Plataforma Full Stack para pesagem e gestão florestal, com controle de cargas, produtividade e indicadores operacionais, desenvolvida com Next.js, React, TypeScript, Tailwind CSS, Supabase/PostgreSQL e APIs REST.
+          </p>
+        </article>
+
+        <article class="project">
+          <div class="project-top">
+            <p class="project-title">Bugiganga — E-commerce Mobile</p>
+            <span class="pill"><a href="https://github.com/gustavosullivan/E-comerce_Project">GitHub</a></span>
+          </div>
+          <p>
+            Desenvolvimento do Frontend de aplicação mobile de e-commerce com React Native, integrando APIs REST e Backend em Java/Spring Boot e PostgreSQL. Responsável por interfaces, componentes reutilizáveis, navegação e integração entre as camadas da aplicação.
+          </p>
+        </article>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">Competências</h2>
+
+        <div class="skill-group">
+          <span class="skill-label">frontend</span>
+          <div class="skill-tags">
+            <span class="skill-tag">React</span>
+            <span class="skill-tag">Next.js</span>
+            <span class="skill-tag">TypeScript</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">React Native</span>
+            <span class="skill-tag">Material UI</span>
+            <span class="skill-tag">Tailwind CSS</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <span class="skill-label">backend</span>
+          <div class="skill-tags">
+            <span class="skill-tag">Node.js</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">FastAPI</span>
+            <span class="skill-tag">NestJS</span>
+            <span class="skill-tag">Rust</span>
+            <span class="skill-tag">APIs REST</span>
+            <span class="skill-tag">JWT</span>
+            <span class="skill-tag">WebSocket</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <span class="skill-label">dados / infra</span>
+          <div class="skill-tags">
+            <span class="skill-tag">PostgreSQL</span>
+            <span class="skill-tag">Supabase</span>
+            <span class="skill-tag">Redis</span>
+            <span class="skill-tag">Docker</span>
+            <span class="skill-tag">Git</span>
+            <span class="skill-tag">GitHub</span>
+            <span class="skill-tag">AWS</span>
+            <span class="skill-tag">Azure</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <span class="skill-label">engenharia</span>
+          <div class="skill-tags">
+            <span class="skill-tag">SOLID</span>
+            <span class="skill-tag">Design Patterns</span>
+            <span class="skill-tag">Clean Code</span>
+            <span class="skill-tag">POO</span>
+            <span class="skill-tag">Testes de Software</span>
+            <span class="skill-tag">APIs REST</span>
+            <span class="skill-tag">Modelagem de Dados</span>
+            <span class="skill-tag">Git / Git Flow</span>
+            <span class="skill-tag">CI/CD</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <span class="skill-label">idiomas</span>
+          <div class="skill-tags">
+            <span class="skill-tag">Português nativo</span>
+            <span class="skill-tag">Inglês intermediário</span>
+            <span class="skill-tag">Espanhol intermediário</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2 class="section-title">Formação Acadêmica</h2>
+        <div class="edu-top">
+          <p class="edu-title">Bacharelado em Ciência da Computação — Atitus</p>
+          <span class="pill">2025–2028</span>
+        </div>
+        <p class="edu-detail">4º semestre · previsão de conclusão 2028</p>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

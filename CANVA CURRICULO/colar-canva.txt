@@ -1,0 +1,49 @@
+GUSTAVO BARBOSA PORTELA
+Desenvolvedor Full Stack
+
+LINKS
+Portfolio: https://www.gudev.com.br
+GitHub: https://github.com/gustavosullivan
+LinkedIn: https://www.linkedin.com/in/gustavobportelacc
+
+ENDEREÇO / CONTATO
+Passo Fundo/RS · (54) 99369-8492 · gubportela@gmail.com
+
+SOBRE MIM
+Desenvolvedor Full Stack com experiência prática no desenvolvimento de aplicações web, APIs REST e sistemas corporativos. Atuo com React, Next.js, TypeScript, JavaScript, Node.js, Python e FastAPI, além de PostgreSQL, Supabase, Docker e Git. Experiência no ciclo completo de desenvolvimento de software, incluindo arquitetura, implementação, integração, implantação e manutenção de aplicações. Busco contribuir com soluções robustas, escaláveis e orientadas a resultados, enquanto evoluo continuamente em engenharia de software.
+
+EXPERIÊNCIA PROFISSIONAL
+
+Desenvolvedor Full Stack | [PERÍODO]
+Saicon / SGPSAIcon — Passo Fundo/RS
+https://sgpsaicon.com.br/
+Desenvolvimento Full Stack de aplicações web, com atuação em Frontend, Backend, integração e consumo de APIs REST, bancos de dados e serviços de terceiros. Atuação com diferentes stacks e tecnologias conforme os requisitos dos projetos, participando da definição de arquitetura, infraestrutura, implementação, implantação e manutenção das aplicações.
+
+Estagiário de Infraestrutura / Suporte de TI | [PERÍODO]
+Prefeitura Municipal de Passo Fundo
+Atuação em suporte técnico e infraestrutura de TI, com diagnóstico e manutenção de hardware, clonagem e implantação de sistemas operacionais, configuração de computadores e periféricos, suporte a usuários, manutenção e configuração de redes e equipamentos de infraestrutura.
+
+PROJETOS
+
+SN250 — Plataforma de Gestão e Nutrição Animal
+https://sgpsaicon.com.br/
+Desenvolvimento Full Stack de plataforma web para gestão de balanças, currais, lotes, animais, dietas e premixes, utilizando React, TypeScript, Material UI, Tailwind CSS, FastAPI, Python, PostgreSQL, Redis, Meilisearch e Docker. Atuação em Frontend, Backend, APIs REST, autenticação JWT, banco de dados e infraestrutura.
+
+SN800 — Plataforma de Pesagem e Gestão Florestal
+https://sn800.com.br/
+Plataforma Full Stack para pesagem e gestão florestal, com controle de cargas, produtividade e indicadores operacionais, desenvolvida com Next.js, React, TypeScript, Tailwind CSS, Supabase/PostgreSQL e APIs REST.
+
+Bugiganga — E-commerce Mobile
+https://github.com/gustavosullivan/E-comerce_Project
+Desenvolvimento do Frontend de aplicação mobile de e-commerce com React Native, integrando APIs REST e Backend em Java/Spring Boot e PostgreSQL. Responsável por interfaces, componentes reutilizáveis, navegação e integração entre as camadas da aplicação.
+
+COMPETÊNCIAS
+frontend: React, Next.js, TypeScript, JavaScript, React Native, Material UI, Tailwind CSS
+backend: Node.js, Python, FastAPI, NestJS, Rust, APIs REST, JWT, WebSocket
+dados / infra: PostgreSQL, Supabase, Redis, Docker, Git, GitHub, AWS, Azure
+engenharia: SOLID, Design Patterns, Clean Code, POO, Testes de Software, APIs REST, Modelagem de Dados, Git / Git Flow, CI/CD
+idiomas: Português nativo, Inglês intermediário, Espanhol intermediário
+
+FORMAÇÃO ACADÊMICA
+Bacharelado em Ciência da Computação — Atitus
+2025–2028 · 4º semestre · previsão de conclusão 2028
