@@ -56,14 +56,34 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
-      { url: "/favicon-48.png", sizes: "48x48", type: "image/png" },
-      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
-      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+      {
+        url: "/favicon-48.png",
+        sizes: "48x48",
+        type: "image/png",
+      },
+      {
+        url: "/favicon-96.png",
+        sizes: "96x96",
+        type: "image/png",
+      },
+      {
+        url: "/favicon-144.png",
+        sizes: "144x144",
+        type: "image/png",
+      },
+      {
+        url: "/icon-192.png",
+        sizes: "192x192",
+        type: "image/png",
+      },
+      {
+        url: "/icon-512.png",
+        sizes: "512x512",
+        type: "image/png",
+      },
+      { url: "/favicon.ico", sizes: "any", type: "image/x-icon" },
     ],
     apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
-    shortcut: ["/favicon.ico"],
   },
   openGraph: {
     type: "website",
@@ -100,9 +120,29 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+const LOGO_URL = `${SITE_URL}/icon-512.png`;
+
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: "GuDev",
+      alternateName: "Gustavo Barbosa Portela",
+      url: SITE_URL,
+      logo: {
+        "@type": "ImageObject",
+        url: LOGO_URL,
+        width: 512,
+        height: 512,
+      },
+      image: LOGO_URL,
+      sameAs: [
+        "https://github.com/gustavosullivan",
+        "https://www.linkedin.com/in/gustavobportelacc",
+      ],
+    },
     {
       "@type": "WebSite",
       "@id": `${SITE_URL}/#website`,
@@ -111,7 +151,7 @@ const jsonLd = {
       description:
         "Portfólio de Gustavo Barbosa Portela — desenvolvedor Full Stack.",
       inLanguage: "pt-BR",
-      publisher: { "@id": `${SITE_URL}/#person` },
+      publisher: { "@id": `${SITE_URL}/#organization` },
     },
     {
       "@type": "Person",
@@ -120,7 +160,8 @@ const jsonLd = {
       url: SITE_URL,
       email: "mailto:gubportela@gmail.com",
       jobTitle: "Desenvolvedor Full Stack",
-      image: `${SITE_URL}/icon-512.png`,
+      image: LOGO_URL,
+      worksFor: { "@id": `${SITE_URL}/#organization` },
       sameAs: [
         "https://github.com/gustavosullivan",
         "https://www.linkedin.com/in/gustavobportelacc",
