@@ -208,7 +208,7 @@ export function TechStack() {
             <h2 className="display glow-text mt-3 text-3xl font-semibold text-[#ffe81f] md:text-4xl lg:text-5xl">
               {t.tech.stackTitle}
             </h2>
-            <p className="mt-2 text-sm text-[#ffe81f]/45 md:text-base">
+            <p className="mt-2 text-sm text-[#ffe81f]/75 md:text-base">
               {t.tech.stackDesc}
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
@@ -316,7 +316,7 @@ export function TechStack() {
             <h2 className="display glow-text mt-3 text-3xl font-semibold text-[#ffe81f] md:text-4xl lg:text-5xl">
               {t.tech.methodsTitle}
             </h2>
-            <p className="mt-2 text-sm text-[#ffe81f]/45 md:text-base">
+            <p className="mt-2 text-sm text-[#ffe81f]/75 md:text-base">
               {t.tech.methodsDesc}
             </p>
             <div className="mt-4 flex flex-wrap gap-2">

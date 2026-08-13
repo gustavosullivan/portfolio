@@ -267,7 +267,7 @@ export function Contact() {
         <h2 className="display glow-text mt-3 text-4xl font-semibold text-[#ffe81f] md:text-5xl lg:text-6xl">
           {t.contact.title}
         </h2>
-        <p className="mt-4 text-base leading-relaxed text-[#ffe81f]/55 md:text-lg">
+        <p className="mt-4 text-base leading-relaxed text-[#ffe81f]/80 md:text-lg">
           {t.contact.description}
         </p>
       </div>

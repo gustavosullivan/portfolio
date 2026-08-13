@@ -49,7 +49,7 @@ function ColumnHeader({
       <h2 className="display glow-text mt-3 text-3xl font-semibold text-[#ffe81f] md:text-4xl">
         {title}
       </h2>
-      <p className="mt-2 text-sm text-[#ffe81f]/45">{subtitle}</p>
+      <p className="mt-2 text-sm text-[#ffe81f]/75">{subtitle}</p>
     </div>
   );
 }

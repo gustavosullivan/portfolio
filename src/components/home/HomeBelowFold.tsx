@@ -5,11 +5,6 @@ import { useEffect, useState } from "react";
 import { useDeferredMount } from "@/hooks/useDeferredMount";
 import { WhenNear } from "@/components/ui/WhenNear";
 
-const AboutGalaxyBand = dynamic(
-  () =>
-    import("@/components/about/AboutGalaxyBand").then((m) => m.AboutGalaxyBand),
-  { ssr: false },
-);
 const About = dynamic(
   () => import("@/components/about/About").then((m) => m.About),
   { ssr: false },
@@ -53,27 +48,18 @@ const ScrollExperience = dynamic(
 );
 
 /**
- * Everything after the hero: loads in phases so the first paint stays light.
+ * Sections that sit on the shared hero galaxy.
  */
-export function HomeBelowFold() {
+export function HomeMid() {
   const idleMid = useDeferredMount({ timeoutMs: 900 });
-  const chromeReady = useDeferredMount({ timeoutMs: 1600 });
   const [forceMid, setForceMid] = useState(false);
 
-  // Deep links / nav clicks must not wait for idle
   useEffect(() => {
     const bump = () => {
       const hash = window.location.hash.replace("#", "");
       if (
         hash &&
-        [
-          "about",
-          "tech",
-          "projects",
-          "certificates",
-          "contact",
-          "world",
-        ].includes(hash)
+        ["about", "tech", "projects", "certificates", "contact"].includes(hash)
       ) {
         setForceMid(true);
       }
@@ -85,29 +71,45 @@ export function HomeBelowFold() {
 
   const midReady = idleMid || forceMid;
 
+  if (!midReady) {
+    return (
+      <div className="min-h-[220vh] bg-transparent" aria-hidden data-deferred="mid">
+        <div id="about" />
+        <div id="tech" className="mt-[40vh]" />
+        <div id="projects" className="mt-[40vh]" />
+        <div id="certificates" className="mt-[40vh]" />
+        <div id="contact" className="mt-[40vh]" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="[text-shadow:0_1px_2px_rgba(0,0,0,0.95),0_0_14px_rgba(0,0,0,0.75)]">
+      <About />
+      <TechStack />
+      <Projects />
+      <Certificates />
+      <Contact />
+    </div>
+  );
+}
+
+/**
+ * Anime + footer — outside the galaxy so WebGL stops before the parade.
+ */
+export function HomeAfterFold() {
+  const chromeReady = useDeferredMount({ timeoutMs: 1600 });
+
   return (
     <>
       {chromeReady ? <CommandPalette /> : null}
 
-      {midReady ? (
-        <AboutGalaxyBand>
-          <About />
-          <TechStack />
-          <Projects />
-          <Certificates />
-          <Contact />
-        </AboutGalaxyBand>
-      ) : (
-        <div className="min-h-[220vh] bg-black" aria-hidden data-deferred="mid">
-          <div id="about" />
-          <div id="tech" className="mt-[40vh]" />
-          <div id="projects" className="mt-[40vh]" />
-          <div id="certificates" className="mt-[40vh]" />
-          <div id="contact" className="mt-[40vh]" />
-        </div>
-      )}
-
-      <WhenNear rootMargin="400px 0px" minHeight="min(88vh, 720px)" id="world">
+      <WhenNear
+        rootMargin="400px 0px"
+        minHeight="min(88vh, 720px)"
+        id="world"
+        className="relative z-10 bg-black"
+      >
         <WorldStage />
       </WhenNear>
 

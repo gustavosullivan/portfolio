@@ -1,48 +1,16 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { ArrowDown } from "lucide-react";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { SITE } from "@/lib/constants";
 import { useI18n } from "@/i18n";
 import { usePrefersReducedMotion } from "@/hooks/useMediaQuery";
 
-const HeroCanvas = dynamic(
-  () =>
-    import("@/components/three/HeroCanvas").then((mod) => mod.HeroCanvas),
-  {
-    ssr: false,
-    loading: () => <div className="absolute inset-0 bg-black" />,
-  },
-);
-
 export function Hero() {
   const { t } = useI18n();
   const root = useRef<HTMLElement>(null);
   const reduced = usePrefersReducedMotion();
-  // Let text/CSS paint first; WebGL (three.js) waits for idle
-  const [canvasReady, setCanvasReady] = useState(false);
-
-  useEffect(() => {
-    let idleId: number | undefined;
-    let timeoutId: ReturnType<typeof setTimeout> | undefined;
-    const enable = () => setCanvasReady(true);
-
-    const ric = window.requestIdleCallback;
-    if (typeof ric === "function") {
-      idleId = ric(enable, { timeout: 600 });
-    } else {
-      timeoutId = setTimeout(enable, 120);
-    }
-
-    return () => {
-      if (idleId !== undefined && typeof window.cancelIdleCallback === "function") {
-        window.cancelIdleCallback(idleId);
-      }
-      if (timeoutId !== undefined) clearTimeout(timeoutId);
-    };
-  }, []);
 
   useEffect(() => {
     if (reduced || !root.current) return;
@@ -105,12 +73,6 @@ export function Hero() {
       id="top"
       className="relative z-10 flex overflow-hidden pb-12 md:h-[100svh] md:max-h-[100svh] md:items-center md:pb-0"
     >
-      {/* Galaxy: deferred until after first paint so GH Pages first click stays snappy */}
-      <div className="absolute inset-0 overflow-hidden bg-black">
-        {canvasReady && !reduced ? <HeroCanvas /> : null}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-28 bg-gradient-to-b from-transparent via-black/50 to-black md:h-48" />
-      </div>
-
       <div className="section-pad relative z-10 mx-auto w-full max-w-7xl pt-20 md:pt-28">
         <p
           data-hero="eyebrow"

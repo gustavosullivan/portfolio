@@ -2,7 +2,6 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { cn } from "@/lib/utils";
 
 const AboutGalaxyCanvas = dynamic(
   () =>
@@ -13,8 +12,8 @@ const AboutGalaxyCanvas = dynamic(
 );
 
 /**
- * Continuous nebula field from After-Hero through Contato.
- * Sticky viewport window into a tall animated world (not a frozen photo).
+ * Continuous nebula from After-Hero through Contato.
+ * Sticky viewport window — no transform on this node (breaks sticky).
  */
 export function AboutGalaxyBand({ children }: { children: ReactNode }) {
   const root = useRef<HTMLDivElement>(null);
@@ -31,31 +30,44 @@ export function AboutGalaxyBand({ children }: { children: ReactNode }) {
         setActive(on);
         if (on) setMounted(true);
       },
-      // Tight margin — avoid mounting the 2nd canvas while still in the hero
-      { rootMargin: "0px 0px", threshold: 0.08 },
+      { rootMargin: "80px 0px", threshold: 0 },
     );
     io.observe(el);
-    return () => io.disconnect();
+
+    let idleId: number | undefined;
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
+    const prefetch = () => setMounted(true);
+    const ric = window.requestIdleCallback;
+    if (typeof ric === "function") {
+      idleId = ric(prefetch, { timeout: 1200 });
+    } else {
+      timeoutId = setTimeout(prefetch, 400);
+    }
+
+    return () => {
+      io.disconnect();
+      if (idleId !== undefined && typeof window.cancelIdleCallback === "function") {
+        window.cancelIdleCallback(idleId);
+      }
+      if (timeoutId !== undefined) clearTimeout(timeoutId);
+    };
   }, []);
 
   return (
-    <div ref={root} className="relative bg-black">
+    <div ref={root} className="relative bg-[#070712]">
       <div
-        className={cn(
-          "pointer-events-none relative sticky top-0 z-0 h-[100svh] w-full overflow-hidden transition-opacity duration-700 ease-in-out [contain:paint]",
-          active ? "opacity-100" : "opacity-0",
-        )}
+        className="pointer-events-none sticky top-0 z-0 h-screen w-full overflow-hidden bg-[#070712]"
         aria-hidden
       >
         {mounted ? (
           <AboutGalaxyCanvas active={active} bandRef={root} />
         ) : null}
+        <div className="absolute inset-0 bg-black/30" />
       </div>
 
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-24 bg-gradient-to-b from-black via-black/50 to-transparent md:h-32" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-28 bg-gradient-to-t from-black via-black/55 to-transparent md:h-40" />
-
-      <div className="relative z-10 -mt-[100svh]">{children}</div>
+      <div className="relative z-10 -mt-[100vh] [text-shadow:0_1px_2px_rgba(0,0,0,0.95),0_0_14px_rgba(0,0,0,0.75)]">
+        {children}
+      </div>
     </div>
   );
 }

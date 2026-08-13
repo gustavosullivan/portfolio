@@ -62,7 +62,7 @@ export function HeroCanvas() {
 
     const io = new IntersectionObserver(
       ([entry]) => setVisible(entry.isIntersecting && !document.hidden),
-      { rootMargin: "40px 0px", threshold: 0.01 },
+      { rootMargin: "0px", threshold: 0 },
     );
     io.observe(el);
 
