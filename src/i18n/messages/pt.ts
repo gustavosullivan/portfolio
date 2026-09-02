@@ -7,6 +7,7 @@ export const pt = {
       { href: "#tech", label: "Stack" },
       { href: "#projects", label: "Projetos" },
       { href: "#certificates", label: "Certificações" },
+      { href: "#resume", label: "Currículo" },
       { href: "#contact", label: "Contato" },
     ],
   },
@@ -298,6 +299,16 @@ export const pt = {
     whatsappLabel: "WhatsApp",
     githubLabel: "GitHub",
     linkedinLabel: "LinkedIn",
+    resumeLabel: "Currículo",
+  },
+  resume: {
+    eyebrow: "Currículo",
+    title: "Currículo em PDF",
+    description:
+      "Prévia resumida do currículo em PDF. Abre em um card centralizado — você também pode baixar o arquivo.",
+    download: "Baixar PDF",
+    close: "Fechar currículo",
+    modalEyebrow: "Visualização",
   },
   footer: {
     crafted: "© {year} — Feito com Next.js & Three.js",

@@ -24,6 +24,8 @@ export const SITE = {
   linkedinLabel: "gustavobportelacc",
   github: "https://github.com/gustavosullivan",
   githubLabel: "gustavosullivan",
+  resume: withBase("/curriculo.pdf"),
+  resumeLabel: "curriculo.pdf",
   location: "Passo Fundo, Brasil",
   education: "4º semestre · Ciência da Computação · Atitus",
   url: "https://www.gudev.com.br",
@@ -359,5 +361,6 @@ export const NAV_LINKS = [
   { href: "#tech", label: "Stack" },
   { href: "#projects", label: "Projetos" },
   { href: "#certificates", label: "Certificações" },
+  { href: "#resume", label: "Currículo" },
   { href: "#contact", label: "Contato" },
 ] as const;

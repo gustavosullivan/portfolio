@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start -p 3003",
     "lint": "eslint",
-    "compress:assets": "node scripts/compress-assets.mjs"
+    "compress:assets": "node scripts/compress-assets.mjs",
+    "export:resume": "node scripts/export-resume-pdf.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.5.7",

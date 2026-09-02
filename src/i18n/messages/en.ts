@@ -9,6 +9,7 @@ export const en = {
       { href: "#tech", label: "Stack" },
       { href: "#projects", label: "Projects" },
       { href: "#certificates", label: "Certificates" },
+      { href: "#resume", label: "Resume" },
       { href: "#contact", label: "Contact" },
     ],
   },
@@ -300,6 +301,16 @@ export const en = {
     whatsappLabel: "WhatsApp",
     githubLabel: "GitHub",
     linkedinLabel: "LinkedIn",
+    resumeLabel: "Resume",
+  },
+  resume: {
+    eyebrow: "Resume",
+    title: "Resume PDF",
+    description:
+      "Compact PDF resume preview. Opens in a centered card — you can also download the file.",
+    download: "Download PDF",
+    close: "Close resume",
+    modalEyebrow: "Preview",
   },
   footer: {
     crafted: "© {year} — Built with Next.js & Three.js",

@@ -10,10 +10,12 @@ import {
   Copy,
   Code2,
   ExternalLink,
+  FileText,
   Link2,
   Mail,
   MessageCircle,
 } from "lucide-react";
+import { openResumeViewer } from "@/components/resume/ResumeViewer";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { SITE } from "@/lib/constants";
 import { useI18n } from "@/i18n";
@@ -331,6 +333,17 @@ export function Contact() {
                 <ExternalLink className="h-4 w-4 shrink-0 text-[#ffe81f]/35 transition-colors group-hover:text-[#ffe81f]/70" />
               }
             />
+            <div id="resume" className="scroll-mt-28">
+              <ChannelCard
+                onClick={openResumeViewer}
+                icon={<FileText className="h-4 w-4" />}
+                label={t.contact.resumeLabel}
+                value={SITE.resumeLabel}
+                action={
+                  <ExternalLink className="h-4 w-4 shrink-0 text-[#ffe81f]/35 transition-colors group-hover:text-[#ffe81f]/70" />
+                }
+              />
+            </div>
           </div>
         </motion.div>
 

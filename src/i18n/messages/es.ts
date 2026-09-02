@@ -9,6 +9,7 @@ export const es = {
       { href: "#tech", label: "Stack" },
       { href: "#projects", label: "Proyectos" },
       { href: "#certificates", label: "Certificaciones" },
+      { href: "#resume", label: "Currículum" },
       { href: "#contact", label: "Contacto" },
     ],
   },
@@ -301,6 +302,16 @@ export const es = {
     whatsappLabel: "WhatsApp",
     githubLabel: "GitHub",
     linkedinLabel: "LinkedIn",
+    resumeLabel: "Currículum",
+  },
+  resume: {
+    eyebrow: "Currículum",
+    title: "Currículum en PDF",
+    description:
+      "Vista resumida del currículum en PDF. Se abre en un card centrado — también puedes descargar el archivo.",
+    download: "Descargar PDF",
+    close: "Cerrar currículum",
+    modalEyebrow: "Vista previa",
   },
   footer: {
     crafted: "© {year} — Hecho con Next.js & Three.js",

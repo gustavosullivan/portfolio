@@ -28,6 +28,11 @@ const Contact = dynamic(
   () => import("@/components/contact/Contact").then((m) => m.Contact),
   { ssr: false },
 );
+const ResumeViewerHost = dynamic(
+  () =>
+    import("@/components/resume/ResumeViewer").then((m) => m.ResumeViewerHost),
+  { ssr: false },
+);
 const WorldStage = dynamic(
   () => import("@/components/world/WorldStage").then((m) => m.WorldStage),
   { ssr: false },
@@ -59,7 +64,9 @@ export function HomeMid() {
       const hash = window.location.hash.replace("#", "");
       if (
         hash &&
-        ["about", "tech", "projects", "certificates", "contact"].includes(hash)
+        ["about", "tech", "projects", "certificates", "contact", "resume"].includes(
+          hash,
+        )
       ) {
         setForceMid(true);
       }
@@ -79,6 +86,7 @@ export function HomeMid() {
         <div id="projects" className="mt-[40vh]" />
         <div id="certificates" className="mt-[40vh]" />
         <div id="contact" className="mt-[40vh]" />
+        <div id="resume" className="mt-[40vh]" />
       </div>
     );
   }
@@ -90,6 +98,7 @@ export function HomeMid() {
       <Projects />
       <Certificates />
       <Contact />
+      <ResumeViewerHost />
     </div>
   );
 }
