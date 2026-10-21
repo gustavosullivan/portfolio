@@ -5,6 +5,7 @@ const SLUGS: Record<string, string> = {
   React: "react",
   "Next.js": "nextdotjs",
   NestJS: "nestjs",
+  Go: "go",
   "Node.js": "nodedotjs",
   FastAPI: "fastapi",
   PostgreSQL: "postgresql",
@@ -33,7 +34,7 @@ export function TechIcon({
 }) {
   const fill =
     mode === "mono"
-      ? "#ffe81f"
+      ? "#00f0ff"
       : name === "Next.js"
         ? "#ffffff"
         : brandColor;

@@ -25,12 +25,12 @@ type FormValues = {
   name: string;
   email: string;
   message: string;
-  website?: string;
 };
 
-const fieldClass =
-  "w-full border border-[#ffe81f]/15 bg-black/50 px-4 py-3 text-sm text-[#ffe81f] outline-none transition-colors placeholder:text-[#ffe81f]/25 focus:border-[#ffe81f]/45";
+const WHATSAPP_NUMBER = "5554993698492";
 
+const fieldClass =
+  "w-full border border-[#00f0ff]/15 bg-black/50 px-4 py-3 text-sm text-[#e8f7ff] outline-none transition-colors placeholder:text-slate-500 focus:border-[#00f0ff]/45";
 
 function ChannelCard({
   href,
@@ -49,14 +49,14 @@ function ChannelCard({
 }) {
   const content = (
     <>
-      <span className="flex h-10 w-10 shrink-0 items-center justify-center border border-[#ffe81f]/15 bg-black/40 text-[#ffe81f]">
+      <span className="flex h-10 w-10 shrink-0 items-center justify-center border border-[#00f0ff]/15 bg-black/40 text-[#00f0ff]">
         {icon}
       </span>
       <span className="min-w-0 flex-1">
-        <span className="block font-mono text-[10px] tracking-[0.22em] text-[#ffe81f]/40 uppercase">
+        <span className="neon-label block font-mono text-[10px]">
           {label}
         </span>
-        <span className="mt-0.5 block truncate text-sm text-[#ffe81f] md:text-base">
+        <span className="mt-0.5 block truncate text-sm text-[#e8f7ff] md:text-base">
           {value}
         </span>
       </span>
@@ -65,7 +65,7 @@ function ChannelCard({
   );
 
   const classes =
-    "glass group flex w-full items-center gap-4 p-4 text-left transition-colors hover:border-[#ffe81f]/35 md:p-5";
+    "glass group flex w-full items-center gap-4 p-4 text-left transition-colors hover:border-[#00f0ff]/35 md:p-5";
 
   if (href) {
     return (
@@ -82,21 +82,16 @@ function ChannelCard({
   );
 }
 
-function ContactForm() {
-  const { t } = useI18n();
-  const [sent, setSent] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
+function WhatsAppForm() {
+  const { t, locale } = useI18n();
+  const [opened, setOpened] = useState(false);
 
   const schema = useMemo(
     () =>
       z.object({
         name: z.string().min(2, t.contact.nameError),
         email: z.string().email(t.contact.emailError),
-        message: z
-          .string()
-          .trim()
-          .min(15, t.contact.messageError),
-        website: z.string().optional(),
+        message: z.string().trim().min(15, t.contact.messageError),
       }),
     [t.contact.emailError, t.contact.messageError, t.contact.nameError],
   );
@@ -104,69 +99,38 @@ function ContactForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     reset,
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
-    defaultValues: { website: "" },
   });
 
-  const onSubmit = async (data: FormValues) => {
-    setSubmitError(null);
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: data.name,
-          email: data.email,
-          message: data.message,
-          website: data.website ?? "",
-        }),
-      });
-      const payload = (await res.json().catch(() => null)) as {
-        error?: string;
-      } | null;
+  const onSubmit = (data: FormValues) => {
+    const body =
+      locale === "en"
+        ? `Hi Gustavo! I'm ${data.name}.\nEmail: ${data.email}\n\n${data.message}`
+        : locale === "es"
+          ? `¡Hola Gustavo! Soy ${data.name}.\nEmail: ${data.email}\n\n${data.message}`
+          : `Olá Gustavo! Meu nome é ${data.name}.\nEmail: ${data.email}\n\n${data.message}`;
 
-      if (!res.ok) {
-        setSubmitError(payload?.error || "Não foi possível enviar. Tenta de novo.");
-        return;
-      }
-
-      setSent(true);
-      reset({ website: "" });
-      window.setTimeout(() => setSent(false), 4000);
-    } catch {
-      setSubmitError("Falha de rede. Verifica a conexão e tenta de novo.");
-    }
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(body)}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+    setOpened(true);
+    reset();
+    window.setTimeout(() => setOpened(false), 3500);
   };
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="glass relative flex flex-1 flex-col gap-5 border-[#ffe81f]/15 bg-black/55 p-6 backdrop-blur-md md:p-8"
+      className="glass relative flex flex-1 flex-col gap-5 border-[#00f0ff]/15 bg-black/55 p-6 backdrop-blur-md md:p-8"
       noValidate
     >
-      {/* Honeypot — hidden from humans, traps simple bots */}
-      <div
-        className="absolute -left-[9999px] h-0 w-0 overflow-hidden opacity-0"
-        aria-hidden
-      >
-        <label htmlFor="contact-website">Website</label>
-        <input
-          id="contact-website"
-          type="text"
-          tabIndex={-1}
-          autoComplete="off"
-          {...register("website")}
-        />
-      </div>
-
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label
             htmlFor="contact-name"
-            className="mb-2 block font-mono text-[10px] tracking-[0.2em] text-[#ffe81f]/45 uppercase"
+            className="neon-label mb-2 block font-mono text-[10px]"
           >
             {t.contact.name}
           </label>
@@ -185,7 +149,7 @@ function ContactForm() {
         <div>
           <label
             htmlFor="contact-email"
-            className="mb-2 block font-mono text-[10px] tracking-[0.2em] text-[#ffe81f]/45 uppercase"
+            className="neon-label mb-2 block font-mono text-[10px]"
           >
             {t.contact.email}
           </label>
@@ -208,7 +172,7 @@ function ContactForm() {
       <div className="flex flex-1 flex-col">
         <label
           htmlFor="contact-message"
-          className="mb-2 block font-mono text-[10px] tracking-[0.2em] text-[#ffe81f]/45 uppercase"
+          className="neon-label mb-2 block font-mono text-[10px]"
         >
           {t.contact.message}
         </label>
@@ -231,19 +195,8 @@ function ContactForm() {
       </div>
 
       <div className="mt-auto pt-1">
-        {submitError ? (
-          <p className="mb-3 text-xs text-rose-400">{submitError}</p>
-        ) : null}
-        <MagneticButton
-          type="submit"
-          disabled={isSubmitting || sent}
-          className="w-full"
-        >
-          {isSubmitting
-            ? t.contact.sending
-            : sent
-              ? t.contact.sent
-              : t.contact.send}
+        <MagneticButton type="submit" disabled={opened} className="w-full">
+          {opened ? t.contact.sent : t.contact.send}
         </MagneticButton>
       </div>
     </form>
@@ -261,21 +214,20 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="cv-auto section-pad relative mx-auto max-w-7xl pt-10 pb-8 md:pt-12 md:pb-10">
-      <div className="mb-12 max-w-3xl">
-        <p className="font-mono text-xs tracking-[0.28em] text-[#ffe81f]/80 uppercase">
-          {t.contact.eyebrow}
-        </p>
-        <h2 className="display glow-text mt-3 text-4xl font-semibold text-[#ffe81f] md:text-5xl lg:text-6xl">
+    <section
+      id="contact"
+      className="cv-auto section-pad relative mx-auto max-w-7xl pt-10 pb-8 md:pt-12 md:pb-10"
+    >
+      <div className="mb-12 mx-auto max-w-3xl text-center">
+        <h2 className="display neon-title tron-underline mx-auto text-4xl font-semibold md:text-5xl lg:text-6xl">
           {t.contact.title}
         </h2>
-        <p className="mt-4 text-base leading-relaxed text-[#ffe81f]/80 md:text-lg">
+        <p className="mt-4 text-base leading-relaxed text-[var(--text-muted)] md:text-lg">
           {t.contact.description}
         </p>
       </div>
 
       <div className="grid items-stretch gap-8 lg:grid-cols-2 lg:gap-12">
-        {/* Canais */}
         <motion.div
           className="flex flex-col"
           initial={{ opacity: 0, y: 18 }}
@@ -283,11 +235,11 @@ export function Contact() {
           viewport={{ once: true }}
           transition={{ duration: 0.55 }}
         >
-          <div className="mb-5 min-h-[3.25rem]">
-            <p className="font-mono text-xs tracking-[0.24em] text-[#ffe81f]/55 uppercase">
+          <div className="mb-5 min-h-[3.25rem] text-center">
+            <p className="neon-label font-mono text-xs">
               {t.contact.channelsEyebrow}
             </p>
-            <p className="mt-1 text-sm text-[#ffe81f]/40">
+            <p className="mt-1 text-sm text-slate-500">
               {t.contact.channelsHint}
             </p>
           </div>
@@ -302,7 +254,7 @@ export function Contact() {
                 copied ? (
                   <Check className="h-4 w-4 shrink-0 text-emerald-400" />
                 ) : (
-                  <Copy className="h-4 w-4 shrink-0 text-[#ffe81f]/35 transition-colors group-hover:text-[#ffe81f]/70" />
+                  <Copy className="h-4 w-4 shrink-0 text-[#00f0ff]/35 transition-colors group-hover:text-[#00f0ff]/70" />
                 )
               }
             />
@@ -312,7 +264,7 @@ export function Contact() {
               label={t.contact.whatsappLabel}
               value={SITE.whatsappLabel}
               action={
-                <ExternalLink className="h-4 w-4 shrink-0 text-[#ffe81f]/35 transition-colors group-hover:text-[#ffe81f]/70" />
+                <ExternalLink className="h-4 w-4 shrink-0 text-[#00f0ff]/35 transition-colors group-hover:text-[#00f0ff]/70" />
               }
             />
             <ChannelCard
@@ -321,7 +273,7 @@ export function Contact() {
               label={t.contact.githubLabel}
               value={SITE.githubLabel}
               action={
-                <ExternalLink className="h-4 w-4 shrink-0 text-[#ffe81f]/35 transition-colors group-hover:text-[#ffe81f]/70" />
+                <ExternalLink className="h-4 w-4 shrink-0 text-[#00f0ff]/35 transition-colors group-hover:text-[#00f0ff]/70" />
               }
             />
             <ChannelCard
@@ -330,7 +282,7 @@ export function Contact() {
               label={t.contact.linkedinLabel}
               value={SITE.linkedinLabel}
               action={
-                <ExternalLink className="h-4 w-4 shrink-0 text-[#ffe81f]/35 transition-colors group-hover:text-[#ffe81f]/70" />
+                <ExternalLink className="h-4 w-4 shrink-0 text-[#00f0ff]/35 transition-colors group-hover:text-[#00f0ff]/70" />
               }
             />
             <div id="resume" className="scroll-mt-28">
@@ -340,14 +292,13 @@ export function Contact() {
                 label={t.contact.resumeLabel}
                 value={SITE.resumeLabel}
                 action={
-                  <ExternalLink className="h-4 w-4 shrink-0 text-[#ffe81f]/35 transition-colors group-hover:text-[#ffe81f]/70" />
+                  <ExternalLink className="h-4 w-4 shrink-0 text-[#00f0ff]/35 transition-colors group-hover:text-[#00f0ff]/70" />
                 }
               />
             </div>
           </div>
         </motion.div>
 
-        {/* Formulário */}
         <motion.div
           className="flex flex-col"
           initial={{ opacity: 0, y: 18 }}
@@ -355,16 +306,16 @@ export function Contact() {
           viewport={{ once: true }}
           transition={{ duration: 0.55, delay: 0.06 }}
         >
-          <div className="mb-5 min-h-[3.25rem]">
-            <p className="font-mono text-xs tracking-[0.24em] text-[#ffe81f]/55 uppercase">
+          <div className="mb-5 min-h-[3.25rem] text-center">
+            <p className="neon-label font-mono text-xs">
               {t.contact.messageEyebrow}
             </p>
-            <p className="mt-1 text-sm text-[#ffe81f]/40">
+            <p className="mt-1 text-sm text-slate-500">
               {t.contact.messageHint}
             </p>
           </div>
 
-          <ContactForm key={locale} />
+          <WhatsAppForm key={locale} />
         </motion.div>
       </div>
     </section>

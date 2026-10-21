@@ -16,7 +16,7 @@ export const SITE = {
   heroStack:
     "React · Node.js · FastAPI · Rust · Next.js · PostgreSQL · Supabase · Git / GitHub",
   about:
-    "Sou Desenvolvedor Full Stack e estudante do 4º semestre de Ciência da Computação na Atitus, apaixonado por tecnologia e pela criação de soluções modernas. Trabalho com React, Next.js, Node.js, NestJS, FastAPI, Rust, PostgreSQL, Supabase, Docker e Git, desenvolvendo aplicações web e APIs escaláveis. Estou em constante evolução, buscando aprimorar minhas habilidades e contribuir com projetos que gerem impacto real.",
+    "Sou Desenvolvedor Full Stack apaixonado por tecnologia e pela criação de soluções modernas. Trabalho com React, Next.js, Node.js, NestJS, FastAPI, Go, Rust, PostgreSQL, Supabase, Docker e Git — do front à API, com foco em produção, performance e ownership de ponta a ponta.",
   email: "gubportela@gmail.com",
   whatsapp: "https://wa.me/5554993698492",
   whatsappLabel: "(55) 54 99369-8492",
@@ -27,12 +27,11 @@ export const SITE = {
   resume: withBase("/curriculo.pdf"),
   resumeLabel: "curriculo.pdf",
   location: "Passo Fundo, Brasil",
-  education: "4º semestre · Ciência da Computação · Atitus",
+  education: "Ciência da Computação · Atitus",
   url: "https://www.gudev.com.br",
 } as const;
 
 export const STATS = [
-  { label: "Semestre na Atitus", value: 4, suffix: "º" },
   { label: "Projetos profissionais", value: 3, suffix: "+" },
   { label: "Áreas de stack", value: 4, suffix: "" },
   { label: "Foco em produção", value: 100, suffix: "%" },
@@ -40,9 +39,10 @@ export const STATS = [
 
 export const TECH_STACK: TechItem[] = [
   { name: "React", category: "frontend", color: "#61DAFB" },
-  { name: "Next.js", category: "frontend", color: "#FFE81F" },
+  { name: "Next.js", category: "frontend", color: "#00f0ff" },
   { name: "FastAPI", category: "backend", color: "#009688" },
   { name: "NestJS", category: "backend", color: "#E0234E" },
+  { name: "Go", category: "backend", color: "#00ADD8" },
   { name: "Node.js", category: "backend", color: "#68A063" },
   { name: "PostgreSQL", category: "infra", color: "#4A90C4" },
   { name: "Supabase", category: "infra", color: "#3ECF8E" },
@@ -163,6 +163,38 @@ export const PROJECTS: Project[] = [
     accent: "#22D3EE",
   },
   {
+    id: "elo-control",
+    title: "Elo Control",
+    subtitle: "elocontrol.net — Sistema de Gestão Modular",
+    description:
+      "Sistema de gestão empresarial multi-tenant que une clientes, filas, atendimentos, pedidos, documentos, estoque e relatórios em uma plataforma modular — com módulos especializados por segmento.",
+    features: [
+      "Núcleo de gestão · clientes · filas · atendimentos · pedidos",
+      "Documentos · estoque · relatórios financeiros e operacionais",
+      "Multi-tenant · papéis · permissões · auditoria de ações",
+      "Módulos sob medida · funerária · materiais de construção · custom",
+      "Landing institucional · painel administrativo · suporte contínuo",
+    ],
+    architecture:
+      "Next.js + NestJS + TypeScript + Supabase (PostgreSQL, RLS multi-tenant), com núcleo reutilizável e módulos especializados por segmento de negócio.",
+    tech: [
+      "Next.js",
+      "NestJS",
+      "TypeScript",
+      "Supabase",
+      "PostgreSQL",
+      "RLS",
+    ],
+    category: "saas",
+    liveUrl: "https://elocontrol.net",
+    metrics: [
+      { label: "Modelo", value: "SaaS" },
+      { label: "Arquitetura", value: "Modular" },
+      { label: "Tenant", value: "Multi" },
+    ],
+    accent: "#34D399",
+  },
+  {
     id: "sn250",
     title: "SN250",
     subtitle: "sgpsaicon.com.br — Gestão de Confinamentos",
@@ -204,39 +236,13 @@ export const PROJECTS: Project[] = [
       "React + Node.js + WebSocket + Neon (PostgreSQL). Servidor próprio para sincronização de partidas e economia do jogo.",
     tech: ["React", "Node.js", "WebSocket", "Neon", "PostgreSQL", "DBeaver"],
     category: "web",
-    liveUrl: "https://trucogames.com",
+    underConstruction: true,
     metrics: [
       { label: "Realtime", value: "WS" },
       { label: "Players", value: "até 4" },
       { label: "DB", value: "Neon" },
     ],
     accent: "#60A5FA",
-  },
-  {
-    id: "carteira-rust",
-    title: "Carteira Rust",
-    subtitle: "Carteira de Investimentos — Fullstack em Rust",
-    description:
-      "Aplicação fullstack para cadastrar e acompanhar ativos de investimento, com API REST, autenticação JWT, PostgreSQL e dashboard web com valor total da carteira.",
-    features: [
-      "Cadastro e login de usuários · JWT em cookie",
-      "API REST · listar, criar e atualizar ativos",
-      "Dashboard web · lista de ativos · valor total da carteira",
-      "PostgreSQL · SQLx · migrations",
-      "Docker Compose · Askama templates · Tailwind",
-    ],
-    architecture:
-      "Rust + Axum para API e rotas web, SQLx + PostgreSQL, autenticação JWT em cookies e templates Askama para o dashboard.",
-    tech: ["Rust", "Axum", "SQLx", "PostgreSQL", "JWT", "Docker", "Askama"],
-    category: "systems",
-    githubUrl:
-      "https://github.com/gustavosullivan/Carteira-de-Investimentos-Inteligente-com-Rust",
-    metrics: [
-      { label: "Stack", value: "Rust" },
-      { label: "API", value: "Axum" },
-      { label: "DB", value: "Postgres" },
-    ],
-    accent: "#F97316",
   },
 ];
 
@@ -246,6 +252,7 @@ export const HARD_SKILLS = [
   "Node.js",
   "NestJS",
   "FastAPI",
+  "Go",
   "Rust",
   "TypeScript",
   "JavaScript (ES6+)",

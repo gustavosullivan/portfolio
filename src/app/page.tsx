@@ -7,11 +7,15 @@ export default function HomePage() {
   return (
     <>
       <Navigation />
-      <main className="relative z-10 bg-black">
+      <main className="relative z-10 bg-[#03050c]">
         <GalaxyShell>
           <Hero />
-          <HomeMid />
         </GalaxyShell>
+        <div
+          className="pointer-events-none relative z-10 -mt-16 h-16 bg-gradient-to-b from-[#03050c] via-[#03050c] to-transparent md:-mt-24 md:h-24"
+          aria-hidden
+        />
+        <HomeMid />
         <HomeAfterFold />
       </main>
     </>

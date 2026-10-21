@@ -24,12 +24,11 @@ export const es = {
     tagline:
       "Estudiante de Ciencias de la Computación en Atitus. Desarrollo aplicaciones web y APIs escalables con enfoque en producción.",
     about:
-      "Soy Desarrollador Full Stack y estudiante del 4.º semestre de Ciencias de la Computación en Atitus, apasionado por la tecnología y la creación de soluciones modernas. Trabajo con React, Next.js, Node.js, NestJS, FastAPI, Rust, PostgreSQL, Supabase, Docker y Git, desarrollando aplicaciones web y APIs escalables. Estoy en constante evolución, buscando mejorar mis habilidades y contribuir a proyectos que generen impacto real.",
-    education: "4.º semestre · Ciencias de la Computación · Atitus",
+      "Soy Desarrollador Full Stack apasionado por la tecnología y la creación de soluciones modernas. Trabajo con React, Next.js, Node.js, NestJS, FastAPI, Go, Rust, PostgreSQL, Supabase, Docker y Git — del front a la API, con foco en producción, rendimiento y ownership de punta a punta.",
+    education: "Ciencias de la Computación · Atitus",
     location: "Passo Fundo, Brasil",
   },
   stats: [
-    { label: "Semestre en Atitus", value: 4, suffix: "º" },
     { label: "Proyectos profesionales", value: 3, suffix: "+" },
     { label: "Áreas de stack", value: 4, suffix: "" },
     { label: "Enfoque en producción", value: 100, suffix: "%" },
@@ -39,6 +38,12 @@ export const es = {
     profileTitle: "Perfil",
     careerEyebrow: "Carrera",
     experienceTitle: "Experiencia profesional",
+    focus: [
+      "Apps web y APIs escalables en producción",
+      "SaaS multi-tenant, paneles e integraciones",
+      "Arquitectura, deploy y sustentación end-to-end",
+      "UX/UI, rendimiento y código sostenible",
+    ],
   },
   experiences: [
     {
@@ -169,10 +174,12 @@ export const es = {
     caseStudy: "Case study",
     features: "Features",
     architecture: "Architecture",
-    liveDemo: "Live Demo",
+    liveDemo: "Visitar",
+    visit: "Visitar",
     github: "GitHub",
     close: "Cerrar",
     closeModal: "Cerrar modal",
+    underConstruction: "Proyecto en construcción — sitio aún no disponible",
     items: [
       {
         id: "sn800",
@@ -194,6 +201,27 @@ export const es = {
           { label: "Status", value: "2025+" },
           { label: "Modelo", value: "SaaS" },
           { label: "i18n", value: "PT/EN/ES" },
+        ],
+      },
+      {
+        id: "elo-control",
+        title: "Elo Control",
+        subtitle: "elocontrol.net — Sistema de Gestión Modular",
+        description:
+          "Sistema de gestión empresarial multi-tenant que une clientes, colas, atenciones, pedidos, documentos, stock e informes en una plataforma modular — con módulos especializados por segmento.",
+        features: [
+          "Núcleo de gestión · clientes · colas · atenciones · pedidos",
+          "Documentos · stock · informes financieros y operativos",
+          "Multi-tenant · roles · permisos · auditoría de acciones",
+          "Módulos a medida · funeraria · materiales de construcción · custom",
+          "Landing institucional · panel administrativo · soporte continuo",
+        ],
+        architecture:
+          "Next.js + NestJS + TypeScript + Supabase (PostgreSQL, RLS multi-tenant), con núcleo reutilizable y módulos especializados por segmento de negocio.",
+        metrics: [
+          { label: "Modelo", value: "SaaS" },
+          { label: "Arquitectura", value: "Modular" },
+          { label: "Tenant", value: "Multi" },
         ],
       },
       {
@@ -238,27 +266,6 @@ export const es = {
           { label: "DB", value: "Neon" },
         ],
       },
-      {
-        id: "carteira-rust",
-        title: "Carteira Rust",
-        subtitle: "Cartera de Inversiones — Fullstack en Rust",
-        description:
-          "Aplicación fullstack para registrar y seguir activos de inversión, con API REST, autenticación JWT, PostgreSQL y dashboard web con el valor total de la cartera.",
-        features: [
-          "Registro e inicio de sesión · JWT en cookie",
-          "API REST · listar, crear y actualizar activos",
-          "Dashboard web · lista de activos · valor total de la cartera",
-          "PostgreSQL · SQLx · migrations",
-          "Docker Compose · Askama templates · Tailwind",
-        ],
-        architecture:
-          "Rust + Axum para API y rutas web, SQLx + PostgreSQL, autenticación JWT en cookies y templates Askama para el dashboard.",
-        metrics: [
-          { label: "Stack", value: "Rust" },
-          { label: "API", value: "Axum" },
-          { label: "DB", value: "Postgres" },
-        ],
-      },
     ],
   },
   certificates: {
@@ -281,11 +288,11 @@ export const es = {
     eyebrow: "Contacto",
     title: "Hablemos",
     description:
-      "Abierto a oportunidades, freelance e ideas. Elige el canal o envía un mensaje.",
+      "Abierto a oportunidades, freelance e ideas. Elige el canal o escríbeme por WhatsApp.",
     channelsEyebrow: "Canales",
     channelsHint: "Haz clic para abrir o copiar",
-    messageEyebrow: "Mensaje",
-    messageHint: "Respondo lo más rápido posible",
+    messageEyebrow: "Hablemos",
+    messageHint: "¿Te gustó mi trabajo? Escríbeme por WhatsApp y conversamos.",
     name: "Nombre",
     namePlaceholder: "Tu nombre",
     nameError: "Ingresa tu nombre",
@@ -295,9 +302,9 @@ export const es = {
     message: "Mensaje",
     messagePlaceholder: "Cuéntame un poco sobre el proyecto o idea…",
     messageError: "Escribe al menos 15 caracteres",
-    sending: "Enviando…",
-    sent: "¡Mensaje enviado!",
-    send: "Enviar mensaje",
+    sending: "Abriendo…",
+    sent: "¡WhatsApp abierto!",
+    send: "Enviar por WhatsApp",
     emailLabel: "Correo",
     whatsappLabel: "WhatsApp",
     githubLabel: "GitHub",

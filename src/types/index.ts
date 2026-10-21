@@ -11,6 +11,7 @@ export interface Project {
   category: Exclude<ProjectCategory, "all">;
   liveUrl?: string;
   githubUrl?: string;
+  underConstruction?: boolean;
   metrics: { label: string; value: string }[];
   accent: string;
 }

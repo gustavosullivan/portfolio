@@ -39,7 +39,7 @@ Frontend development of a mobile e-commerce application with React Native, integ
 
 SKILLS
 frontend: React, Next.js, TypeScript, JavaScript, React Native, Material UI, Tailwind CSS
-backend: Node.js, Python, FastAPI, NestJS, Rust, REST APIs, JWT, WebSocket
+backend: Node.js, Python, FastAPI, NestJS, Go, Rust, REST APIs, JWT, WebSocket
 data / infra: PostgreSQL, Supabase, Redis, Docker, Git, GitHub, AWS, Azure
 engineering: SOLID, Design Patterns, Clean Code, OOP, Software Testing, Data Modeling, Git / Git Flow, CI/CD
 languages: Portuguese native, English intermediate, Spanish intermediate

@@ -11,8 +11,8 @@ import type { MethodologyItem, TechItem } from "@/types";
 import { cn } from "@/lib/utils";
 
 const METHOD_TONES: Record<MethodologyItem["category"], string> = {
-  agile: "#ffe81f",
-  engineering: "#7dd3fc",
+  agile: "#00f0ff",
+  engineering: "#00f0ff",
   quality: "#86efac",
 };
 
@@ -43,7 +43,7 @@ export function TechStack() {
   const methodologies = t.tech.methodologies as readonly MethodologyItem[];
   const cloudItems = t.tech.clouds.map((cloud) => ({
     ...cloud,
-    color: CLOUD_COLORS[cloud.name] ?? "#ffe81f",
+    color: CLOUD_COLORS[cloud.name] ?? "#00f0ff",
   }));
 
   const [focusLayer, setFocusLayer] = useState<TechItem["category"] | "all">(
@@ -108,7 +108,7 @@ export function TechStack() {
       title: item.name,
       eyebrow: group?.label ?? t.tech.methodModalFallback,
       summary: item.summary,
-      tone: group?.tone ?? "#ffe81f",
+      tone: group?.tone ?? "#00f0ff",
     });
   };
 
@@ -153,7 +153,7 @@ export function TechStack() {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 12, scale: 0.98 }}
               transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              className="relative z-10 w-full max-w-md border border-[#ffe81f]/25 bg-[#0c0614] p-5 shadow-[0_20px_60px_rgba(0,0,0,0.55)] md:p-6"
+              className="relative z-10 w-full max-w-md border border-[#00f0ff]/25 bg-[#0c0614] p-5 shadow-[0_20px_60px_rgba(0,0,0,0.55)] md:p-6"
             >
               <div
                 className="pointer-events-none absolute inset-x-0 top-0 h-px"
@@ -164,12 +164,12 @@ export function TechStack() {
 
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
-                  <p className="font-mono text-[10px] tracking-[0.24em] text-[#ffe81f]/55 uppercase">
+                  <p className="font-mono text-[10px] tracking-[0.24em] text-[#00f0ff]/55 uppercase">
                     {info.eyebrow}
                   </p>
                   <h3
                     id="info-modal-title"
-                    className="display mt-1 text-2xl font-semibold text-[#ffe81f] md:text-3xl"
+                    className="display mt-1 text-2xl font-semibold text-[#00f0ff] md:text-3xl"
                   >
                     {info.title}
                   </h3>
@@ -177,14 +177,14 @@ export function TechStack() {
                 <button
                   type="button"
                   onClick={closeInfo}
-                  className="shrink-0 border border-[#ffe81f]/20 p-2 text-[#ffe81f]/60 transition-colors hover:border-[#ffe81f]/45 hover:text-[#ffe81f]"
+                  className="shrink-0 border border-[#00f0ff]/20 p-2 text-[#00f0ff]/60 transition-colors hover:border-[#00f0ff]/45 hover:text-[#00f0ff]"
                   aria-label="Fechar"
                 >
                   <X className="h-4 w-4" />
                 </button>
               </div>
 
-              <p className="mt-4 text-sm leading-relaxed text-[#ffe81f]/80 md:text-base md:text-[#ffe81f]/70">
+              <p className="mt-4 text-sm leading-relaxed text-[#00f0ff]/80 md:text-base md:text-[#00f0ff]/70">
                 {info.summary}
               </p>
             </motion.div>
@@ -201,21 +201,22 @@ export function TechStack() {
     >
       <div className="grid items-stretch gap-8 lg:grid-cols-2 lg:gap-12">
         <div className="flex h-full flex-col">
-          <div className="mb-6 md:min-h-[9.5rem]">
-            <p className="font-mono text-xs tracking-[0.28em] text-[#ffe81f]/80 uppercase">
+          <div className="mb-6 text-center md:min-h-[9.5rem]">
+            <p className="neon-eyebrow font-mono text-xs tracking-[0.28em] uppercase">
               {t.tech.stackEyebrow}
             </p>
-            <h2 className="display glow-text mt-3 text-3xl font-semibold text-[#ffe81f] md:text-4xl lg:text-5xl">
+            <h2 className="display neon-title tron-underline mx-auto mt-3 text-3xl font-semibold md:text-4xl lg:text-5xl">
               {t.tech.stackTitle}
             </h2>
-            <p className="mt-2 text-sm text-[#ffe81f]/75 md:text-base">
+            <p className="mt-2 text-sm text-[var(--text-muted)] md:text-base">
               {t.tech.stackDesc}
             </p>
-            <div className="mt-4 flex flex-wrap gap-2">
+            <div className="mt-4 flex flex-wrap justify-center gap-2">
               <FilterChip
                 label={t.tech.filterAll}
                 active={focusLayer === "all"}
                 onClick={() => setFocusLayer("all")}
+                neon
               />
               {layers.map((layer) => (
                 <FilterChip
@@ -223,17 +224,18 @@ export function TechStack() {
                   label={layer.label}
                   active={focusLayer === layer.id}
                   onClick={() => setFocusLayer(layer.id)}
+                  neon
                 />
               ))}
             </div>
           </div>
 
-          <div className="relative flex min-h-0 flex-1 flex-col border border-[#ffe81f]/12 bg-black/35 p-4 backdrop-blur-[2px] sm:p-5 md:p-8">
+          <div className="relative flex min-h-0 flex-1 flex-col border border-[#00f0ff]/12 bg-black/35 p-4 backdrop-blur-[2px] sm:p-5 md:p-8">
             <div
               className="pointer-events-none absolute inset-0 opacity-40"
               style={{
                 backgroundImage:
-                  "radial-gradient(rgba(255,232,31,0.12) 1px, transparent 1px)",
+                  "radial-gradient(rgba(125, 211, 252,0.12) 1px, transparent 1px)",
                 backgroundSize: "28px 28px",
               }}
             />
@@ -252,10 +254,10 @@ export function TechStack() {
                     transition={{ delay: layerIndex * 0.06, duration: 0.45 }}
                   >
                     <div className="mb-3 flex items-baseline justify-between gap-3">
-                      <p className="font-mono text-[10px] tracking-[0.28em] text-[#ffe81f]/45 uppercase">
+                      <p className="neon-label font-mono text-[10px]">
                         {layer.label}
                       </p>
-                      <p className="hidden text-xs text-[#ffe81f]/30 sm:block">
+                      <p className="hidden text-xs text-[var(--text-muted)] sm:block">
                         {layer.blurb}
                       </p>
                     </div>
@@ -271,7 +273,7 @@ export function TechStack() {
                       {items.map((tech, i) => (
                         <motion.div
                           key={tech.name}
-                          className="relative border border-[#ffe81f]/15 bg-black/40 px-3 py-3 transition-colors hover:border-[#ffe81f]/40"
+                          className="relative border border-[#00f0ff]/15 bg-black/40 px-3 py-3 transition-colors hover:border-[#00f0ff]/40"
                           whileHover={{ y: -2 }}
                           transition={{
                             type: "spring",
@@ -290,10 +292,10 @@ export function TechStack() {
                               brandColor={tech.color}
                             />
                             <div className="min-w-0">
-                              <span className="display block text-sm font-semibold break-words text-[#ffe81f] sm:text-base md:text-lg">
+                              <span className="display block text-sm font-semibold break-words text-[#00f0ff] sm:text-base md:text-lg">
                                 {tech.name}
                               </span>
-                              <span className="mt-0.5 block font-mono text-[9px] tracking-wider text-[#ffe81f]/35 uppercase sm:text-[10px]">
+                              <span className="mt-0.5 block font-mono text-[9px] tracking-wider text-[#00f0ff]/35 uppercase sm:text-[10px]">
                                 0{i + 1} · {layer.label}
                               </span>
                             </div>
@@ -309,17 +311,14 @@ export function TechStack() {
         </div>
 
         <div id="methods" className="flex h-full flex-col">
-          <div className="mb-6 md:min-h-[9.5rem]">
-            <p className="font-mono text-xs tracking-[0.28em] text-[#ffe81f]/80 uppercase">
-              {t.tech.methodsEyebrow}
-            </p>
-            <h2 className="display glow-text mt-3 text-3xl font-semibold text-[#ffe81f] md:text-4xl lg:text-5xl">
+          <div className="mb-6 text-center md:min-h-[9.5rem]">
+            <h2 className="display neon-title tron-underline mx-auto text-3xl font-semibold md:text-4xl lg:text-5xl">
               {t.tech.methodsTitle}
             </h2>
-            <p className="mt-2 text-sm text-[#ffe81f]/75 md:text-base">
+            <p className="mt-3 text-sm text-[var(--text-muted)] md:text-base">
               {t.tech.methodsDesc}
             </p>
-            <div className="mt-4 flex flex-wrap gap-2">
+            <div className="mt-4 flex flex-wrap justify-center gap-2">
               <FilterChip
                 label={t.tech.filterAll}
                 active={focusMethod === "all"}
@@ -341,12 +340,12 @@ export function TechStack() {
             </div>
           </div>
 
-          <div className="relative flex min-h-0 flex-1 flex-col border border-[#ffe81f]/12 bg-black/35 p-4 backdrop-blur-[2px] sm:p-5 md:p-8">
+          <div className="relative flex min-h-0 flex-1 flex-col border border-[#00f0ff]/12 bg-black/35 p-4 backdrop-blur-[2px] sm:p-5 md:p-8">
             <div
               className="pointer-events-none absolute inset-0 opacity-40"
               style={{
                 backgroundImage:
-                  "radial-gradient(rgba(255,232,31,0.12) 1px, transparent 1px)",
+                  "radial-gradient(rgba(125, 211, 252,0.12) 1px, transparent 1px)",
                 backgroundSize: "28px 28px",
               }}
             />
@@ -368,10 +367,10 @@ export function TechStack() {
                     transition={{ delay: groupIndex * 0.06, duration: 0.45 }}
                   >
                     <div className="mb-3 flex items-baseline justify-between gap-3">
-                      <p className="font-mono text-[10px] tracking-[0.28em] text-[#ffe81f]/45 uppercase">
+                      <p className="font-mono text-[10px] tracking-[0.28em] text-[#00f0ff]/45 uppercase">
                         {group.label}
                       </p>
-                      <p className="hidden text-xs text-[#ffe81f]/30 sm:block">
+                      <p className="hidden text-xs text-[#00f0ff]/30 sm:block">
                         {group.blurb}
                       </p>
                     </div>
@@ -394,8 +393,8 @@ export function TechStack() {
                             className={cn(
                               "relative border bg-black/40 px-3 py-3 text-left transition-colors",
                               on
-                                ? "border-[#ffe81f]/55 bg-[#ffe81f]/10"
-                                : "border-[#ffe81f]/15 hover:border-[#ffe81f]/40",
+                                ? "border-[#00f0ff]/55 bg-[#00f0ff]/10"
+                                : "border-[#00f0ff]/15 hover:border-[#00f0ff]/40",
                             )}
                             whileHover={{ y: -2 }}
                             transition={{
@@ -414,10 +413,10 @@ export function TechStack() {
                               }}
                             />
                             <div className="min-w-0 pr-2">
-                              <span className="display block text-sm font-semibold break-words text-[#ffe81f] sm:text-base md:text-lg">
+                              <span className="display block text-sm font-semibold break-words text-[#00f0ff] sm:text-base md:text-lg">
                                 {item.name}
                               </span>
-                              <span className="mt-0.5 block font-mono text-[9px] tracking-wider text-[#ffe81f]/35 uppercase sm:text-[10px]">
+                              <span className="mt-0.5 block font-mono text-[9px] tracking-wider text-[#00f0ff]/35 uppercase sm:text-[10px]">
                                 0{i + 1} · {group.label}
                               </span>
                             </div>
@@ -433,18 +432,18 @@ export function TechStack() {
               <div
                 className={cn(
                   "relative",
-                  showMethods && "mt-auto border-t border-[#ffe81f]/10 pt-5",
+                  showMethods && "mt-auto border-t border-[#00f0ff]/10 pt-5",
                 )}
               >
                 <div className="mb-3 flex items-baseline justify-between gap-3">
-                  <p className="font-mono text-[10px] tracking-[0.28em] text-[#ffe81f]/45 uppercase">
+                  <p className="font-mono text-[10px] tracking-[0.28em] text-[#00f0ff]/45 uppercase">
                     {t.tech.cloudEyebrow}
                   </p>
-                  <p className="hidden text-xs text-[#ffe81f]/30 sm:block">
+                  <p className="hidden text-xs text-[#00f0ff]/30 sm:block">
                     {t.tech.cloudBlurb}
                   </p>
                 </div>
-                <p className="mb-3 text-sm leading-relaxed text-[#ffe81f]/55">
+                <p className="mb-3 text-sm leading-relaxed text-[#00f0ff]/55">
                   {t.tech.cloudIntro}
                 </p>
                 <div className="grid grid-cols-2 gap-2.5">
@@ -458,8 +457,8 @@ export function TechStack() {
                         className={cn(
                           "relative border bg-black/40 px-3 py-3 text-left transition-colors",
                           on
-                            ? "border-[#ffe81f]/55 bg-[#ffe81f]/10"
-                            : "border-[#ffe81f]/15 hover:border-[#ffe81f]/40",
+                            ? "border-[#00f0ff]/55 bg-[#00f0ff]/10"
+                            : "border-[#00f0ff]/15 hover:border-[#00f0ff]/40",
                         )}
                         whileHover={{ y: -2 }}
                         transition={{
@@ -484,10 +483,10 @@ export function TechStack() {
                             brandColor={cloud.color}
                           />
                           <div className="min-w-0">
-                            <span className="display block text-sm font-semibold break-words text-[#ffe81f] sm:text-base md:text-lg">
+                            <span className="display block text-sm font-semibold break-words text-[#00f0ff] sm:text-base md:text-lg">
                               {cloud.name}
                             </span>
-                            <span className="mt-0.5 block font-mono text-[9px] tracking-wider text-[#ffe81f]/35 uppercase sm:text-[10px]">
+                            <span className="mt-0.5 block font-mono text-[9px] tracking-wider text-[#00f0ff]/35 uppercase sm:text-[10px]">
                               {t.tech.cloudLabel}
                             </span>
                           </div>
@@ -512,20 +511,25 @@ function FilterChip({
   label,
   active,
   onClick,
+  neon = false,
 }: {
   label: string;
   active: boolean;
   onClick: () => void;
+  neon?: boolean;
 }) {
   return (
     <button
       type="button"
       onClick={onClick}
       className={cn(
-        "border px-3 py-1.5 font-mono text-[10px] tracking-[0.18em] uppercase transition-colors",
+        "border px-3 py-1.5 font-mono text-[10px] tracking-[0.18em] uppercase transition-[colors,box-shadow,text-shadow]",
+        neon && "neon-label",
         active
-          ? "border-[#ffe81f]/50 bg-[#ffe81f]/15 text-[#ffe81f]"
-          : "border-[#ffe81f]/15 text-[#ffe81f]/45 hover:border-[#ffe81f]/30 hover:text-[#ffe81f]/70",
+          ? "border-[#00f0ff]/55 bg-[#00f0ff]/15 text-[#00f0ff] shadow-[0_0_16px_rgba(0,240,255,0.25)]"
+          : neon
+            ? "border-[#00f0ff]/25 bg-black/30 text-[#00f0ff] hover:border-[#00f0ff]/50 hover:shadow-[0_0_14px_rgba(0,240,255,0.2)]"
+            : "border-white/10 text-slate-400 hover:border-[#00f0ff]/30 hover:text-[#00f0ff]/80",
       )}
     >
       {label}

@@ -14,6 +14,8 @@ interface HoloCardProps {
   as?: "button" | "article";
   /** Fundo sólido sem blur — melhor legibilidade em modais (mobile) */
   solid?: boolean;
+  /** Desliga o tilt 3D (ex.: modal estático) */
+  tilt?: boolean;
 }
 
 export function HoloCard({
@@ -24,6 +26,7 @@ export function HoloCard({
   accent = "#ff2bd6",
   as = "article",
   solid = false,
+  tilt = true,
 }: HoloCardProps) {
   const ref = useRef<HTMLElement>(null);
   const mx = useMotionValue(0);
@@ -40,6 +43,7 @@ export function HoloCard({
   const glareY = useTransform(my, [-0.5, 0.5], [0, 100]);
 
   const onMove = (e: MouseEvent) => {
+    if (!tilt) return;
     const el = ref.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
@@ -48,6 +52,7 @@ export function HoloCard({
   };
 
   const onLeave = () => {
+    if (!tilt) return;
     mx.set(0);
     my.set(0);
   };
@@ -57,12 +62,14 @@ export function HoloCard({
     onClick,
     onMouseMove: onMove,
     onMouseLeave: onLeave,
-    style: {
-      rotateX: rx,
-      rotateY: ry,
-      transformStyle: "preserve-3d" as const,
-      transformPerspective: 900,
-    },
+    style: tilt
+      ? {
+          rotateX: rx,
+          rotateY: ry,
+          transformStyle: "preserve-3d" as const,
+          transformPerspective: 900,
+        }
+      : undefined,
     className: cn(
       "group relative overflow-hidden border text-left transition-shadow",
       solid
@@ -83,14 +90,19 @@ export function HoloCard({
           background: `linear-gradient(90deg, transparent, ${accent}, transparent)`,
         }}
       />
-      <motion.div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-        style={{
-          background: `radial-gradient(circle at ${glareX}% ${glareY}%, ${accent}33, transparent 45%)`,
-        }}
-      />
-      <div className="relative z-10" style={{ transform: "translateZ(28px)" }}>
+      {tilt && (
+        <motion.div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          style={{
+            background: `radial-gradient(circle at ${glareX}% ${glareY}%, ${accent}33, transparent 45%)`,
+          }}
+        />
+      )}
+      <div
+        className="relative z-10"
+        style={tilt ? { transform: "translateZ(28px)" } : undefined}
+      >
         {children}
       </div>
     </>

@@ -93,7 +93,7 @@ export function Navigation() {
       className={cn(
         "fixed top-0 right-0 left-0 z-40 transition-[background,border-color,backdrop-filter] duration-400",
         scrolled || open
-          ? "border-b border-[#ffe81f]/10 bg-black/80 backdrop-blur-xl"
+          ? "border-b border-[#00f0ff]/12 bg-[#03050c]/75 shadow-[0_8px_32px_rgba(0,0,0,0.25)] backdrop-blur-xl"
           : "border-b border-transparent bg-transparent",
       )}
     >
@@ -101,10 +101,10 @@ export function Navigation() {
         <a
           href="#top"
           onClick={() => go("#top")}
-          className="display group text-lg font-semibold tracking-tight text-[#ffe81f] transition-opacity hover:opacity-90"
+          className="display neon-title group text-lg font-semibold tracking-tight transition-opacity hover:opacity-90"
         >
           {SITE.name.split(" ")[0]}
-          <span className="text-[#ffe81f] transition-transform group-hover:translate-x-0.5">
+          <span className="text-[#00f0ff] transition-transform group-hover:translate-x-0.5">
             .
           </span>
         </a>
@@ -124,22 +124,14 @@ export function Navigation() {
                   className={cn(
                     "relative overflow-hidden border px-3 py-2 font-mono text-[11px] tracking-[0.18em] uppercase transition-colors duration-200",
                     active
-                      ? "border-[#fff566]/60 text-[#fff566]"
-                      : "border-[#ffe81f]/15 text-[#ffe81f]/40 hover:border-[#ffe81f]/30 hover:text-[#ffe81f]/80",
+                      ? "border-[#00f0ff]/55 text-[#e8f7ff]"
+                      : "border-white/10 text-slate-400 hover:border-[#00f0ff]/30 hover:text-[#00f0ff]",
                   )}
-                  style={
-                    active
-                      ? {
-                          textShadow:
-                            "0 0 8px rgba(255,245,102,0.95), 0 0 18px rgba(255,232,31,0.7)",
-                        }
-                      : undefined
-                  }
                 >
                   {active ? (
                     <motion.span
                       layoutId="nav-active-fill"
-                      className="absolute inset-0 bg-[#ffe81f]/28 shadow-[inset_0_0_24px_rgba(255,245,102,0.35)]"
+                      className="absolute inset-0 bg-[#00f0ff]/20"
                       transition={{ type: "spring", stiffness: 380, damping: 32 }}
                     />
                   ) : null}
@@ -155,7 +147,7 @@ export function Navigation() {
 
           <button
             type="button"
-            className="relative flex h-9 w-9 items-center justify-center border border-[#ffe81f]/20 bg-black/40 text-[#ffe81f] transition-colors hover:border-[#ffe81f]/40 md:hidden"
+            className="relative flex h-9 w-9 items-center justify-center border border-[#00f0ff]/20 bg-black/40 text-[#00f0ff] transition-colors hover:border-[#00f0ff]/40 md:hidden"
             aria-expanded={open}
             aria-controls="mobile-nav"
             aria-label={t.nav.menu}
@@ -186,7 +178,7 @@ export function Navigation() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden border-t border-[#ffe81f]/10 bg-black/95 md:hidden"
+            className="overflow-hidden border-t border-[#00f0ff]/10 bg-black/95 md:hidden"
           >
             <nav
               className="section-pad py-5"
@@ -201,20 +193,20 @@ export function Navigation() {
                         href={link.href}
                         onClick={() => go(link.href)}
                         className={cn(
-                          "flex items-center gap-4 border-b border-[#ffe81f]/8 py-3.5 transition-colors",
+                          "flex items-center gap-4 border-b border-[#00f0ff]/8 py-3.5 transition-colors",
                           active
-                            ? "text-[#ffe81f]"
-                            : "text-[#ffe81f]/55 hover:text-[#ffe81f]",
+                            ? "text-[#00f0ff]"
+                            : "text-[#00f0ff]/55 hover:text-[#00f0ff]",
                         )}
                       >
-                        <span className="font-mono text-[10px] tracking-wider text-[#ffe81f]/30">
+                        <span className="font-mono text-[10px] tracking-wider text-[#00f0ff]/30">
                           0{i + 1}
                         </span>
                         <span className="display text-2xl font-semibold tracking-tight">
                           {link.label}
                         </span>
                         {active ? (
-                          <span className="ml-auto h-1.5 w-1.5 rounded-full bg-[#ffe81f] shadow-[0_0_10px_rgba(255,232,31,0.7)]" />
+                          <span className="ml-auto h-1.5 w-1.5 rounded-full bg-[#00f0ff] shadow-[0_0_10px_rgba(125, 211, 252,0.7)]" />
                         ) : null}
                       </a>
                     </li>
@@ -238,7 +230,7 @@ function LanguageSwitcher({
 }) {
   return (
     <div
-      className="relative flex items-center border border-[#ffe81f]/18 bg-black/50 p-0.5"
+      className="relative flex items-center border border-[#00f0ff]/18 bg-black/50 p-0.5"
       role="group"
       aria-label="Language"
     >
@@ -252,23 +244,15 @@ function LanguageSwitcher({
             className={cn(
               "relative z-10 overflow-hidden px-2.5 py-1.5 font-mono text-[10px] tracking-wider uppercase transition-colors duration-200",
               active
-                ? "text-[#fff566]"
-                : "text-[#ffe81f]/35 hover:text-[#ffe81f]/70",
+                ? "text-[#e8f7ff]"
+                : "text-slate-500 hover:text-[#00f0ff]/80",
             )}
-            style={
-              active
-                ? {
-                    textShadow:
-                      "0 0 8px rgba(255,245,102,0.95), 0 0 16px rgba(255,232,31,0.65)",
-                  }
-                : undefined
-            }
             aria-pressed={active}
           >
             {active ? (
               <motion.span
                 layoutId="lang-active"
-                className="absolute inset-0 -z-10 bg-[#ffe81f]/18 shadow-[inset_0_0_16px_rgba(255,245,102,0.25)]"
+                className="absolute inset-0 -z-10 bg-[#00f0ff]/18"
                 transition={{ type: "spring", stiffness: 420, damping: 34 }}
               />
             ) : null}

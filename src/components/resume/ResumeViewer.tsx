@@ -69,27 +69,27 @@ export function ResumeViewerHost() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 12, scale: 0.98 }}
                 transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                className="glass relative z-10 flex w-full max-w-[min(100%,26rem)] flex-col overflow-hidden border border-[#ffe81f]/20 bg-black/80 shadow-[0_0_48px_rgba(255,232,31,0.1)] backdrop-blur-xl sm:max-w-md md:max-w-lg"
+                className="glass relative z-10 flex w-full max-w-[min(100%,26rem)] flex-col overflow-hidden border border-[#00f0ff]/20 bg-black/80 shadow-[0_0_48px_rgba(125, 211, 252,0.1)] backdrop-blur-xl sm:max-w-md md:max-w-lg"
               >
-                <div className="flex shrink-0 items-start justify-between gap-2 border-b border-[#ffe81f]/10 px-3 py-3 sm:gap-3 sm:px-4 sm:py-3.5 md:px-5">
+                <div className="flex shrink-0 items-start justify-between gap-2 border-b border-[#00f0ff]/10 px-3 py-3 sm:gap-3 sm:px-4 sm:py-3.5 md:px-5">
                   <div className="min-w-0 flex-1">
-                    <p className="font-mono text-[9px] tracking-[0.22em] text-[#ffe81f]/45 uppercase sm:text-[10px]">
+                    <p className="font-mono text-[9px] tracking-[0.22em] text-[#00f0ff]/45 uppercase sm:text-[10px]">
                       {t.resume.modalEyebrow}
                     </p>
                     <h3
                       id="resume-modal-title"
-                      className="display mt-0.5 text-lg font-semibold text-[#ffe81f] sm:mt-1 sm:text-xl"
+                      className="display mt-0.5 text-lg font-semibold text-[#00f0ff] sm:mt-1 sm:text-xl"
                     >
                       {t.resume.title}
                     </h3>
-                    <p className="mt-1.5 line-clamp-2 text-xs leading-relaxed text-[#ffe81f]/65 sm:mt-2 sm:text-sm">
+                    <p className="mt-1.5 line-clamp-2 text-xs leading-relaxed text-[#00f0ff]/65 sm:mt-2 sm:text-sm">
                       {t.resume.description}
                     </p>
                   </div>
                   <button
                     type="button"
                     onClick={() => setOpen(false)}
-                    className="shrink-0 border border-[#ffe81f]/20 p-1.5 text-[#ffe81f]/60 transition-colors hover:border-[#ffe81f]/45 hover:text-[#ffe81f] sm:p-2"
+                    className="shrink-0 border border-[#00f0ff]/20 p-1.5 text-[#00f0ff]/60 transition-colors hover:border-[#00f0ff]/45 hover:text-[#00f0ff] sm:p-2"
                     aria-label={t.resume.close}
                   >
                     <X className="h-4 w-4" />
@@ -104,14 +104,14 @@ export function ResumeViewerHost() {
                   />
                 </div>
 
-                <div className="flex shrink-0 flex-wrap items-center justify-between gap-2 border-t border-[#ffe81f]/10 px-3 py-2.5 sm:gap-3 sm:px-4 sm:py-3 md:px-5">
-                  <p className="font-mono text-[9px] tracking-[0.18em] text-[#ffe81f]/40 uppercase sm:text-[10px]">
+                <div className="flex shrink-0 flex-wrap items-center justify-between gap-2 border-t border-[#00f0ff]/10 px-3 py-2.5 sm:gap-3 sm:px-4 sm:py-3 md:px-5">
+                  <p className="font-mono text-[9px] tracking-[0.18em] text-[#00f0ff]/40 uppercase sm:text-[10px]">
                     {SITE.resumeLabel}
                   </p>
                   <a
                     href={SITE.resume}
                     download="curriculo-gustavo-barbosa-portela.pdf"
-                    className="inline-flex items-center gap-2 border border-[#ffe81f]/25 bg-[#ffe81f]/10 px-3 py-1.5 font-mono text-[9px] tracking-[0.18em] text-[#ffe81f] uppercase transition-colors hover:border-[#ffe81f]/45 hover:bg-[#ffe81f]/15 sm:px-4 sm:py-2 sm:text-[10px]"
+                    className="inline-flex items-center gap-2 border border-[#00f0ff]/25 bg-[#00f0ff]/10 px-3 py-1.5 font-mono text-[9px] tracking-[0.18em] text-[#00f0ff] uppercase transition-colors hover:border-[#00f0ff]/45 hover:bg-[#00f0ff]/15 sm:px-4 sm:py-2 sm:text-[10px]"
                   >
                     <Download className="h-3.5 w-3.5" />
                     {t.resume.download}

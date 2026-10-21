@@ -9,7 +9,7 @@ const FRAME_COUNT = 4;
 const SHEET_URL = withBase("/world/walker-sheet.webp");
 
 /**
- * Meadow emerging from matte space — top continues the Hero/void black.
+ * Illustrated meadow — soft close after the professional light surface.
  * Mobile: transform-based scroll (sem backgroundPosition) pra evitar tremor.
  */
 export function AnimeParade() {
@@ -129,26 +129,26 @@ export function AnimeParade() {
   return (
     <div
       ref={root}
-      className="relative h-[min(72vh,560px)] w-full overflow-hidden bg-black md:h-[min(88vh,720px)]"
+      className="relative h-[min(64vh,480px)] w-full overflow-hidden bg-[#03050c] md:h-[min(72vh,600px)]"
     >
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[38%] bg-gradient-to-b from-black via-[#08090f] to-[#1a2438] md:h-[42%]" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[42%] bg-gradient-to-b from-[#121826] via-[#0c1220] to-[#1a2438] md:h-[46%]" />
 
       <div
         data-parallax="sky"
-        className="absolute inset-x-0 top-[2%] bottom-[28%] bg-cover bg-[center_top] md:top-[6%] md:bottom-[18%]"
+        className="absolute inset-x-0 top-[2%] bottom-[28%] bg-cover bg-[center_top] opacity-90 md:top-[6%] md:bottom-[18%]"
         style={{
           backgroundImage: loadAssets
             ? `url(${withBase("/world/anime-sky.webp")})`
             : undefined,
           backgroundSize: "cover",
           maskImage:
-            "linear-gradient(to bottom, transparent 0%, black 12%, black 78%, transparent 100%)",
+            "linear-gradient(to bottom, transparent 0%, black 14%, black 78%, transparent 100%)",
           WebkitMaskImage:
-            "linear-gradient(to bottom, transparent 0%, black 12%, black 78%, transparent 100%)",
+            "linear-gradient(to bottom, transparent 0%, black 14%, black 78%, transparent 100%)",
         }}
       />
 
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black via-black/70 to-transparent md:h-44 md:via-black/75" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#03050c]/80 via-[#0b1020]/55 to-transparent md:h-40" />
 
       <div
         data-parallax="far"
@@ -246,8 +246,8 @@ export function AnimeParade() {
 
       <div className="pointer-events-none absolute bottom-[7%] left-[16%] z-[5] hidden h-4 w-[16%] rounded-[100%] bg-black/35 blur-md md:left-[20%] md:block" />
 
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_55%,rgba(0,0,0,0.22)_100%)]" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#0a1a0c] via-[#0a1a0c]/45 to-transparent" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_50%,rgba(0,0,0,0.28)_100%)]" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#0a1a0c] via-[#0a1a0c]/55 to-transparent" />
     </div>
   );
 }

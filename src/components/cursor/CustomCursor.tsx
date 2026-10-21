@@ -48,7 +48,7 @@ export function CustomCursor() {
       style={{ x: springX, y: springY, translateX: "-50%", translateY: "-50%" }}
     >
       <div
-        className={`rounded-full bg-[#ffe81f] shadow-[0_0_18px_rgba(255,232,31,0.85)] transition-transform duration-200 ${
+        className={`rounded-full bg-[#00f0ff] shadow-[0_0_18px_rgba(125, 211, 252,0.85)] transition-transform duration-200 ${
           hovering ? "h-2 w-2 scale-150" : "h-1.5 w-1.5"
         }`}
       />

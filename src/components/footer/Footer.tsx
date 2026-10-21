@@ -9,31 +9,44 @@ export function Footer() {
   const year = String(new Date().getFullYear());
 
   return (
-    <footer className="section-pad border-t border-white/5 py-10">
+    <footer className="glass-footer section-pad py-10">
       <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 md:flex-row md:items-center">
         <div>
-          <p className="display text-lg font-semibold text-[#ffe81f]">
+          <p className="display text-lg font-semibold text-[#00f0ff]">
             {SITE.name.split(" ")[0]}
-            <span className="text-[#ffe81f]">.</span>
+            <span className="text-[#00f0ff]">.</span>
           </p>
-          <p className="mt-1 text-sm text-[#ffe81f]/40">
+          <p className="mt-1 text-sm text-[#00f0ff]/45">
             {t.footer.crafted.replace("{year}", year)}
           </p>
         </div>
 
-        <div className="flex items-center gap-5 text-sm text-[#ffe81f]/50">
-          <a href={SITE.github} target="_blank" rel="noreferrer" className="hover:text-[#ffe81f]">
+        <div className="flex flex-wrap items-center gap-5 text-sm text-[#00f0ff]/55">
+          <a
+            href={SITE.github}
+            target="_blank"
+            rel="noreferrer"
+            className="transition-colors hover:text-[#00f0ff]"
+          >
             GitHub
           </a>
-          <a href={SITE.linkedin} target="_blank" rel="noreferrer" className="hover:text-[#ffe81f]">
+          <a
+            href={SITE.linkedin}
+            target="_blank"
+            rel="noreferrer"
+            className="transition-colors hover:text-[#00f0ff]"
+          >
             LinkedIn
           </a>
-          <a href={`mailto:${SITE.email}`} className="hover:text-[#ffe81f]">
+          <a
+            href={`mailto:${SITE.email}`}
+            className="transition-colors hover:text-[#00f0ff]"
+          >
             Email
           </a>
           <a
             href="#top"
-            className="glass inline-flex items-center gap-2 px-3 py-2 text-xs tracking-wider text-[#ffe81f]/70 uppercase hover:text-[#ffe81f]"
+            className="glass inline-flex items-center gap-2 px-3 py-2 text-xs tracking-wider text-[#00f0ff]/75 uppercase transition-colors hover:text-[#00f0ff]"
           >
             {t.footer.top} <ArrowUp className="h-3.5 w-3.5" />
           </a>

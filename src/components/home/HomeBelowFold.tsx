@@ -53,7 +53,7 @@ const ScrollExperience = dynamic(
 );
 
 /**
- * Sections that sit on the shared hero galaxy.
+ * Profile → contact: dark professional surface (content preserved).
  */
 export function HomeMid() {
   const idleMid = useDeferredMount({ timeoutMs: 900 });
@@ -80,7 +80,7 @@ export function HomeMid() {
 
   if (!midReady) {
     return (
-      <div className="min-h-[220vh] bg-transparent" aria-hidden data-deferred="mid">
+      <div className="site-mid min-h-[220vh]" aria-hidden data-deferred="mid">
         <div id="about" />
         <div id="tech" className="mt-[40vh]" />
         <div id="projects" className="mt-[40vh]" />
@@ -92,7 +92,7 @@ export function HomeMid() {
   }
 
   return (
-    <div className="[text-shadow:0_1px_2px_rgba(0,0,0,0.95),0_0_14px_rgba(0,0,0,0.75)]">
+    <div className="site-mid relative z-10">
       <About />
       <TechStack />
       <Projects />
@@ -104,7 +104,7 @@ export function HomeMid() {
 }
 
 /**
- * Anime + footer — outside the galaxy so WebGL stops before the parade.
+ * Anime scene + glass footer — outside the hero galaxy.
  */
 export function HomeAfterFold() {
   const chromeReady = useDeferredMount({ timeoutMs: 1600 });
@@ -115,15 +115,15 @@ export function HomeAfterFold() {
 
       <WhenNear
         rootMargin="400px 0px"
-        minHeight="min(88vh, 720px)"
+        minHeight="min(64vh, 480px)"
         id="world"
-        className="relative z-10 bg-black"
+        className="relative z-10 bg-[#03050c]"
       >
         <WorldStage />
       </WhenNear>
 
       <WhenNear rootMargin="200px 0px">
-        <div className="relative z-10 bg-[#0a1a0c]">
+        <div className="relative z-10 bg-[#03050c]">
           <Footer />
         </div>
       </WhenNear>

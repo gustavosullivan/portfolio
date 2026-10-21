@@ -24,7 +24,7 @@ function Counter({ value, suffix }: { value: number; suffix: string }) {
   return (
     <span
       ref={ref}
-      className="display text-4xl font-semibold text-[#ffe81f] md:text-5xl"
+      className="display text-4xl font-semibold text-[#00f0ff] md:text-5xl"
     >
       {display}
       {suffix}
@@ -37,19 +37,25 @@ function ColumnHeader({
   title,
   subtitle,
 }: {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
-  subtitle: string;
+  subtitle?: string;
 }) {
   return (
-    <div className="mb-6 min-h-[7.5rem]">
-      <p className="font-mono text-xs tracking-[0.28em] text-[#ffe81f]/80 uppercase">
-        {eyebrow}
-      </p>
-      <h2 className="display glow-text mt-3 text-3xl font-semibold text-[#ffe81f] md:text-4xl">
+    <div className="mb-6 min-h-[7.5rem] text-center">
+      {eyebrow ? (
+        <p className="neon-eyebrow font-mono text-xs tracking-[0.28em] uppercase">
+          {eyebrow}
+        </p>
+      ) : null}
+      <h2
+        className={`display neon-title tron-underline mx-auto text-3xl font-semibold md:text-4xl ${eyebrow ? "mt-3" : ""}`}
+      >
         {title}
       </h2>
-      <p className="mt-2 text-sm text-[#ffe81f]/75">{subtitle}</p>
+      {subtitle ? (
+        <p className="mt-2 text-sm text-[var(--text-muted)]">{subtitle}</p>
+      ) : null}
     </div>
   );
 }
@@ -59,9 +65,11 @@ export function About() {
   const experienceSubtitle = t.experiences.map((e) => e.company).join(" · ");
 
   return (
-    <section id="about" className="section-pad relative mx-auto max-w-7xl pt-20 pb-10 md:pt-24 md:pb-12">
+    <section
+      id="about"
+      className="section-pad relative mx-auto max-w-7xl pt-20 pb-10 md:pt-24 md:pb-12"
+    >
       <div className="grid gap-10 lg:grid-cols-2 lg:items-stretch lg:gap-12">
-        {/* Perfil */}
         <motion.div
           className="flex h-full flex-col"
           initial={{ opacity: 0, y: 20 }}
@@ -70,25 +78,38 @@ export function About() {
           transition={{ duration: 0.65 }}
         >
           <ColumnHeader
-            eyebrow={t.aboutUi.descriptionEyebrow}
             title={t.aboutUi.profileTitle}
-            subtitle={t.site.education}
+            subtitle={t.site.location}
           />
 
-          <div className="relative flex min-h-0 flex-1 flex-col overflow-hidden border border-white/10 bg-black/55 backdrop-blur-md p-8 md:p-10">
+          <div className="relative flex min-h-0 flex-1 flex-col overflow-hidden border border-[#00f0ff]/15 bg-black/55 p-8 backdrop-blur-md md:p-10">
             <div className="absolute -top-20 -right-16 h-56 w-56 rounded-full bg-cyan-400/10 blur-3xl" />
-            <p className="relative text-lg leading-relaxed text-[#ffe81f]/70 md:text-xl">
+            <p className="relative text-base leading-relaxed text-[#e8f7ff]/80 md:text-lg">
               {t.site.about}
             </p>
-            <p className="relative mt-5 text-sm text-[#ffe81f]/40">
-              {t.site.location}
-            </p>
 
-            <div className="relative mt-auto grid grid-cols-2 gap-6 pt-10">
+            <ul className="relative mt-6 space-y-2.5">
+              {t.aboutUi.focus.map((item) => (
+                <li
+                  key={item}
+                  className="flex items-start gap-2.5 text-sm text-[#e8f7ff]/70 md:text-[15px]"
+                >
+                  <span
+                    className="mt-0.5 inline-flex h-4 w-4 shrink-0 items-center justify-center border border-[#00f0ff]/45 text-[10px] text-[#00f0ff] shadow-[0_0_8px_rgba(0,240,255,0.35)]"
+                    aria-hidden
+                  >
+                    ✓
+                  </span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="relative mt-auto grid grid-cols-3 gap-4 pt-10 sm:gap-6">
               {t.stats.map((stat) => (
                 <div key={stat.label}>
                   <Counter value={stat.value} suffix={stat.suffix} />
-                  <p className="mt-2 text-xs tracking-wide text-[#ffe81f]/40 uppercase">
+                  <p className="mt-2 text-[10px] tracking-wide text-[#00f0ff]/45 uppercase sm:text-xs">
                     {stat.label}
                   </p>
                 </div>
@@ -97,7 +118,6 @@ export function About() {
           </div>
         </motion.div>
 
-        {/* Experiência */}
         <motion.div
           className="flex h-full flex-col"
           initial={{ opacity: 0, y: 20 }}
@@ -123,22 +143,22 @@ export function About() {
               >
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <h3 className="text-lg font-medium text-[#ffe81f]">
+                    <h3 className="text-lg font-medium text-[#00f0ff]">
                       {exp.role}
                     </h3>
-                    <p className="text-sm text-[#ffe81f]/80">{exp.company}</p>
+                    <p className="text-sm text-[#00f0ff]/80">{exp.company}</p>
                   </div>
-                  <span className="shrink-0 font-mono text-[11px] tracking-wider text-[#ffe81f]/35 uppercase">
+                  <span className="shrink-0 font-mono text-[11px] tracking-wider text-[#00f0ff]/35 uppercase">
                     {exp.period}
                   </span>
                 </div>
-                <p className="mt-3 text-sm leading-relaxed text-[#ffe81f]/50">
+                <p className="mt-3 text-sm leading-relaxed text-[#00f0ff]/50">
                   {exp.description}
                 </p>
                 <ul className="mt-4 space-y-1.5">
                   {exp.highlights.map((item) => (
-                    <li key={item} className="text-sm text-[#ffe81f]/65">
-                      <span className="mr-2 text-[#ffe81f]">▸</span>
+                    <li key={item} className="text-sm text-[#00f0ff]/65">
+                      <span className="mr-2 text-[#00f0ff]">▸</span>
                       {item}
                     </li>
                   ))}

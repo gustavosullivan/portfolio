@@ -39,7 +39,7 @@ Desenvolvimento do Frontend de aplicação mobile de e-commerce com React Native
 
 COMPETÊNCIAS
 frontend: React, Next.js, TypeScript, JavaScript, React Native, Material UI, Tailwind CSS
-backend: Node.js, Python, FastAPI, NestJS, Rust, APIs REST, JWT, WebSocket
+backend: Node.js, Python, FastAPI, NestJS, Go, Rust, APIs REST, JWT, WebSocket
 dados / infra: PostgreSQL, Supabase, Redis, Docker, Git, GitHub, AWS, Azure
 engenharia: SOLID, Design Patterns, Clean Code, POO, Testes de Software, Modelagem de Dados, Git / Git Flow, CI/CD
 idiomas: Português nativo, Inglês intermediário, Espanhol intermediário

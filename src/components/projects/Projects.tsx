@@ -24,6 +24,7 @@ export function Projects() {
           liveUrl: p.liveUrl,
           githubUrl: p.githubUrl,
           category: p.category,
+          underConstruction: p.underConstruction,
         }
       : p;
   });
@@ -80,22 +81,26 @@ export function Projects() {
               role="dialog"
               aria-modal="true"
               aria-labelledby="project-modal-title"
-              initial={{ opacity: 0, y: 24, scale: 0.96 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 16, scale: 0.97 }}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              className="relative z-10 max-h-[70dvh] w-full max-w-[min(100%,22rem)] overflow-y-auto overscroll-contain md:max-h-[min(90vh,42rem)] md:max-w-3xl"
-              style={{ perspective: 1200 }}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 12 }}
+              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+              className="relative z-10 w-full max-w-lg overflow-hidden md:max-w-3xl"
             >
-              <HoloCard accent={active.accent} solid className="p-4 md:p-8">
+              <HoloCard
+                accent={active.accent}
+                solid
+                tilt={false}
+                className="overflow-hidden p-3.5 sm:p-5 md:p-8"
+              >
                 <div className="flex items-start justify-between gap-3 md:gap-4">
                   <div className="min-w-0">
-                    <p className="font-mono text-[10px] tracking-[0.24em] text-[#ffe81f]/55 uppercase md:text-xs">
+                    <p className="neon-label font-mono text-[10px] md:text-xs">
                       {t.projects.caseStudy}
                     </p>
                     <h3
                       id="project-modal-title"
-                      className="display mt-1 text-xl font-semibold text-[#ffe81f] md:mt-2 md:text-4xl"
+                      className="display neon-title mt-1 text-lg font-semibold sm:text-xl md:mt-2 md:text-4xl"
                     >
                       {active.title}
                     </h3>
@@ -103,78 +108,93 @@ export function Projects() {
                   <button
                     type="button"
                     onClick={() => setActiveId(null)}
-                    className="shrink-0 border border-[#ffe81f]/20 p-2 text-[#ffe81f]/60 transition-colors hover:border-[#ffe81f]/45 hover:text-[#ffe81f]"
+                    className="shrink-0 border border-[#00f0ff]/20 p-2 text-[#00f0ff]/60 transition-colors hover:border-[#00f0ff]/45 hover:text-[#00f0ff]"
                     aria-label={t.projects.closeModal}
                   >
                     <X className="h-4 w-4" />
                   </button>
                 </div>
 
-                <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[#ffe81f]/80 md:text-base md:text-[#ffe81f]/70">
+                {active.underConstruction && (
+                  <div
+                    role="alert"
+                    className="warn-blink mt-3 border border-amber-400/70 bg-amber-500/15 px-3 py-2.5 text-center font-mono text-[11px] tracking-[0.14em] text-amber-300 uppercase sm:mt-4 sm:text-xs"
+                  >
+                    ⚠ {t.projects.underConstruction}
+                  </div>
+                )}
+
+                <p className="mt-2 max-w-2xl text-[13px] leading-snug text-[#00f0ff]/80 sm:mt-3 sm:text-sm sm:leading-relaxed md:text-base md:text-[#00f0ff]/70">
                   {active.description}
                 </p>
 
-                <div className="mt-4 grid gap-4 md:mt-6 md:grid-cols-2 md:gap-6">
+                <div className="mt-3 grid gap-3 sm:mt-4 sm:gap-4 md:mt-6 md:grid-cols-2 md:gap-6">
                   <div>
-                    <h4 className="mb-2 font-mono text-[11px] tracking-wider text-[#ff2bd6]/80 uppercase">
+                    <h4 className="neon-label mb-1.5 font-mono text-[11px] sm:mb-2">
                       {t.projects.features}
                     </h4>
-                    <ul className="space-y-1.5">
+                    <ul className="space-y-1 sm:space-y-1.5">
                       {active.features.map((feature) => (
-                        <li key={feature} className="text-sm text-white/80 md:text-white/65">
+                        <li
+                          key={feature}
+                          className="text-[13px] text-white/80 sm:text-sm md:text-white/65"
+                        >
                           <span className="mr-2 text-[#7cff3a]">▸</span>
                           {feature}
                         </li>
                       ))}
                     </ul>
                   </div>
-                  <div>
-                    <h4 className="mb-2 font-mono text-[11px] tracking-wider text-[#ff2bd6]/80 uppercase">
+                  <div className="flex flex-col">
+                    <h4 className="neon-label mb-1.5 font-mono text-[11px] sm:mb-2">
                       {t.projects.architecture}
                     </h4>
-                    <p className="text-sm leading-relaxed text-white/75 md:text-white/55">
+                    <p className="text-[13px] leading-snug text-white/75 sm:text-sm sm:leading-relaxed md:text-white/55">
                       {active.architecture}
                     </p>
-                    <div className="mt-4 grid grid-cols-3 gap-2 md:gap-2.5">
+                    <div className="mt-3 grid grid-cols-3 gap-1.5 sm:mt-4 sm:gap-2 md:gap-2.5">
                       {active.metrics.map((metric) => (
                         <div
                           key={metric.label}
-                          className="border border-white/10 bg-black/30 p-2 md:p-2.5"
+                          className="border border-white/10 bg-black/30 p-1.5 sm:p-2 md:p-2.5"
                         >
                           <p className="font-mono text-[10px] text-white/35 uppercase">
                             {metric.label}
                           </p>
-                          <p className="mt-1 text-xs text-white md:text-sm">
+                          <p className="mt-0.5 text-xs text-white sm:mt-1 md:text-sm">
                             {metric.value}
                           </p>
                         </div>
                       ))}
                     </div>
+                    {!active.underConstruction &&
+                      (active.liveUrl || active.githubUrl) && (
+                        <div className="mt-4 flex flex-wrap items-center justify-center gap-2.5 sm:mt-5">
+                          {active.liveUrl && (
+                            <a
+                              href={active.liveUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="inline-flex items-center gap-2 bg-white px-5 py-2 text-sm text-black transition-colors hover:bg-[#7cff3a]"
+                            >
+                              {t.projects.visit}{" "}
+                              <ExternalLink className="h-3.5 w-3.5" />
+                            </a>
+                          )}
+                          {active.githubUrl && (
+                            <a
+                              href={active.githubUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="glass inline-flex items-center gap-2 px-4 py-2 text-sm text-white"
+                            >
+                              {t.projects.github}{" "}
+                              <Code2 className="h-3.5 w-3.5" />
+                            </a>
+                          )}
+                        </div>
+                      )}
                   </div>
-                </div>
-
-                <div className="mt-5 flex flex-wrap gap-3 md:mt-6">
-                  {active.liveUrl && (
-                    <a
-                      href={active.liveUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-2 bg-white px-4 py-2 text-sm text-black transition-colors hover:bg-[#7cff3a]"
-                    >
-                      {t.projects.liveDemo}{" "}
-                      <ExternalLink className="h-3.5 w-3.5" />
-                    </a>
-                  )}
-                  {active.githubUrl && (
-                    <a
-                      href={active.githubUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="glass inline-flex items-center gap-2 px-4 py-2 text-sm text-white"
-                    >
-                      {t.projects.github} <Code2 className="h-3.5 w-3.5" />
-                    </a>
-                  )}
                 </div>
               </HoloCard>
             </motion.div>
@@ -194,6 +214,7 @@ export function Projects() {
 
       <SectionHeading
         eyebrow={t.projects.eyebrow}
+        eyebrowAsTitle
         title={t.projects.title}
         description={t.projects.description}
       />
@@ -207,8 +228,8 @@ export function Projects() {
             className={cn(
               "border px-3 py-1.5 font-mono text-[10px] tracking-[0.18em] uppercase transition-colors",
               filter === item.id
-                ? "border-[#ffe81f]/50 bg-[#ffe81f]/15 text-[#ffe81f]"
-                : "border-[#ffe81f]/15 text-[#ffe81f]/45 hover:border-[#ffe81f]/30 hover:text-[#ffe81f]/70",
+                ? "border-[#00f0ff]/50 bg-[#00f0ff]/15 text-[#00f0ff]"
+                : "border-white/10 text-slate-400 hover:border-[#00f0ff]/30 hover:text-[#00f0ff]/80",
             )}
           >
             {item.label}
@@ -228,7 +249,7 @@ export function Projects() {
               className="w-full p-5"
             >
               <div className="flex items-center justify-between gap-3">
-                <h3 className="display text-2xl font-semibold text-[#ffe81f]">
+                <h3 className="display text-2xl font-semibold text-[#00f0ff]">
                   {project.title}
                 </h3>
                 <span
@@ -239,14 +260,14 @@ export function Projects() {
                   }}
                 />
               </div>
-              <p className="mt-1 text-sm text-[#ffe81f]/50">
+              <p className="mt-1 text-sm text-[#00f0ff]/50">
                 {project.subtitle}
               </p>
               <div className="mt-4 flex flex-wrap gap-2">
                 {project.tech.slice(0, 4).map((tech) => (
                   <span
                     key={tech}
-                    className="border border-[#ffe81f]/20 px-2 py-1 font-mono text-[10px] tracking-wider text-[#ffe81f]/45 uppercase"
+                    className="border border-[#00f0ff]/20 px-2 py-1 font-mono text-[10px] tracking-wider text-[#00f0ff]/45 uppercase"
                   >
                     {tech}
                   </span>

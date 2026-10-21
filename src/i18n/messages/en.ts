@@ -24,12 +24,11 @@ export const en = {
     tagline:
       "Computer Science student at Atitus. I build web applications and scalable APIs with a production focus.",
     about:
-      "I'm a Full Stack Developer and a 4th-semester Computer Science student at Atitus, passionate about technology and building modern solutions. I work with React, Next.js, Node.js, NestJS, FastAPI, Rust, PostgreSQL, Supabase, Docker, and Git, developing web applications and scalable APIs. I'm constantly evolving, sharpening my skills and contributing to projects that deliver real impact.",
-    education: "4th semester · Computer Science · Atitus",
+      "I'm a Full Stack Developer passionate about technology and building modern solutions. I work with React, Next.js, Node.js, NestJS, FastAPI, Go, Rust, PostgreSQL, Supabase, Docker, and Git — from UI to API, with a focus on production, performance, and end-to-end ownership.",
+    education: "Computer Science · Atitus",
     location: "Passo Fundo, Brazil",
   },
   stats: [
-    { label: "Semester at Atitus", value: 4, suffix: "th" },
     { label: "Professional projects", value: 3, suffix: "+" },
     { label: "Stack areas", value: 4, suffix: "" },
     { label: "Production focus", value: 100, suffix: "%" },
@@ -39,6 +38,12 @@ export const en = {
     profileTitle: "Profile",
     careerEyebrow: "Career",
     experienceTitle: "Professional experience",
+    focus: [
+      "Production-ready web apps and scalable APIs",
+      "Multi-tenant SaaS, dashboards, and integrations",
+      "Architecture, deploy, and end-to-end ownership",
+      "UX/UI, performance, and sustainable code",
+    ],
   },
   experiences: [
     {
@@ -169,10 +174,12 @@ export const en = {
     caseStudy: "Case study",
     features: "Features",
     architecture: "Architecture",
-    liveDemo: "Live Demo",
+    liveDemo: "Visit",
+    visit: "Visit",
     github: "GitHub",
     close: "Close",
     closeModal: "Close modal",
+    underConstruction: "Project under construction — site not available yet",
     items: [
       {
         id: "sn800",
@@ -194,6 +201,27 @@ export const en = {
           { label: "Status", value: "2025+" },
           { label: "Model", value: "SaaS" },
           { label: "i18n", value: "PT/EN/ES" },
+        ],
+      },
+      {
+        id: "elo-control",
+        title: "Elo Control",
+        subtitle: "elocontrol.net — Modular Management System",
+        description:
+          "Multi-tenant business management system that connects clients, queues, service tickets, orders, documents, inventory, and reports in a modular platform — with specialized modules per industry.",
+        features: [
+          "Management core · clients · queues · tickets · orders",
+          "Documents · inventory · financial and operational reports",
+          "Multi-tenant · roles · permissions · action audit trail",
+          "Custom modules · funeral · building materials · bespoke",
+          "Institutional landing · admin panel · ongoing support",
+        ],
+        architecture:
+          "Next.js + NestJS + TypeScript + Supabase (PostgreSQL, multi-tenant RLS), with a reusable core and specialized modules per business segment.",
+        metrics: [
+          { label: "Model", value: "SaaS" },
+          { label: "Architecture", value: "Modular" },
+          { label: "Tenant", value: "Multi" },
         ],
       },
       {
@@ -238,27 +266,6 @@ export const en = {
           { label: "DB", value: "Neon" },
         ],
       },
-      {
-        id: "carteira-rust",
-        title: "Carteira Rust",
-        subtitle: "Investment Portfolio — Fullstack in Rust",
-        description:
-          "Fullstack app to register and track investment assets, with a REST API, JWT auth, PostgreSQL, and a web dashboard showing total portfolio value.",
-        features: [
-          "User signup and login · JWT in cookie",
-          "REST API · list, create, and update assets",
-          "Web dashboard · asset list · total portfolio value",
-          "PostgreSQL · SQLx · migrations",
-          "Docker Compose · Askama templates · Tailwind",
-        ],
-        architecture:
-          "Rust + Axum for API and web routes, SQLx + PostgreSQL, JWT auth in cookies, and Askama templates for the dashboard.",
-        metrics: [
-          { label: "Stack", value: "Rust" },
-          { label: "API", value: "Axum" },
-          { label: "DB", value: "Postgres" },
-        ],
-      },
     ],
   },
   certificates: {
@@ -280,11 +287,11 @@ export const en = {
     eyebrow: "Contact",
     title: "Let's talk",
     description:
-      "Open to opportunities, freelance, and ideas. Pick a channel or send a message.",
+      "Open to opportunities, freelance, and ideas. Pick a channel or message me on WhatsApp.",
     channelsEyebrow: "Channels",
     channelsHint: "Click to open or copy",
-    messageEyebrow: "Message",
-    messageHint: "I'll reply as soon as possible",
+    messageEyebrow: "Get in touch",
+    messageHint: "Liked my work? Message me on WhatsApp and let's talk.",
     name: "Name",
     namePlaceholder: "Your name",
     nameError: "Please enter your name",
@@ -294,9 +301,9 @@ export const en = {
     message: "Message",
     messagePlaceholder: "Tell me a bit about the project or idea…",
     messageError: "Please write at least 15 characters",
-    sending: "Sending…",
-    sent: "Message sent!",
-    send: "Send message",
+    sending: "Opening…",
+    sent: "WhatsApp opened!",
+    send: "Send on WhatsApp",
     emailLabel: "Email",
     whatsappLabel: "WhatsApp",
     githubLabel: "GitHub",

@@ -35,7 +35,7 @@ function SceneContent({
 
   return (
     <>
-      <color attach="background" args={["#000000"]} />
+      <color attach="background" args={["#03050c"]} />
 
       <RealisticStars count={mobile ? 40 : reduced ? 90 : 120} />
       <HyperspacePlane warp={mobile ? 0.45 : reduced ? 0.45 : 1.0} />

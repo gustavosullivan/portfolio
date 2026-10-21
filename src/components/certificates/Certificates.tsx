@@ -411,7 +411,6 @@ export function Certificates() {
     >
       <div className="section-pad mx-auto max-w-7xl">
         <SectionHeading
-          eyebrow={t.certificates.eyebrow}
           title={t.certificates.title}
           description={t.certificates.description}
           className="mb-10"
