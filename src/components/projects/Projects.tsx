@@ -167,33 +167,32 @@ export function Projects() {
                         </div>
                       ))}
                     </div>
-                    {!active.underConstruction &&
-                      (active.liveUrl || active.githubUrl) && (
-                        <div className="mt-4 flex flex-wrap items-center justify-center gap-2.5 sm:mt-5">
-                          {active.liveUrl && (
-                            <a
-                              href={active.liveUrl}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="inline-flex items-center gap-2 bg-white px-5 py-2 text-sm text-black transition-colors hover:bg-[#7cff3a]"
-                            >
-                              {t.projects.visit}{" "}
-                              <ExternalLink className="h-3.5 w-3.5" />
-                            </a>
-                          )}
-                          {active.githubUrl && (
-                            <a
-                              href={active.githubUrl}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="glass inline-flex items-center gap-2 px-4 py-2 text-sm text-white"
-                            >
-                              {t.projects.github}{" "}
-                              <Code2 className="h-3.5 w-3.5" />
-                            </a>
-                          )}
-                        </div>
-                      )}
+                    {(active.liveUrl || active.githubUrl) && (
+                      <div className="mt-4 flex flex-wrap items-center justify-center gap-2.5 sm:mt-5">
+                        {active.liveUrl && (
+                          <a
+                            href={active.liveUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-2 bg-white px-5 py-2 text-sm text-black transition-colors hover:bg-[#7cff3a]"
+                          >
+                            {t.projects.visit}{" "}
+                            <ExternalLink className="h-3.5 w-3.5" />
+                          </a>
+                        )}
+                        {active.githubUrl && (
+                          <a
+                            href={active.githubUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="glass inline-flex items-center gap-2 px-4 py-2 text-sm text-white"
+                          >
+                            {t.projects.github}{" "}
+                            <Code2 className="h-3.5 w-3.5" />
+                          </a>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
               </HoloCard>
@@ -207,29 +206,30 @@ export function Projects() {
   return (
     <section
       id="projects"
-      className="cv-auto section-pad relative mx-auto max-w-7xl overflow-hidden pt-6 pb-10 md:pt-8 md:pb-12"
+      className="cv-auto section-pad relative mx-auto max-w-7xl overflow-x-clip pt-6 pb-10 md:pt-8 md:pb-12"
     >
-      <div className="pointer-events-none absolute -top-24 right-0 h-72 w-72 rounded-full bg-[#ff2bd6]/10 blur-[100px]" />
-      <div className="pointer-events-none absolute bottom-0 left-0 h-64 w-64 rounded-full bg-[#7cff3a]/8 blur-[90px]" />
+      <div className="pointer-events-none absolute -top-16 right-0 hidden h-56 w-56 rounded-full bg-[#ff2bd6]/10 blur-[80px] md:block" />
+      <div className="pointer-events-none absolute bottom-0 left-0 hidden h-48 w-48 rounded-full bg-[#7cff3a]/8 blur-[70px] md:block" />
 
       <SectionHeading
         eyebrow={t.projects.eyebrow}
         eyebrowAsTitle
         title={t.projects.title}
         description={t.projects.description}
+        className="mb-5"
       />
 
-      <div className="mb-8 flex flex-wrap gap-2">
+      <div className="mb-10 flex flex-wrap items-center justify-center gap-2">
         {t.projects.filters.map((item) => (
           <button
             key={item.id}
             type="button"
             onClick={() => setFilter(item.id as ProjectCategory)}
             className={cn(
-              "border px-3 py-1.5 font-mono text-[10px] tracking-[0.18em] uppercase transition-colors",
+              "border px-3.5 py-1.5 font-mono text-[10px] tracking-[0.18em] uppercase transition-[colors,box-shadow]",
               filter === item.id
-                ? "border-[#00f0ff]/50 bg-[#00f0ff]/15 text-[#00f0ff]"
-                : "border-white/10 text-slate-400 hover:border-[#00f0ff]/30 hover:text-[#00f0ff]/80",
+                ? "border-[#00f0ff]/55 bg-[#00f0ff]/15 text-[#00f0ff] shadow-[0_0_16px_rgba(0,240,255,0.22)]"
+                : "border-[#00f0ff]/20 text-[#00f0ff]/55 hover:border-[#00f0ff]/40 hover:text-[#00f0ff]",
             )}
           >
             {item.label}
@@ -237,7 +237,7 @@ export function Projects() {
         ))}
       </div>
 
-      <div className="mx-auto grid max-w-2xl gap-3" style={{ perspective: 1200 }}>
+      <div className="mx-auto grid w-full max-w-2xl gap-3 md:[perspective:1200px]">
         <AnimatePresence mode="popLayout">
           {filtered.map((project) => (
             <HoloCard

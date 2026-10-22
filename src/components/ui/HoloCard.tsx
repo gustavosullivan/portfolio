@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import type { ReactNode, MouseEvent } from "react";
 import { cn } from "@/lib/utils";
+import { useIsMobile } from "@/hooks/useMediaQuery";
 
 interface HoloCardProps {
   children: ReactNode;
@@ -28,6 +29,8 @@ export function HoloCard({
   solid = false,
   tilt = true,
 }: HoloCardProps) {
+  const mobile = useIsMobile();
+  const liveTilt = tilt && !mobile;
   const ref = useRef<HTMLElement>(null);
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
@@ -43,7 +46,7 @@ export function HoloCard({
   const glareY = useTransform(my, [-0.5, 0.5], [0, 100]);
 
   const onMove = (e: MouseEvent) => {
-    if (!tilt) return;
+    if (!liveTilt) return;
     const el = ref.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
@@ -52,7 +55,7 @@ export function HoloCard({
   };
 
   const onLeave = () => {
-    if (!tilt) return;
+    if (!liveTilt) return;
     mx.set(0);
     my.set(0);
   };
@@ -62,7 +65,7 @@ export function HoloCard({
     onClick,
     onMouseMove: onMove,
     onMouseLeave: onLeave,
-    style: tilt
+    style: liveTilt
       ? {
           rotateX: rx,
           rotateY: ry,
@@ -71,7 +74,7 @@ export function HoloCard({
         }
       : undefined,
     className: cn(
-      "group relative overflow-hidden border text-left transition-shadow",
+      "group relative max-w-full overflow-hidden border text-left transition-shadow",
       solid
         ? "bg-[#0c0614] backdrop-blur-none"
         : "bg-[rgba(12,6,20,0.72)] backdrop-blur-xl",
@@ -90,7 +93,7 @@ export function HoloCard({
           background: `linear-gradient(90deg, transparent, ${accent}, transparent)`,
         }}
       />
-      {tilt && (
+      {liveTilt && (
         <motion.div
           aria-hidden
           className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
@@ -101,7 +104,7 @@ export function HoloCard({
       )}
       <div
         className="relative z-10"
-        style={tilt ? { transform: "translateZ(28px)" } : undefined}
+        style={liveTilt ? { transform: "translateZ(28px)" } : undefined}
       >
         {children}
       </div>

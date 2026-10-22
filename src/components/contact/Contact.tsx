@@ -216,7 +216,7 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="cv-auto section-pad relative mx-auto max-w-7xl pt-10 pb-8 md:pt-12 md:pb-10"
+      className="cv-auto section-pad relative mx-auto max-w-7xl overflow-x-clip pt-10 pb-8 md:pt-12 md:pb-10"
     >
       <div className="mb-12 mx-auto max-w-3xl text-center">
         <h2 className="display neon-title tron-underline mx-auto text-4xl font-semibold md:text-5xl lg:text-6xl">

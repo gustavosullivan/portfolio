@@ -7,7 +7,7 @@ export default function HomePage() {
   return (
     <>
       <Navigation />
-      <main className="relative z-10 bg-[#03050c]">
+      <main className="relative z-10 w-full max-w-full overflow-x-clip bg-[#03050c]">
         <GalaxyShell>
           <Hero />
         </GalaxyShell>

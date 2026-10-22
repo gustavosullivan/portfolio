@@ -407,7 +407,7 @@ export function Certificates() {
   return (
     <section
       id="certificates"
-      className="cv-auto relative overflow-hidden pt-10 pb-10 md:pt-12 md:pb-12"
+      className="cv-auto relative w-full max-w-full overflow-x-clip pt-10 pb-10 md:pt-12 md:pb-12"
     >
       <div className="section-pad mx-auto max-w-7xl">
         <SectionHeading
@@ -417,13 +417,13 @@ export function Certificates() {
         />
       </div>
 
-      <div className="relative">
+      <div className="relative w-full max-w-full overflow-x-clip">
         <div
           ref={scrollerRef}
           className={cn(
-            "flex gap-5 overflow-x-auto py-3 md:gap-7",
-            // centraliza o card ativo; vizinhos ficam pela metade fora da viewport
-            "px-[max(0.75rem,calc(50vw-min(40vw,200px)))] md:px-[calc(50vw-210px)]",
+            "flex gap-4 overflow-x-auto py-3 md:gap-7",
+            // padding seguro no mobile (evita faixa escura / overflow)
+            "px-4 sm:px-[max(1rem,calc(50vw-min(40vw,200px)))] md:px-[calc(50vw-210px)]",
             "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
             "select-none",
             dragging

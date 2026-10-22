@@ -236,6 +236,7 @@ export const PROJECTS: Project[] = [
       "React + Node.js + WebSocket + Neon (PostgreSQL). Servidor próprio para sincronização de partidas e economia do jogo.",
     tech: ["React", "Node.js", "WebSocket", "Neon", "PostgreSQL", "DBeaver"],
     category: "web",
+    liveUrl: "https://trucogames.com",
     underConstruction: true,
     metrics: [
       { label: "Realtime", value: "WS" },

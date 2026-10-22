@@ -67,7 +67,7 @@ export function About() {
   return (
     <section
       id="about"
-      className="section-pad relative mx-auto max-w-7xl pt-20 pb-10 md:pt-24 md:pb-12"
+      className="section-pad relative mx-auto max-w-7xl overflow-x-clip pt-20 pb-10 md:pt-24 md:pb-12"
     >
       <div className="grid gap-10 lg:grid-cols-2 lg:items-stretch lg:gap-12">
         <motion.div
@@ -82,25 +82,16 @@ export function About() {
             subtitle={t.site.location}
           />
 
-          <div className="relative flex min-h-0 flex-1 flex-col overflow-hidden border border-[#00f0ff]/15 bg-black/55 p-8 backdrop-blur-md md:p-10">
-            <div className="absolute -top-20 -right-16 h-56 w-56 rounded-full bg-cyan-400/10 blur-3xl" />
-            <p className="relative text-base leading-relaxed text-[#e8f7ff]/80 md:text-lg">
+          <div className="glass relative flex min-h-0 flex-1 flex-col overflow-hidden bg-black/55 p-6 backdrop-blur-md transition-colors hover:border-[#00f0ff]/30 md:p-8">
+            <p className="relative text-base leading-relaxed text-[#00f0ff]/70 md:text-lg">
               {t.site.about}
             </p>
 
-            <ul className="relative mt-6 space-y-2.5">
+            <ul className="relative mt-6 space-y-1.5">
               {t.aboutUi.focus.map((item) => (
-                <li
-                  key={item}
-                  className="flex items-start gap-2.5 text-sm text-[#e8f7ff]/70 md:text-[15px]"
-                >
-                  <span
-                    className="mt-0.5 inline-flex h-4 w-4 shrink-0 items-center justify-center border border-[#00f0ff]/45 text-[10px] text-[#00f0ff] shadow-[0_0_8px_rgba(0,240,255,0.35)]"
-                    aria-hidden
-                  >
-                    ✓
-                  </span>
-                  <span>{item}</span>
+                <li key={item} className="text-sm text-[#00f0ff]/65">
+                  <span className="mr-2 text-[#00f0ff]">▸</span>
+                  {item}
                 </li>
               ))}
             </ul>
@@ -109,7 +100,7 @@ export function About() {
               {t.stats.map((stat) => (
                 <div key={stat.label}>
                   <Counter value={stat.value} suffix={stat.suffix} />
-                  <p className="mt-2 text-[10px] tracking-wide text-[#00f0ff]/45 uppercase sm:text-xs">
+                  <p className="mt-2 text-[10px] tracking-wide text-[#00f0ff]/40 uppercase sm:text-xs">
                     {stat.label}
                   </p>
                 </div>
@@ -135,7 +126,7 @@ export function About() {
             {t.experiences.map((exp, index) => (
               <motion.article
                 key={exp.id}
-                className="glass group flex-1 bg-black/55 p-6 backdrop-blur-md transition-colors hover:border-cyan-300/30 md:p-8"
+                className="glass group flex-1 bg-black/55 p-6 backdrop-blur-md transition-colors hover:border-[#00f0ff]/30 md:p-8"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}

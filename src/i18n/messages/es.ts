@@ -179,7 +179,7 @@ export const es = {
     github: "GitHub",
     close: "Cerrar",
     closeModal: "Cerrar modal",
-    underConstruction: "Proyecto en construcción — sitio aún no disponible",
+    underConstruction: "En construcción — landing online, la app aún no es funcional",
     items: [
       {
         id: "sn800",

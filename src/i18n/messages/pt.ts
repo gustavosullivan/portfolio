@@ -176,7 +176,7 @@ export const pt = {
     github: "GitHub",
     close: "Fechar",
     closeModal: "Fechar modal",
-    underConstruction: "Projeto em construção — site ainda não disponível",
+    underConstruction: "Em construção — landing no ar, app ainda não funcional",
     items: [
       {
         id: "sn800",

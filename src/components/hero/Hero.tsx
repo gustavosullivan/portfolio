@@ -63,7 +63,7 @@ export function Hero() {
     <section
       ref={root}
       id="top"
-      className="relative z-10 flex min-h-[100svh] items-center overflow-hidden pb-16 pt-20 md:pb-0 md:pt-28"
+      className="relative z-10 flex min-h-[100svh] w-full max-w-full items-center overflow-x-clip pb-16 pt-20 md:pb-0 md:pt-28"
     >
       <div className="section-pad relative z-10 mx-auto w-full max-w-7xl">
         <p
@@ -75,7 +75,7 @@ export function Hero() {
 
         <h1
           data-hero="title"
-          className="display neon-title max-w-5xl text-4xl leading-[0.95] font-semibold sm:text-5xl md:text-7xl lg:text-8xl"
+          className="display neon-title max-w-full break-words text-4xl leading-[0.95] font-semibold sm:text-5xl md:text-7xl lg:text-8xl"
         >
           {SITE.name}
         </h1>
