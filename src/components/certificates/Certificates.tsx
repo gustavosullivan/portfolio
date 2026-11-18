@@ -3,7 +3,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, Download, Expand, X } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Download,
+  Expand,
+  ExternalLink,
+  X,
+} from "lucide-react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { CERTIFICATES } from "@/lib/constants";
 import { useI18n } from "@/i18n";
@@ -330,16 +337,19 @@ export function Certificates() {
         {active && (
           <motion.div
             key={active.id}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8"
+            className="fixed inset-0 z-[100] flex flex-col overflow-hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.22 }}
           >
-            <button
+            <motion.button
               type="button"
               aria-label="Fechar"
-              className="absolute inset-0 bg-black/85"
+              className="absolute inset-0 bg-black/88"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               onClick={() => setActive(null)}
             />
 
@@ -347,13 +357,13 @@ export function Certificates() {
               role="dialog"
               aria-modal="true"
               aria-labelledby="certificate-modal-title"
-              initial={{ opacity: 0, scale: 0.97, y: 14 }}
+              initial={{ opacity: 0, scale: 0.88, y: 28 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.98, y: 10 }}
-              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              className="relative z-10 flex max-h-[92vh] w-full max-w-5xl flex-col overflow-hidden border border-white/10 bg-[#0a0a0c]"
+              exit={{ opacity: 0, scale: 0.94, y: 16 }}
+              transition={{ type: "spring", stiffness: 280, damping: 26 }}
+              className="relative z-10 m-auto flex h-[min(94svh,920px)] w-[min(96vw,1100px)] flex-col overflow-hidden border border-white/10 bg-[#0a0a0c] shadow-[0_30px_80px_rgba(0,0,0,0.55)]"
             >
-              <div className="flex items-start justify-between gap-4 border-b border-white/10 px-4 py-3 md:px-5">
+              <div className="flex shrink-0 items-start justify-between gap-4 border-b border-white/10 px-4 py-3 md:px-5">
                 <div className="min-w-0">
                   <p className="font-mono text-[10px] tracking-[0.22em] text-cyan-300/70 uppercase">
                     {active.issuer}
@@ -367,6 +377,18 @@ export function Certificates() {
                   </h3>
                 </div>
                 <div className="flex shrink-0 items-center gap-2">
+                  {active.url ? (
+                    <a
+                      href={active.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={t.certificates.badgeAria}
+                      className="inline-flex items-center gap-1.5 border border-[#00f0ff]/35 bg-[#00f0ff]/10 px-2.5 py-1.5 font-mono text-[10px] tracking-wider text-[#00f0ff] uppercase transition-colors hover:border-[#00f0ff]/60 hover:bg-[#00f0ff]/15"
+                    >
+                      <ExternalLink className="h-3.5 w-3.5" />
+                      {t.certificates.badge}
+                    </a>
+                  ) : null}
                   {active.pdf ? (
                     <a
                       href={active.pdf}
@@ -388,14 +410,34 @@ export function Certificates() {
                 </div>
               </div>
 
-              <div className="overflow-auto bg-black/40 p-3 md:p-5">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={active.image}
-                  alt={certTitle(active)}
-                  className="mx-auto h-auto max-h-[78vh] w-auto max-w-full object-contain shadow-[0_20px_60px_rgba(0,0,0,0.45)]"
-                  draggable={false}
-                />
+              {/* Área do certificado: cabe na tela, sem scroll */}
+              <div className="flex min-h-0 flex-1 items-center justify-center overflow-hidden bg-black/50 p-3 md:p-5">
+                {/* Wrapper no tamanho da imagem — hotspot não vaza pro preto */}
+                <div className="relative inline-block max-h-full max-w-full leading-none">
+                  <motion.img
+                    layoutId={`cert-img-${active.id}`}
+                    src={active.image}
+                    alt={certTitle(active)}
+                    className="block h-auto max-h-[calc(94svh-5.5rem)] w-auto max-w-full object-contain shadow-[0_20px_60px_rgba(0,0,0,0.45)]"
+                    draggable={false}
+                  />
+
+                  {/* Mesmo destino do botão "Ver badge" (active.url / Credly) */}
+                  {active.url ? (
+                    <a
+                      href={active.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={t.certificates.badgeAria}
+                      title={active.url}
+                      className="absolute z-10 h-[5.5%] w-[48%] cursor-pointer bg-transparent focus-visible:outline-none"
+                      style={{
+                        bottom: "calc(8.5% - 20px)",
+                        left: "calc(3.5% + 80px)",
+                      }}
+                    />
+                  ) : null}
+                </div>
               </div>
             </motion.div>
           </motion.div>
@@ -470,15 +512,24 @@ export function Certificates() {
                     className="absolute inset-0 block w-full"
                   >
                     {Math.abs(i - index) <= 2 ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={cert.image}
-                        alt=""
-                        draggable={false}
-                        loading={Math.abs(i - index) <= 1 ? "eager" : "lazy"}
-                        decoding="async"
-                        className="pointer-events-none h-full w-full select-none object-cover object-top"
-                      />
+                      active?.id === cert.id ? (
+                        <div
+                          className="h-full w-full bg-black/40"
+                          aria-hidden
+                        />
+                      ) : (
+                        <motion.img
+                          layoutId={`cert-img-${cert.id}`}
+                          src={cert.image}
+                          alt=""
+                          draggable={false}
+                          loading={
+                            Math.abs(i - index) <= 1 ? "eager" : "lazy"
+                          }
+                          decoding="async"
+                          className="pointer-events-none h-full w-full select-none object-cover object-top"
+                        />
+                      )
                     ) : (
                       <div className="h-full w-full bg-black/50" aria-hidden />
                     )}
@@ -521,6 +572,22 @@ export function Certificates() {
                   </h3>
                   <p className="mt-2 text-sm text-white/45">{cert.issuer}</p>
                 </button>
+
+                {focused && cert.url ? (
+                  <div className="border-t border-white/10 px-4 pb-4 md:px-5">
+                    <a
+                      href={cert.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      data-no-drag
+                      aria-label={t.certificates.badgeAria}
+                      className="inline-flex items-center gap-1.5 font-mono text-[10px] tracking-[0.18em] text-[#00f0ff]/80 uppercase transition-colors hover:text-[#00f0ff]"
+                    >
+                      <ExternalLink className="h-3 w-3" />
+                      {t.certificates.badge}
+                    </a>
+                  </div>
+                ) : null}
               </article>
             );
           })}

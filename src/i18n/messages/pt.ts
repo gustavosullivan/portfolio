@@ -271,6 +271,8 @@ export const pt = {
     description:
       "Certificado completo no centro. Laterais saem da página — role ou arraste para o próximo entrar.",
     titles: {
+      "aws-cloud-foundations":
+        "AWS Academy Graduate — Cloud Foundations (Training Badge)",
       "rust-ai-dev": "Santander 2026 — Rust AI Developer (Bootcamp)",
       "fundamentos-ia":
         "Fundamentos da IA Moderna: Machine Learning, LLMs, IA Generativa e Agentes",
@@ -280,6 +282,8 @@ export const pt = {
       "fullstack-qualifica":
         "Qualificação em Desenvolvimento de Soluções Full Stack",
     },
+    badge: "Ver badge",
+    badgeAria: "Abrir badge no Credly",
   },
   contact: {
     eyebrow: "Contato",

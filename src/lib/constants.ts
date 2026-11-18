@@ -316,6 +316,16 @@ export const DIFFERENTIALS = [
 
 export const CERTIFICATES: Certificate[] = [
   {
+    id: "aws-cloud-foundations",
+    title: "AWS Academy Graduate — Cloud Foundations (Training Badge)",
+    issuer: "Amazon Web Services · Credly",
+    year: "2026",
+    hours: "20h",
+    image: withBase("/certificates/aws-cloud-foundations.webp"),
+    pdf: withBase("/certificates/aws-cloud-foundations.pdf"),
+    url: "https://www.credly.com/go/7dFBvDit",
+  },
+  {
     id: "rust-ai-dev",
     title: "Santander 2026 — Rust AI Developer (Bootcamp)",
     issuer: "DIO · Santander",
